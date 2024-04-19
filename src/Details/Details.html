@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="Details.css">
+</head>
+<body>
+
+<form> 
+  <label for="FormAction">Form action:</label><br>
+  <select id="FormAction" name="FormAction" class="input-select">
+    <option value ="nul" selected>Select an option</option>
+    <option value="Funding">Looking for funding?</option>
+    <option value="Invest">Looking to invest?</option>
+  </select><br><br>
+
+  <div id="placeholder">
+
+    <p><strong>Are you looking to provide funding oppurtuninities or looking for funding? All your need centralised in one place. Fill out the form to take the next step</strong></p>
+
+  </div>
+
+  <div id="UserDetails">
+
+    <label for="Name">Name:</label><br>
+    <input type="text" id="Name" name="Name"><br><br>
+    <label for="Surname">Surname:</label><br>
+    <input type="text" id="Surname" name="Surname"><br><br>
+    <label for="birthday">Date of Birth:</label><br>
+    <input type="date" id="birthday" name="birthday"><br><br>
+    <p><strong>Looking for Funding?</strong></p>
+    <label class="container">Education
+      <input type="checkbox" checked="checked">
+      <span class="checkmark"></span>
+    </label>
+    <label class="container">Business
+      <input type="checkbox">
+      <span class="checkmark"></span>
+    </label>
+    <label class="container">Events
+      <input type="checkbox">
+      <span class="checkmark"></span>
+    </label>
+    <input type="submit" value="Submit">
+  </div>
+
+  <div id="FundingManagerDetails" style="display: none;">
+  
+    <label for="CompanyName">Company Name:</label><br>
+    <input type="text" id="CompanyName" name="Company Name"><br><br>
+    
+    <label for="RepName">Representative Name:</label><br>
+    <input type="text" id="RepName" name="Rep Name"><br><br>
+
+    <p><strong>Which categories are you looking to fund?</strong></p>
+    <label class="container">Education
+      <input type="checkbox" checked="checked">
+      <span class="checkmark"></span>
+    </label>
+    <label class="container">Business
+      <input type="checkbox">
+      <span class="checkmark"></span>
+    </label>
+    <label class="container">Events
+      <input type="checkbox">
+      <span class="checkmark"></span>
+    </label>
+
+    <input type="submit" value="Submit">
+  </div>
+</form>
+
+<script>
+  document.getElementById('FormAction').addEventListener('change', function() {
+    var selectedOption = this.value;
+    if (selectedOption === 'nul') {
+      document.getElementById('placeholder').style.display = 'block';
+      document.getElementById('UserDetails').style.display = 'none';
+      document.getElementById('FundingManagerDetails').style.display = 'none';
+
+    } else if (selectedOption === 'Invest') {
+      document.getElementById('UserDetails').style.display = 'none';
+      document.getElementById('FundingManagerDetails').style.display = 'block';
+      document.getElementById('placeholder').style.display = 'none';
+    } else if (selectedOption== 'Funding'){
+      document.getElementById('UserDetails').style.display = 'block';
+      document.getElementById('FundingManagerDetails').style.display = 'none';
+      document.getElementById('placeholder').style.display = 'none';
+    }
+  });
+</script>
+
+</body>
+</html>
+
+
