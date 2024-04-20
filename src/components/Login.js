@@ -4,6 +4,9 @@ import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import GoogleButton from "react-google-button";
 import { useUserAuth } from "../context/UserAuthContext";
+import { Container, Row, Col } from "react-bootstrap";
+import "../styles/login.css";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -35,6 +38,9 @@ const Login = () => {
 
   return (
     <>
+    <Container>
+    <Row>
+      <Col className="box2">
       <div className="p-4 box">
         <h2 className="mb-3">Funding Management Login</h2>
         {error && <Alert variant="danger">{error}</Alert>}
@@ -69,10 +75,16 @@ const Login = () => {
             onClick={handleGoogleSignIn}
           />
         </div>
-      </div>
-      <div className="p-4 box mt-3 text-center">
+        <div className="p-4 box mt-3 text-center">
         Don't have an account? <Link to="/signup">Sign up</Link>
       </div>
+      </div>
+
+
+
+      </Col>
+      </Row>
+      </Container>
     </>
   );
 };
