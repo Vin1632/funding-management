@@ -4,6 +4,7 @@ import "../styles/dashboard.css";
 import logo from '../assets/FundDocker_logo.jpg';
 import accountIcon from  '../assets/account-icon-11.jpg';
 import backgroundImage from '../assets/sea-background.jpg'
+import ManageUsers from "./ManageUsers";
 
 
 const AdminDashboard = () => {
@@ -65,7 +66,7 @@ const AdminDashboard = () => {
 </div>
       <div className="tab-content">
         {selectedTab === "Home" && <div>Content for home</div>}
-        {selectedTab === "Users" && <div>Content for Users</div>}
+        {selectedTab === "Users" && <ManageUsers />}
         {selectedTab === "Managers" && <div>Content for Managers</div>}
         {selectedTab === "About" && <div>Content for About</div>}
       </div>
