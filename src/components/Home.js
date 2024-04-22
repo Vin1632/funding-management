@@ -1,22 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { useUserAuth } from "../context/UserAuthContext";
+import AdminDashboard from "./Admin-dashboard"; 
 import "../styles/Details.css";
 
 const Home = () => {
   const { logOut, user } = useUserAuth();
   const navigate = useNavigate();
+  const [formSubmitted, setFormSubmitted] = useState(false); // State to track form submission
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-   // setError("");
+    // setError("");
     try {
       //await logIn(email, password);
-      navigate("/home");
+      setFormSubmitted(true); // Set form submission state to true
     } catch (err) {
-   //   setError(err.message);
+      //   setError(err.message);
     }
   };
 
@@ -28,11 +30,13 @@ const Home = () => {
       console.log(error.message);
     }
   };
+
   return (
     <>
-
-    <Form onSubmit={handleSubmit} className="form_funding_man" > 
-        <label >Form action:</label>
+      {!formSubmitted ? ( // Render the form if form is not submitted
+        <Form onSubmit={handleSubmit} className="form_funding_man">
+          {/* Your existing form content goes here */}
+          <label >Form action:</label>
         <select id="FormAction" name="FormAction" className="input-select">
             {/* <option value ="nul" selected>Select an option</option> */}
             <option value="Funding">Looking for funding?</option>
@@ -93,8 +97,12 @@ const Home = () => {
         </label>
         <input type="submit" value="Submit"></input>
     </div>
+        </Form>
+      ) : (
+        // Render the admin dashboard if form is submitted
+        <AdminDashboard />
+      )}
 
-    </Form>
       {/* {htmlContent && (
         <div>
           <iframe
@@ -110,10 +118,9 @@ const Home = () => {
           Log out
         </Button>
       </div> */}
-
-
     </>
   );
 };
 
 export default Home;
+
