@@ -1,0 +1,28 @@
+.big-white-block {
+    background-color: black;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tab-buttons {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .tab-buttons button {
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .tab-buttons button.active {
+    font-weight: bold;
+  }
+  
+  .tab-content {
+    margin-top: 20px;
+  }
+  
