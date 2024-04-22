@@ -12,9 +12,6 @@ function App() {
   return (
     <Container>
       <Row>
-        <Navigation></Navigation>
-      </Row>
-      <Row>
         <Col>
           <UserAuthContextProvider>
             <Routes>
