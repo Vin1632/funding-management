@@ -57,7 +57,7 @@ const Home = () => {
 
   // Function to handle navigation to new page upon form submission
   const handleFormSubmission = () => {
-    navigate("/Admin-dashboard"); // Navigate to the desired page upon form submission
+    navigate("/AdminDashboard"); // Navigate to the desired page upon form submission
   };
 
   return (
@@ -136,7 +136,7 @@ const Home = () => {
         </Form>
       ) : (
         // Render the admin dashboard if form is submitted
-        navigate("/Admin-dashboard")
+        navigate("/AdminDashboard")
       )}
 
       {/* {htmlContent && (
