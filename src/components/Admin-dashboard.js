@@ -7,7 +7,7 @@ import backgroundImage from '../assets/sea-background.jpg'
 
 
 const AdminDashboard = () => {
-  const [selectedTab, setSelectedTab] = useState("approveManagers");
+  const [selectedTab, setSelectedTab] = useState("Home");
 
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
@@ -23,9 +23,33 @@ const AdminDashboard = () => {
 <div className="navbar">
 <div className="navbar-left">
     <ul>
-        <li><img src={logo} width="200" height="20px"></img></li>
-        <li><a href="#">Home</a> </li>
-        <li><a href="#">About</a> </li>
+        <li><img src={logo} width="200" height="34px"></img></li>
+        <div className="tab-buttons">
+        <button
+          className={selectedTab === "Home" ? "active" : ""}
+          onClick={() => handleTabChange("Home")}
+        >
+          Home
+        </button>
+        <button
+          className={selectedTab === "Users" ? "active" : ""}
+          onClick={() => handleTabChange("Users")}
+        >
+          Users
+        </button>
+        <button
+          className={selectedTab === "Managers" ? "active" : ""}
+          onClick={() => handleTabChange("Managers")}
+        >
+          Managers
+        </button>
+        <button
+          className={selectedTab === "About" ? "active" : ""}
+          onClick={() => handleTabChange("About")}
+        >
+          About
+        </button>
+      </div>
     </ul>
 </div>
 <div className="navbar-right">
@@ -33,46 +57,17 @@ const AdminDashboard = () => {
         <button><img src={accountIcon}></img></button>
         <ul className="content">
             <a href="#">Profile</a>
-            <a href="#">Funding</a>
-            <a href="#">Users</a>
-            <a href="#">Access</a>
+            <a href="#">Settings</a>
             <a href="#">Logout</a>
         </ul>
     </ul>
     </div>
 </div>
-
-      <div className="tab-buttons">
-        <button
-          className={selectedTab === "approveManagers" ? "active" : ""}
-          onClick={() => handleTabChange("approveManagers")}
-        >
-          Approve Managers
-        </button>
-        <button
-          className={selectedTab === "reviewManagers" ? "active" : ""}
-          onClick={() => handleTabChange("reviewManagers")}
-        >
-          Review Managers
-        </button>
-        <button
-          className={selectedTab === "manageUsers" ? "active" : ""}
-          onClick={() => handleTabChange("manageUsers")}
-        >
-          Manage Users
-        </button>
-        <button
-          className={selectedTab === "managePermissions" ? "active" : ""}
-          onClick={() => handleTabChange("managePermissions")}
-        >
-          Manage User Permissions
-        </button>
-      </div>
       <div className="tab-content">
-        {selectedTab === "approveManagers" && <div>Content for Approve Managers</div>}
-        {selectedTab === "reviewManagers" && <div>Content for Review Managers</div>}
-        {selectedTab === "manageUsers" && <div>Content for Manage Users</div>}
-        {selectedTab === "managePermissions" && <div>Content for Manage User Permissions</div>}
+        {selectedTab === "Home" && <div>Content for home</div>}
+        {selectedTab === "Users" && <div>Content for Users</div>}
+        {selectedTab === "Managers" && <div>Content for Managers</div>}
+        {selectedTab === "About" && <div>Content for About</div>}
       </div>
     </div>
   );
