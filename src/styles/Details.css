@@ -1,0 +1,130 @@
+
+  
+  .form_funding_man {
+    width: 90%;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+  }
+
+  /*select box styling*/
+  /* Select styling */
+  .form_funding_man select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    background-color: white; /* Add background color */
+    cursor: pointer; /* Add cursor pointer */
+  }
+  
+  .form_funding_man select:hover {
+    background-color: #f9f9f9; /* Change background color on hover */
+  }
+  
+  .form_funding_man select:focus {
+    outline: none; /* Remove default focus outline */
+    border-color: #45a049; /* Change border color on focus */
+  }
+  
+
+
+
+  /*form styling*/
+  
+  .form_funding_man input[type="text"],
+  .form_funding_man input[type="date"],
+  .form_funding_man input[type="submit"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+  
+  .form_funding_man input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .form_funding_man input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+  
+  strong {
+    color: #333;
+  }
+  
+  p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Checkbox styling */
+  .container_details {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    user-select: none;
+  }
+  
+  .container_details input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+  }
+  
+  .container_details :hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+  
+  .container_details input:checked ~ .checkmark {
+    background-color: #2196F3;
+  }
+  
+  .container_details input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  .container_details .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+  }
+  

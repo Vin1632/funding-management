@@ -1,4 +1,5 @@
 import React from "react";
+import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { useUserAuth } from "../context/UserAuthContext";
@@ -7,6 +8,18 @@ import "../styles/Details.css";
 const Home = () => {
   const { logOut, user } = useUserAuth();
   const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+   // setError("");
+    try {
+      //await logIn(email, password);
+      navigate("/home");
+    } catch (err) {
+   //   setError(err.message);
+    }
+  };
+
   const handleLogout = async () => {
     try {
       await logOut();
@@ -18,7 +31,7 @@ const Home = () => {
   return (
     <>
 
-    <form className="form_funding_man" > 
+    <Form onSubmit={handleSubmit} className="form_funding_man" > 
         <label >Form action:</label>
         <select id="FormAction" name="FormAction" className="input-select">
             {/* <option value ="nul" selected>Select an option</option> */}
@@ -81,7 +94,7 @@ const Home = () => {
         <input type="submit" value="Submit"></input>
     </div>
 
-    </form>
+    </Form>
       {/* {htmlContent && (
         <div>
           <iframe
