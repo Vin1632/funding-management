@@ -5,71 +5,94 @@ import logo from '../assets/FundDocker_logo.jpg';
 import accountIcon from  '../assets/account-icon-11.jpg';
 import backgroundImage from '../assets/sea-background.jpg'
 
+import { useNavigate } from "react-router";
+import { useUserAuth } from "../context/UserAuthContext";
+
 
 const AdminDashboard = () => {
   const [selectedTab, setSelectedTab] = useState("Home");
+
+
+  const { logOut, user } = useUserAuth();
+  const navigate = useNavigate();
 
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
   };
 
+  //logging out 
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      navigate("/");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     
     <div className="admin-dashboard">
-        <div className="floating-background-image">
-<img src={backgroundImage}></img>
-</div>
+      <div className="floating-background-image">
+        <img src={backgroundImage}></img>
+      </div>
 
-<div className="navbar">
-<div className="navbar-left">
-    <ul>
-        <li><img src={logo} width="200" height="34px"></img></li>
-        <div className="tab-buttons">
-        <button
-          className={selectedTab === "Home" ? "active" : ""}
-          onClick={() => handleTabChange("Home")}
-        >
-          Home
-        </button>
-        <button
-          className={selectedTab === "Users" ? "active" : ""}
-          onClick={() => handleTabChange("Users")}
-        >
-          Users
-        </button>
-        <button
-          className={selectedTab === "Managers" ? "active" : ""}
-          onClick={() => handleTabChange("Managers")}
-        >
-          Managers
-        </button>
-        <button
-          className={selectedTab === "About" ? "active" : ""}
-          onClick={() => handleTabChange("About")}
-        >
-          About
-        </button>
+      <div className="navbar">
+        <div className="navbar-left">
+            <ul>
+                <li><img src={logo} width="200" height="34px"></img></li>
+                <div className="tab-buttons">
+                <button
+                  className={selectedTab === "Home" ? "active" : ""}
+                  onClick={() => handleTabChange("Home")}
+                >
+                  Home
+                </button>
+
+                <button
+                  className={selectedTab === "Users" ? "active" : ""}
+                  onClick={() => handleTabChange("Users")}
+                >
+                  Users
+                </button>
+
+                <button
+                  className={selectedTab === "Managers" ? "active" : ""}
+                  onClick={() => handleTabChange("Managers")}
+                >
+                  Managers
+                </button>
+
+                <button
+                  className={selectedTab === "About" ? "active" : ""}
+                  onClick={() => handleTabChange("About")}
+                >
+                  About
+                </button>
+              </div>
+            </ul>
+        </div>
+
+        <div className="navbar-right">
+            <ul className="dropdown">
+                <button><img src={accountIcon}></img></button>
+                <ul className="content">
+                    <a href="#">Profile</a>
+                    <a href="#">Settings</a>
+                    <a href="#" onClick={() => handleLogout() }>Logout</a>
+                </ul>
+            </ul>
+        </div>
+  </div>
+
+
+        <div className="tab-content">
+          {selectedTab === "Home" && <div>Content for home</div>}
+          {selectedTab === "Users" && <div>Content for Users</div>}
+          {selectedTab === "Managers" && <div>Content for Managers</div>}
+          {selectedTab === "About" && <div>Content for About</div>}
+        </div>
       </div>
-    </ul>
-</div>
-<div className="navbar-right">
-    <ul className="dropdown">
-        <button><img src={accountIcon}></img></button>
-        <ul className="content">
-            <a href="#">Profile</a>
-            <a href="#">Settings</a>
-            <a href="#">Logout</a>
-        </ul>
-    </ul>
-    </div>
-</div>
-      <div className="tab-content">
-        {selectedTab === "Home" && <div>Content for home</div>}
-        {selectedTab === "Users" && <div>Content for Users</div>}
-        {selectedTab === "Managers" && <div>Content for Managers</div>}
-        {selectedTab === "About" && <div>Content for About</div>}
-      </div>
-    </div>
   );
 };
 
