@@ -90,7 +90,7 @@ const AdminDashboard = () => {
         <div className="tab-content">
           {selectedTab === "Home" && <div>Content for home</div>}
           {selectedTab === "Users" && <div>Content for Users</div>}
-          {selectedTab === "Managers" && <div>Content for Managers</div>}
+          {selectedTab === "Managers" && <ManageUsers />}
           {selectedTab === "About" && <div>Content for About</div>}
         </div>
       </div>
