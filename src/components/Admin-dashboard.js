@@ -1,0 +1,115 @@
+import React, { useState } from "react";
+import "../styles/Admin-dashboard.css";
+import "../styles/dashboard.css";
+import logo from '../assets/FundDocker_logo.jpg';
+import accountIcon from  '../assets/account-icon-11.jpg';
+import backgroundImage from '../assets/sea-background.jpg'
+
+import { useNavigate } from "react-router";
+import { useUserAuth } from "../context/UserAuthContext";
+import ManageUsers from "./ManageUsers";
+import ManageManagers from "./ManageFundManagers";
+
+
+const AdminDashboard = () => {
+  const [selectedTab, setSelectedTab] = useState("Home");
+
+
+  const { logOut, user } = useUserAuth();
+  const navigate = useNavigate();
+
+  const handleTabChange = (tab) => {
+    setSelectedTab(tab);
+  };
+
+  //logging out 
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      navigate("/");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  return (
+    
+    <div className="admin-dashboard">
+      <div className="floating-background-image">
+        <img src={backgroundImage}></img>
+      </div>
+
+      <div className="navbar">
+        <div className="navbar-left">
+            <ul>
+                <li><img src={logo} width="200" height="34px"></img></li>
+                <div className="tab-buttons">
+                <button
+                  className={selectedTab === "Home" ? "active" : ""}
+                  onClick={() => handleTabChange("Home")}
+                >
+                  Home
+                </button>
+
+                <button
+                  className={selectedTab === "Users" ? "active" : ""}
+                  onClick={() => handleTabChange("Users")}
+                >
+                  Users
+                </button>
+
+                <button
+                  className={selectedTab === "Managers" ? "active" : ""}
+                  onClick={() => handleTabChange("Managers")}
+                >
+                  Managers
+                </button>
+
+                <button
+                  className={selectedTab === "About" ? "active" : ""}
+                  onClick={() => handleTabChange("About")}
+                >
+                  About
+                </button>
+              </div>
+            </ul>
+        </div>
+
+        <div className="navbar-right">
+            <ul className="dropdown">
+                <button><img src={accountIcon}></img></button>
+                <ul className="content">
+                    <a href="#">Profile</a>
+                    <a href="#">Settings</a>
+                    <a href="#" onClick={() => handleLogout() }>Logout</a>
+                </ul>
+            </ul>
+        </div>
+  </div>
+
+
+        <div className="tab-content">
+          {selectedTab === "Home" && <div>Content for home</div>}
+          {selectedTab === "Users" && <ManageUsers />}
+          {selectedTab === "Managers" && <ManageManagers/>}
+          {selectedTab === "About" && <div>
+    <h2>About Our Application</h2>
+    <p>
+      Welcome to our application! We are dedicated to providing a platform for connecting fund managers with potential investors.
+    </p>
+    <p>
+      Our mission is to facilitate the funding process, making it easier for both fund managers and investors to find suitable opportunities.
+    </p>
+    <p>
+      Through our platform, fund managers can showcase their investment opportunities, and investors can discover and evaluate potential projects.
+    </p>
+    <p>
+      Thank you for using our application. If you have any questions or feedback, please don't hesitate to contact us.
+    </p>
+  </div>}
+        </div>
+      </div>
+  );
+};
+
+export default AdminDashboard;
