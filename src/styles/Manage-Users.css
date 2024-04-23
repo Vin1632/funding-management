@@ -58,3 +58,124 @@
 .Manage-user-table button:hover {
   background-color: #288d8d;
 }
+.Manage-manager-table {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.Manage-manager-table h2 {
+  margin-bottom: 20px;
+}
+
+.Manage-manager-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.Manage-manager-table th,
+.Manage-manager-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+/* Add fixed percentage widths to the table headers */
+.Manage-manager-table th {
+  background-color: #f2f2f2;
+  width: 20%; /* Adjust the percentage as needed */
+}
+
+.Manage-manager-table th:first-child,
+.Manage-manager-table td:first-child {
+  border-left: none;
+}
+
+.Manage-manager-table th:last-child,
+.Manage-manager-table td:last-child {
+  border-right: none;
+}
+
+.Manage-manager-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.Manage-manager-table tr:hover {
+  background-color: #ddd;
+}
+
+.Manage-manager-table button {
+  cursor: pointer;
+  background-color: #36b0b0;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.Manage-manager-table button:hover {
+  background-color: #288d8d;
+}
+
+.Manage-admin-table {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.Manage-admin-table h2 {
+  margin-bottom: 20px;
+}
+
+.Manage-admin-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.Manage-admin-table th,
+.Manage-admin-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+/* Add fixed percentage widths to the table headers */
+.Manage-admin-table th {
+  background-color: #f2f2f2;
+  width: 20%; /* Adjust the percentage as needed */
+}
+
+.Manage-admin-table th:first-child,
+.Manage-admin-table td:first-child {
+  border-left: none;
+}
+
+.Manage-admin-table th:last-child,
+.Manage-admin-table td:last-child {
+  border-right: none;
+}
+
+.Manage-admin-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.Manage-admin-table tr:hover {
+  background-color: #ddd;
+}
+
+.Manage-admin-table button {
+  cursor: pointer;
+  background-color: #36b0b0;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.Manage-admin-table button:hover {
+  background-color: #288d8d;
+}

@@ -8,6 +8,7 @@ import backgroundImage from '../assets/sea-background.jpg'
 import { useNavigate } from "react-router";
 import { useUserAuth } from "../context/UserAuthContext";
 import ManageUsers from "./ManageUsers";
+import ManageManagers from "./ManageFundManagers";
 
 
 const AdminDashboard = () => {
@@ -90,7 +91,7 @@ const AdminDashboard = () => {
         <div className="tab-content">
           {selectedTab === "Home" && <div>Content for home</div>}
           {selectedTab === "Users" && <ManageUsers />}
-          {selectedTab === "Managers" && <div>Content for managers</div>}
+          {selectedTab === "Managers" && <ManageManagers/>}
           {selectedTab === "About" && <div>Content for About</div>}
         </div>
       </div>
