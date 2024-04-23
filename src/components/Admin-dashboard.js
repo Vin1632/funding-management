@@ -9,6 +9,7 @@ import { useNavigate } from "react-router";
 import { useUserAuth } from "../context/UserAuthContext";
 import ManageUsers from "./ManageUsers";
 import ManageManagers from "./ManageFundManagers";
+import About from "./About";
 
 
 const AdminDashboard = () => {
@@ -92,21 +93,7 @@ const AdminDashboard = () => {
           {selectedTab === "Home" && <div>Content for home</div>}
           {selectedTab === "Users" && <ManageUsers />}
           {selectedTab === "Managers" && <ManageManagers/>}
-          {selectedTab === "About" && <div>
-    <h2>About Our Application</h2>
-    <p>
-      Welcome to our application! We are dedicated to providing a platform for connecting fund managers with potential investors.
-    </p>
-    <p>
-      Our mission is to facilitate the funding process, making it easier for both fund managers and investors to find suitable opportunities.
-    </p>
-    <p>
-      Through our platform, fund managers can showcase their investment opportunities, and investors can discover and evaluate potential projects.
-    </p>
-    <p>
-      Thank you for using our application. If you have any questions or feedback, please don't hesitate to contact us.
-    </p>
-  </div>}
+          {selectedTab === "About" && <About/>}
         </div>
       </div>
   );

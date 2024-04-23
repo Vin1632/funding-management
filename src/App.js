@@ -10,6 +10,7 @@ import ManageUsers from "./components/ManageUsers";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import ManageManagers from "./components/ManageFundManagers";
+import About from "./components/About";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
               <Route path="/AdminDashboard" element={<AdminDashboard />} />
               <Route path="/ManageUsers" element={<ManageUsers />} />
               <Route path="/ManageManagers" element={<ManageManagers/>} />
+              <Route path="/About" element={<About/>} />
             </Routes>
           </UserAuthContextProvider>
         </Col>
