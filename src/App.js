@@ -6,8 +6,10 @@ import Navigation from "./components/Navigation";
 import AdminDashboard from "./components/Admin-dashboard";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import ManageUsers from "./components/ManageUsers";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
+import ManageManagers from "./components/ManageFundManagers";
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
               <Route path="/" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/AdminDashboard" element={<AdminDashboard />} />
+              <Route path="/ManageUsers" element={<ManageUsers />} />
+              <Route path="/ManageManagers" element={<ManageManagers/>} />
             </Routes>
           </UserAuthContextProvider>
         </Col>
