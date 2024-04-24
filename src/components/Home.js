@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { useUserAuth } from "../context/UserAuthContext";
+
 import "../styles/Details.css";
 import "../styles/dashboard.css";
 import AdminDashboard from "./Admin-dashboard";
@@ -13,6 +14,7 @@ import { getDatabase, ref, set, push } from "firebase/database";
 const Home = () => {
 
   const navigate = useNavigate();
+  const { logIn, googleSignIn } = useUserAuth();
   const [formSubmitted, setFormSubmitted] = useState(false); // State to track form submission
 
   const handleSubmit = async (e) => {
@@ -64,6 +66,7 @@ const Home = () => {
 
     const newDocRef = push(ref(db, "Fundmanagers"));
     set(newDocRef, {
+      id : "8798797",
       CompanyName: CompanyNamename,
       Rep_Name: RepName,
       business : (document.getElementById("BusinessCheckbox_C").checked ? "1" : "0"),

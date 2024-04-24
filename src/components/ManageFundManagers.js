@@ -1,13 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/Manage-Users.css";
+import app from "../firebase.js";
+import { getDatabase, ref, get } from "firebase/database";
 
 const ManageManagers = () => {
+
+  const [infoArray, setInfoArray] = useState([]);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const checkUser = async () => {
+      try {
+        const db = getDatabase(app);
+        const dbRef = ref(db, "Fundmanagers");
+        const snapshot = await get(dbRef);
+
+        if (snapshot.exists()) {
+          setInfoArray(Object.values(snapshot.val()));
+        }
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    checkUser();
+  }, []); // Run this effect only once after the component mounts
+
+  console.log("first result");
+  console.log(infoArray[0]);
+
   // Example manager data
-  const [managers, setManagers] = useState([
+  const [managers, setManagers] = useState(
+    [
     { id: 1, name: "John Doe", email: "john@example.com", role: "Fund Manager", blocked: false },
     { id: 2, name: "Jane Doe", email: "jane@example.com", role: "Admin", blocked: false },
     // Add more manager data as needed
-  ]);
+  ]
+);
 
   // Example admin data
   const [admins, setAdmins] = useState([
@@ -20,7 +49,7 @@ const ManageManagers = () => {
   const toggleManagerRole = (managerId) => {
     setManagers(prevManagers =>
       prevManagers.map(manager =>
-        manager.id === managerId
+        manager.Rep_Name === managerId
           ? { ...manager, role: manager.role === "Fund Manager" ? "Admin" : "Fund Manager" }
           : manager
       )
@@ -31,14 +60,14 @@ const ManageManagers = () => {
   const toggleAccountStatus = (managerId) => {
     setManagers(prevManagers =>
       prevManagers.map(manager =>
-        manager.id === managerId ? { ...manager, blocked: !manager.blocked } : manager
+        manager.Rep_Name === managerId ? { ...manager, blocked: !manager.blocked } : manager
       )
     );
   };
 
   // Function to delete a manager
   const deleteManager = (managerId) => {
-    setManagers(prevManagers => prevManagers.filter(manager => manager.id !== managerId));
+    setManagers(prevManagers => prevManagers.filter(manager => manager.Rep_Name !== managerId));
   };
 
   return (
@@ -57,21 +86,21 @@ const ManageManagers = () => {
           </thead>
           <tbody>
             {managers.map(manager => (
-              <tr key={manager.id}>
-                <td>{manager.name}</td>
+              <tr key={manager.Rep_Name}>
+                <td>{manager.Rep_Name}</td>
                 <td>{manager.email}</td>
                 <td>
-                  <button onClick={() => toggleManagerRole(manager.id)}>
+                  <button onClick={() => toggleManagerRole(manager.Rep_Name)}>
                     {manager.role === "Fund Manager" ? "Promote to Admin" : "Demote to Fund Manager"}
                   </button>
                 </td>
                 <td>
-                  <button onClick={() => toggleAccountStatus(manager.id)}>
+                  <button onClick={() => toggleAccountStatus(manager.Rep_Name)}>
                     {manager.blocked ? "Unblock Account" : "Block Account"}
                   </button>
                 </td>
                 <td>
-                  <button onClick={() => deleteManager(manager.id)}>Delete</button>
+                  <button onClick={() => deleteManager(manager.Rep_Name)}>Delete</button>
                 </td>
               </tr>
             ))}
