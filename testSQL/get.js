@@ -1,10 +1,10 @@
 const sql = require("mssql");
 
 const config = {
-    user: "dbadmin",
-    password: "docker1010@#",
-    server: "fund-management.database.windows.net",
-    database: "fund-management",
+    user: "Amaan",
+    password: "P0p0p0p0p",
+    server: "fundingmanagement.database.windows.net",
+    database: "FundingManager",
     options:{
         encrypt: true,
         
