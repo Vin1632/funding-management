@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/Manage-Users.css";
+import "../../styles/Manage-Users.css";
 
 const ManageUsers = () => {
   // Example user data

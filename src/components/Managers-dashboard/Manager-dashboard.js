@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import "../styles/Admin-dashboard.css";
-import "../styles/dashboard.css";
-import logo from '../assets/FundDocker_logo.jpg';
-import accountIcon from  '../assets/account-icon-11.jpg';
-import backgroundImage from '../assets/sea-background.jpg'
+import "../../styles/Admin-dashboard.css";
+import "../../styles/dashboard.css";
+import logo from '../../assets/FundDocker_logo.jpg';
+import accountIcon from  '../../assets/account-icon-11.jpg';
+import backgroundImage from '../../assets/sea-background.jpg'
 
 import { useNavigate } from "react-router";
-import { useUserAuth } from "../context/UserAuthContext";
-import ManageUsers from "./ManageUsers";
-import ManageManagers from "./ManageFundManagers";
+import { useUserAuth } from "../../context/UserAuthContext";
+import PostAds from "./PostAds";
 
 
-const AdminDashboard = () => {
+
+const ManagerDashboard = () => {
   const [selectedTab, setSelectedTab] = useState("Home");
 
 
@@ -34,7 +34,7 @@ const AdminDashboard = () => {
 
   return (
     
-    <div className="admin-dashboard">
+    <div className="Manager-dashboard">
       <div className="floating-background-image">
         <img src={backgroundImage}></img>
       </div>
@@ -52,8 +52,8 @@ const AdminDashboard = () => {
                 </button>
 
                 <button
-                  className={selectedTab === "Users" ? "active" : ""}
-                  onClick={() => handleTabChange("Users")}
+                  className={selectedTab === "Advertise funding" ? "active" : ""}
+                  onClick={() => handleTabChange("Advertise funding")}
                 >
                   Users
                 </button>
@@ -90,12 +90,12 @@ const AdminDashboard = () => {
 
         <div className="tab-content">
           {selectedTab === "Home" && <div>Content for home</div>}
-          {selectedTab === "Users" && <ManageUsers />}
-          {selectedTab === "Managers" && <ManageManagers/>}
+          {selectedTab === "Advertise funding" && <PostAds />}
+          {selectedTab === "Managers" && <div></div>}
           {selectedTab === "About" && <div>Content for About</div>}
         </div>
       </div>
   );
 };
 
-export default AdminDashboard;
+export default ManagerDashboard;

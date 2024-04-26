@@ -5,7 +5,7 @@ import { useUserAuth } from "../context/UserAuthContext";
 
 import "../styles/Details.css";
 import "../styles/dashboard.css";
-import AdminDashboard from "./Admin-dashboard";
+import AdminDashboard from "./Admin-dashboard/Admin-dashboard.js";
 import logo from '../assets/FundDocker_logo.jpg';
 import backgroundImage from '../assets/sea-background.jpg'
 import app from "../firebase.js";

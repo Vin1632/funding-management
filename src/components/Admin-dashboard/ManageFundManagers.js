@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "../styles/Manage-Users.css";
-import app from "../firebase.js";
+import "../../styles/Manage-Users.css";
+import app from "../../firebase.js";
 import { getDatabase, ref, get } from "firebase/database";
 
 const ManageManagers = () => {
