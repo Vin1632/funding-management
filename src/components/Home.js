@@ -6,6 +6,8 @@ import { useUserAuth } from "../context/UserAuthContext";
 import "../styles/Details.css";
 import "../styles/dashboard.css";
 import AdminDashboard from "./Admin-dashboard/Admin-dashboard.js";
+import UsersDashboard from "./Users-dashboard/Users-dashboard.js";
+import ManagerDashboard from "./Managers-dashboard/Manager-dashboard.js";
 import logo from '../assets/FundDocker_logo.jpg';
 import backgroundImage from '../assets/sea-background.jpg'
 import app from "../firebase.js";
@@ -16,6 +18,7 @@ const Home = () => {
   const navigate = useNavigate();
   const { logIn, googleSignIn } = useUserAuth();
   const [formSubmitted, setFormSubmitted] = useState(false); // State to track form submission
+  const [selectedAction, setSelectedAction] = useState(""); // State to track selected form action
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,6 +35,7 @@ const Home = () => {
   // Function to handle FormAction change
   const handleFormActionChange = (e) => {
     const selectedOption = e.target.value;
+    setSelectedAction(selectedOption);
     const placeholder = document.getElementById('placeholder');
     const userDetails = document.getElementById('UserDetails');
     const fundingManagerDetails = document.getElementById('FundingManagerDetails');
@@ -93,8 +97,16 @@ const Home = () => {
     }).catch((error) => {
       alert("error: ", error.message);
     })
-    
-    navigate("/AdminDashboard"); // Navigate to the desired page upon form submission
+
+    if (NAAM.toLowerCase() === 'admin') {
+      navigate("/AdminDashboard"); // Navigate to the admin dashboard if the user's name is "Amaan"
+    } else if (selectedAction === 'Funding') {
+      navigate("/UsersDashboard"); // Navigate to the user dashboard if selected action is funding
+    } else if (selectedAction === 'Invest') {
+      navigate("/ManagerDashboard"); // Navigate to the manager dashboard if selected action is invest
+    } else {
+      navigate("/"); // Navigate to home if no action is selected
+    }
   };
   
   return (
@@ -182,8 +194,8 @@ const Home = () => {
           </div>
         </Form>
       ) : (
-        // Render the admin dashboard if form is submitted
-        navigate("/AdminDashboard")
+        // Render the appropriate dashboard based on the selected action
+        selectedAction === 'Funding' ? navigate("/AdminDashboard") : navigate("/ManagerDashboard")
       )}
 
     </>

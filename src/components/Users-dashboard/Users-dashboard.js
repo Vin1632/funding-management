@@ -7,12 +7,11 @@ import backgroundImage from '../../assets/sea-background.jpg'
 
 import { useNavigate } from "react-router";
 import { useUserAuth } from "../../context/UserAuthContext";
-import PostAds from "./PostAds";
-import Reviewapplications from "./Review-applications";
+import FindFunder from "./FindFunder";
+import Applications from "./Applications";
 
 
-
-const ManagerDashboard = () => {
+const UsersDashboard = () => {
   const [selectedTab, setSelectedTab] = useState("Home");
 
 
@@ -35,7 +34,7 @@ const ManagerDashboard = () => {
 
   return (
     
-    <div className="Manager-dashboard">
+    <div className="Users-dashboard">
       <div className="floating-background-image">
         <img src={backgroundImage}></img>
       </div>
@@ -53,17 +52,17 @@ const ManagerDashboard = () => {
                 </button>
 
                 <button
-                  className={selectedTab === "Advertise funding" ? "active" : ""}
-                  onClick={() => handleTabChange("Advertise funding")}
+                  className={selectedTab === "Funding Oppurtunities" ? "active" : ""}
+                  onClick={() => handleTabChange("Funding Oppurtunities")}
                 >
-                  Users
+                  Funding Oppurtunities
                 </button>
 
                 <button
-                  className={selectedTab === "Review Applications" ? "active" : ""}
-                  onClick={() => handleTabChange("Review Applications")}
+                  className={selectedTab === "Applications" ? "active" : ""}
+                  onClick={() => handleTabChange("Applications")}
                 >
-                  Managers
+                  Applications
                 </button>
 
                 <button
@@ -91,12 +90,12 @@ const ManagerDashboard = () => {
 
         <div className="tab-content">
           {selectedTab === "Home" && <div>Content for home</div>}
-          {selectedTab === "Advertise funding" && <PostAds />}
-          {selectedTab === "Review Applications" && <Reviewapplications/>}
+          {selectedTab === "Funding Oppurtunities" && <FindFunder />}
+          {selectedTab === "Applications" && <Applications/>}
           {selectedTab === "About" && <div>Content for About</div>}
         </div>
       </div>
   );
 };
 
-export default ManagerDashboard;
+export default UsersDashboard;
