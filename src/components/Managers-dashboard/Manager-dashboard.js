@@ -56,14 +56,14 @@ const ManagerDashboard = () => {
                   className={selectedTab === "Advertise funding" ? "active" : ""}
                   onClick={() => handleTabChange("Advertise funding")}
                 >
-                  Users
+                  Advertise Funding
                 </button>
 
                 <button
                   className={selectedTab === "Review Applications" ? "active" : ""}
                   onClick={() => handleTabChange("Review Applications")}
                 >
-                  Managers
+                  Review Applications
                 </button>
 
                 <button
