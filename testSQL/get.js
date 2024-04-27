@@ -16,6 +16,7 @@ async function getMain(){
         let pool = await sql.connect(config);
         let users = await pool.request().query("SELECT * from [dbo].[User]");
         console.log(users.recordset);
+        console.log(users.recordset);
         return users.recordset;
 
     }

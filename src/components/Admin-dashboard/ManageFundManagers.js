@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "../../styles/Manage-Users.css";
-import app from "../../firebase.js";
-import { getDatabase, ref, get } from "firebase/database";
+
 
 const ManageManagers = () => {
 
@@ -11,18 +10,12 @@ const ManageManagers = () => {
   const [loading, setLoading] = useState(true); // Initialize loading state to true
 
   // Example manager data
-  const [managers, setManagers] = useState(
-    [
-      { ID: 1, Name: "John Doe", Email: "john@example.com", role: "Fund Manager", Blocked: false },
-      { ID: 2, Name: "Jane Doe", Email: "jane@example.com", role: "Admin", Blocked: false },
-      // Add more manager data as needed
-    ]
-);
+  const [managers, setManagers] = useState();
 
   // Example admin data
   const [admins, setAdmins] = useState([
     { id: 1, name: "Admin1", email: "admin1@example.com", role: "Admin" },
-    { id: 2, name: "Admin56", email: "admin56@example.com", role: "Admin" },
+    { id: 2, name: "Admin2", email: "admin2@example.com", role: "Admin" },
     // Add more admin data as needed
   ]);
 
