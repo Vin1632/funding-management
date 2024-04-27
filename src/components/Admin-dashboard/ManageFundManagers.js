@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import "../../styles/Manage-Users.css";
 import app from "../../firebase.js";
 import { getDatabase, ref, get } from "firebase/database";
@@ -7,35 +7,16 @@ const ManageManagers = () => {
 
   const [infoArray, setInfoArray] = useState([]);
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    const checkUser = async () => {
-      try {
-        const db = getDatabase(app);
-        const dbRef = ref(db, "Fundmanagers");
-        const snapshot = await get(dbRef);
-
-        if (snapshot.exists()) {
-          setInfoArray(Object.values(snapshot.val()));
-        }
-      } catch (error) {
-        setError(error.message);
-      }
-    };
-
-    checkUser();
-  }, []); // Run this effect only once after the component mounts
-
-  console.log("first result");
-  console.log(infoArray[0]);
+  const [data, setData] = useState(null); // Initialize data state to null
+  const [loading, setLoading] = useState(true); // Initialize loading state to true
 
   // Example manager data
   const [managers, setManagers] = useState(
     [
-    { id: 1, name: "John Doe", email: "john@example.com", role: "Fund Manager", blocked: false },
-    { id: 2, name: "Jane Doe", email: "jane@example.com", role: "Admin", blocked: false },
-    // Add more manager data as needed
-  ]
+      { ID: 1, Name: "John Doe", Email: "john@example.com", role: "Fund Manager", Blocked: false },
+      { ID: 2, Name: "Jane Doe", Email: "jane@example.com", role: "Admin", Blocked: false },
+      // Add more manager data as needed
+    ]
 );
 
   // Example admin data
@@ -70,9 +51,38 @@ const ManageManagers = () => {
     setManagers(prevManagers => prevManagers.filter(manager => manager.Rep_Name !== managerId));
   };
 
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/getUsers`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const text = await response.json();
+        setData(text);
+        console.log(text);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false); // Set loading state to false after data is fetched or on error
+      }
+    };
+
+    fetchData();
+  }, []); // Empty dependency array indicates the effect should only run once
+
+
+
+   // Render loading indicator while data is being fetched
+   if (loading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div>
       <div className="Manage-manager-table"> {/* Update class name */}
+      
         <h2>Managers</h2> {/* Update heading */}
         <table>
           <thead>
@@ -85,22 +95,22 @@ const ManageManagers = () => {
             </tr>
           </thead>
           <tbody>
-            {managers.map(manager => (
-              <tr key={manager.Rep_Name}>
-                <td>{manager.Rep_Name}</td>
-                <td>{manager.email}</td>
+            {data && data.map((manager, index) => (
+              <tr key={index}>
+                <td>{manager.Name}</td>
+                <td>{manager.Email}</td>
                 <td>
-                  <button onClick={() => toggleManagerRole(manager.Rep_Name)}>
+                  <button onClick={() => toggleManagerRole(manager.ID)}>
                     {manager.role === "Fund Manager" ? "Promote to Admin" : "Demote to Fund Manager"}
                   </button>
                 </td>
                 <td>
-                  <button onClick={() => toggleAccountStatus(manager.Rep_Name)}>
-                    {manager.blocked ? "Unblock Account" : "Block Account"}
+                  <button onClick={() => toggleAccountStatus(manager.ID)}>
+                    {manager.Blocked ? "Unblock Account" : "Block Account"}
                   </button>
                 </td>
                 <td>
-                  <button onClick={() => deleteManager(manager.Rep_Name)}>Delete</button>
+                  <button onClick={() => deleteManager(manager.ID)}>Delete</button>
                 </td>
               </tr>
             ))}
@@ -129,6 +139,7 @@ const ManageManagers = () => {
       </div>
     </div>
   );
+
 };
 
 export default ManageManagers;
