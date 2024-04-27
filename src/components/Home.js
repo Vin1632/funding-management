@@ -70,7 +70,6 @@ const Home = () => {
 
     const newDocRef = push(ref(db, "Fundmanagers"));
     set(newDocRef, {
-      id : "8798797",
       CompanyName: CompanyNamename,
       Rep_Name: RepName,
       business : (document.getElementById("BusinessCheckbox_C").checked ? "1" : "0"),

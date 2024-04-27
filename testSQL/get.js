@@ -14,8 +14,7 @@ const config = {
 async function getMain(){
     try{
         let pool = await sql.connect(config);
-        let users = await pool.request().query("SELECT * from [dbo].[User]");
-        console.log(users.recordset);
+        let users = await pool.request().query("insert into [dbo].[User](ID, role, Name, Surname, DateOfBirth, CompanyName, Email, Education, Business, Events, Blocked) values (777,'Manager', 'BG', 'polar', '2010-08-08', 'abc ltd', 'eaxe_@gmail.com' , 1, 1, 0, 0)");
         console.log(users.recordset);
         return users.recordset;
 

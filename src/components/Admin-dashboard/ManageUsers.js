@@ -35,6 +35,9 @@ const ManageUsers = () => {
       if (!response.ok) {
         throw new Error('Failed to delete user');
       }
+      else{
+        setUsers(prevUsers => prevUsers.filter(user => user.ID !== id));
+      }
     })
     .catch(error => console.error('Error deleting user:', error));
   };
@@ -81,7 +84,7 @@ const ManageUsers = () => {
           </tr>
         </thead>
         <tbody>
-          {users && users.map(user => (
+          {users && users.map( user => (
             <tr key={user.ID}>
               <td>{user.Name}</td>
               <td>{user.Email}</td>
