@@ -22,7 +22,7 @@ const ManageManagers = () => {
   // Example admin data
   const [admins, setAdmins] = useState([
     { id: 1, name: "Admin1", email: "admin1@example.com", role: "Admin" },
-    { id: 2, name: "Admin2", email: "admin2@example.com", role: "Admin" },
+    { id: 2, name: "Admin56", email: "admin56@example.com", role: "Admin" },
     // Add more admin data as needed
   ]);
 
