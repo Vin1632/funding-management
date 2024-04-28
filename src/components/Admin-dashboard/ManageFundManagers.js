@@ -19,7 +19,7 @@ const ManageManagers = () => {
 
   ]);
 
-  // Function to toggle manager role
+  // Function to toggle manager role and admin role
   const toggleManagerRole = (managerId, ROLE) => {
     let action = 'toManager';
     if(ROLE === "Manager")
