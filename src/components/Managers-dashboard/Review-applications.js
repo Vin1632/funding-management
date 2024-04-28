@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import app from "../../firebase.js";
-import './Review-applications.css';
+import "../../styles/Review-applications.css";
 
 
 const Reviewapplications = () => {
