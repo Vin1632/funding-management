@@ -24,7 +24,7 @@ module.exports = async function (context, req) {
 
     try{
         let pool = await sql.connect(config);
-        let users = await pool.request().query("SELECT * from [dbo].[User] where role = 'Manager' OR 'Admin'");
+        let users = await pool.request().query("SELECT * from [dbo].[User] where role = 'Manager' OR role = 'Admin'");
         console.log(users.recordset);
         context.res = {
             // status: 200, /* Defaults to 200 */

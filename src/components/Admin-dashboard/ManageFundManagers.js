@@ -14,9 +14,9 @@ const ManageManagers = () => {
 
   // Example admin data
   const [admins, setAdmins] = useState([
-    { id: 1, name: "Admin1", email: "admin1@example.com", role: "Admin" },
-    { id: 2, name: "Admin2", email: "admin2@example.com", role: "Admin" },
-    // Add more admin data as needed
+    {id : 1, Name : 'amin1', Email : 'admin@gmail.com'},
+    {id : 2, Name : 'admin2', Email : 'admin.fund@gmail.com'}
+
   ]);
 
   // Function to toggle manager role
@@ -30,18 +30,81 @@ const ManageManagers = () => {
     );
   };
 
-  // Function to toggle account status (blocked/unblocked)
-  const toggleAccountStatus = (managerId) => {
-    setManagers(prevManagers =>
-      prevManagers.map(manager =>
-        manager.Rep_Name === managerId ? { ...manager, blocked: !manager.blocked } : manager
-      )
-    );
-  };
+  
 
-  // Function to delete a manager
-  const deleteManager = (managerId) => {
-    setManagers(prevManagers => prevManagers.filter(manager => manager.Rep_Name !== managerId));
+  // Function to toggle account status (blocked/unblocked)
+  // const toggleAccountStatus = (managerId) => {
+  //   fetch(`/api/blockUser/${managerId}`, {
+  //     method : 'post'
+  //   })
+
+  //   .then(response => {
+  //     if(!response.ok)
+  //     {
+  //       throw new Error('failed to block a user');
+  //     }
+  //     else{
+  //       setManagers(prevManagers =>
+  //         prevManagers.map(manager =>
+  //           manager.ID === managerId ? { ...manager, Blocked: !manager.Blocked } : manager
+  //         )
+  //       );
+  //     }
+  //   })
+    
+  // };
+
+  const toggleAccountStatus = (managerId, isBlocked) => {
+    const action = isBlocked ? 'unblock' : 'block';
+
+    fetch(`/api/blockUser`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            userId: managerId,
+            action: action,
+        }),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Failed to ${action} user`);
+        } else {
+            setManagers(prevManagers =>
+                prevManagers.map(manager =>
+                    manager.ID === managerId ? { ...manager, Blocked: !manager.Blocked } : manager
+                )
+            );
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error.message);
+    });
+};
+
+
+
+
+  // // Function to delete a manager
+  // const deleteManager = (managerId) => {
+  //   setManagers(prevManagers => prevManagers.filter(manager => manager.Rep_Name !== managerId));
+  // };
+
+  //does delete but crashs after deleting
+  const handleDelete = (id) => {
+    fetch(`/api/deleteUsers/${id}`, { 
+      method: 'DELETE'
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to delete user');
+      }
+      else{
+        setManagers(prevManagers => prevManagers.filter(manager => manager.ID !== id));
+      }
+    })
+    .catch(error => console.error('Error deleting user:', error));
   };
 
 
@@ -53,7 +116,7 @@ const ManageManagers = () => {
           throw new Error('Failed to fetch data');
         }
         const text = await response.json();
-        setData(text);
+        setManagers(text);
         console.log(text);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -64,6 +127,8 @@ const ManageManagers = () => {
 
     fetchData();
   }, []); // Empty dependency array indicates the effect should only run once
+
+
 
 
 
@@ -88,7 +153,7 @@ const ManageManagers = () => {
             </tr>
           </thead>
           <tbody>
-            {data && data.map((manager, index) => (
+            {managers && managers.map((manager, index) => (
               <tr key={index}>
                 <td>{manager.Name}</td>
                 <td>{manager.Email}</td>
@@ -98,12 +163,13 @@ const ManageManagers = () => {
                   </button>
                 </td>
                 <td>
-                  <button onClick={() => toggleAccountStatus(manager.ID)}>
+                <button onClick={() => toggleAccountStatus(manager.ID, manager.Blocked)}>
                     {manager.Blocked ? "Unblock Account" : "Block Account"}
-                  </button>
+                </button>
+
                 </td>
                 <td>
-                  <button onClick={() => deleteManager(manager.ID)}>Delete</button>
+                  <button onClick={() => handleDelete(manager.ID)}>Delete</button>
                 </td>
               </tr>
             ))}
@@ -123,8 +189,8 @@ const ManageManagers = () => {
           <tbody>
             {admins.map(admin => (
               <tr key={admin.id}>
-                <td>{admin.name}</td>
-                <td>{admin.email}</td>
+                <td>{admin.Name}</td>
+                <td>{admin.Email}</td>
               </tr>
             ))}
           </tbody>
