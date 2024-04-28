@@ -40,7 +40,8 @@ const Login = () => {
     setError("");
     try {
       await logIn(email, password);
-      
+
+      //if its in the database go to the admain
       const foundVinJob = infoArray.some(item => item.Email === email);
       if (foundVinJob) {
         navigate("/AdminDashboard");
@@ -51,6 +52,7 @@ const Login = () => {
       setError(err.message);
     }
   };
+
 
   const handleGoogleSignIn = async (e) => {
     e.preventDefault();

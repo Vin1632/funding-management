@@ -4,6 +4,7 @@ import "../../styles/dashboard.css";
 import logo from '../../assets/FundDocker_logo.jpg';
 import accountIcon from  '../../assets/account-icon-11.jpg';
 import backgroundImage from '../../assets/sea-background.jpg'
+import '../../styles/Managers-dashboard.css';
 
 import { useNavigate } from "react-router";
 import { useUserAuth } from "../../context/UserAuthContext";

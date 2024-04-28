@@ -6,25 +6,72 @@ const ManageUsers = () => {
   const [users, setUsers] = useState(null);
   const [loading, setLoading] = useState(true); // Initialize loading state to true
 
-  // Function to toggle user role
-  const toggleUserRole = (userId) => {
-    setUsers(prevUsers =>
-      prevUsers.map(user =>
-        user.ID === userId
-          ? { ...user, role: user.role === "User" ? "Manager" : "User" }
-          : user
-      )
-    );
-  };
+  const toggleUserRole = (User_id, ROLE) => {
+    let action = 'toManager';
+    if(ROLE === "Manager")
+    {
+      action = 'toUser';
+    }
+
+    fetch(`/api/ChangeRole`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            userId: User_id,
+            action: action,
+        }),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Failed to ${action} user`);
+        } else {
+          setUsers(prevUsers =>
+                prevUsers.map(user =>
+                  user.ID === User_id
+                    ? { ...user, role: user.role === "User" ? "Manager" : "User" }
+                    : user
+                )
+              );
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error.message);
+    });
+};
 
   // Function to toggle account status (blocked/unblocked)
-  const toggleAccountStatus = (userId) => {
-    setUsers(prevUsers =>
-      prevUsers.map(user =>
-        user.ID === userId ? { ...user, blocked: !user.blocked } : user
-      )
-    );
-  };
+
+
+  const toggleAccountStatus = (User_id, isBlocked) => {
+    const action = isBlocked ? 'unblock' : 'block';
+
+    fetch(`/api/blockUser`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            userId: User_id,
+            action: action,
+        }),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Failed to ${action} user`);
+        } else {
+            setUsers(prevUsers =>
+                prevUsers.map(user =>
+                    user.ID === User_id ? { ...user, Blocked: !user.Blocked } : user
+                )
+            );
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error.message);
+    });
+};
 
   // Function to delete a user
   const handleDelete = (id) => {
@@ -34,6 +81,9 @@ const ManageUsers = () => {
     .then(response => {
       if (!response.ok) {
         throw new Error('Failed to delete user');
+      }
+      else{
+        setUsers(prevUsers => prevUsers.filter(user => user.ID !== id));
       }
     })
     .catch(error => console.error('Error deleting user:', error));
@@ -81,18 +131,18 @@ const ManageUsers = () => {
           </tr>
         </thead>
         <tbody>
-          {users && users.map(user => (
+          {users && users.map( user => (
             <tr key={user.ID}>
               <td>{user.Name}</td>
               <td>{user.Email}</td>
               <td>
-                <button onClick={() => toggleUserRole(user.ID)}>
+                <button onClick={() => toggleUserRole(user.ID, user.role)}>
                   {user.role === "User" ? "Promote to Manager" : "Demote to User"}
                 </button>
               </td>
               <td>
-                <button onClick={() => toggleAccountStatus(user.ID)}>
-                  {user.blocked ? "Unblock Account" : "Block Account"}
+                <button onClick={() => toggleAccountStatus(user.ID, user.Blocked)}>
+                  {user.Blocked ? "Unblock Account" : "Block Account"}
                 </button>
               </td>
               <td>

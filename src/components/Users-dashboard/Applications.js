@@ -5,6 +5,7 @@ const Applications = () => {
 
   return (
     <div>
+        
     </div>
   );
 };
