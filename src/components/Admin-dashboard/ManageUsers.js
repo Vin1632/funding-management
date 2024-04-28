@@ -6,18 +6,8 @@ const ManageUsers = () => {
   const [users, setUsers] = useState(null);
   const [loading, setLoading] = useState(true); // Initialize loading state to true
 
-  // Function to toggle user role
-  // const toggleUserRole = (userId) => {
-  //   setUsers(prevUsers =>
-  //     prevUsers.map(user =>
-  //       user.ID === userId
-  //         ? { ...user, role: user.role === "User" ? "Manager" : "User" }
-  //         : user
-  //     )
-  //   );
-  // };
   const toggleUserRole = (User_id, ROLE) => {
-    const action = 'toManager';
+    let action = 'toManager';
     if(ROLE === "Manager")
     {
       action = 'toUser';
@@ -53,28 +43,6 @@ const ManageUsers = () => {
 
   // Function to toggle account status (blocked/unblocked)
 
-
-  // const toggleAccountStatus = (userId) => {
-
-  //   fetch(`/api/blockUser/${userId}`, {
-  //     method : 'post'
-  //   })
-  //   .then(response => {
-  //     if(!response.ok)
-  //     {
-  //       throw new Error('failed to block a user');
-  //     }
-  //     else
-  //     {
-  //       setUsers(prevUsers =>
-  //         prevUsers.map(user =>
-  //           user.ID === userId ? { ...user, Blocked: !user.Blocked } : user
-  //         )
-  //       );
-  //     }
-  //   })
-    
-  // };
 
   const toggleAccountStatus = (User_id, isBlocked) => {
     const action = isBlocked ? 'unblock' : 'block';

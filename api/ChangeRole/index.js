@@ -13,9 +13,9 @@ module.exports = async function (context, req) {
 
     const sql = require("mssql");
 
-    module.exports = async function (context, req) {
-        const userId = req.body.userId;
+    const userId = req.body.userId;
         const action = req.body.action; 
+        
         const config = {
             user: "Amaan",
             password: "P0p0p0p0p",
@@ -48,5 +48,4 @@ module.exports = async function (context, req) {
                 body: { message: `Error updating user status: ${error.message}` }
             };
         }
-    };
 }

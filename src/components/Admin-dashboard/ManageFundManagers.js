@@ -20,39 +20,40 @@ const ManageManagers = () => {
   ]);
 
   // Function to toggle manager role
-  const toggleManagerRole = (managerId) => {
-    setManagers(prevManagers =>
-      prevManagers.map(manager =>
-        manager.Rep_Name === managerId
-          ? { ...manager, role: manager.role === "Fund Manager" ? "Admin" : "Fund Manager" }
-          : manager
-      )
-    );
-  };
+  const toggleManagerRole = (managerId, ROLE) => {
+    let action = 'toManager';
+    if(ROLE === "Manager")
+    {
+      action = 'toUser';
+    }
 
-  
-
-  // Function to toggle account status (blocked/unblocked)
-  // const toggleAccountStatus = (managerId) => {
-  //   fetch(`/api/blockUser/${managerId}`, {
-  //     method : 'post'
-  //   })
-
-  //   .then(response => {
-  //     if(!response.ok)
-  //     {
-  //       throw new Error('failed to block a user');
-  //     }
-  //     else{
-  //       setManagers(prevManagers =>
-  //         prevManagers.map(manager =>
-  //           manager.ID === managerId ? { ...manager, Blocked: !manager.Blocked } : manager
-  //         )
-  //       );
-  //     }
-  //   })
-    
-  // };
+    fetch(`/api/ChangeRole`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            userId: managerId,
+            action: action,
+        }),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Failed to ${action} user`);
+        } else {
+          setManagers(prevManagers =>
+            prevManagers.map(manager =>
+                  manager.ID === managerId
+                    ? { ...manager, role: manager.role === "User" ? "Manager" : "User" }
+                    : manager
+                )
+              );
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error.message);
+    });
+};
 
   const toggleAccountStatus = (managerId, isBlocked) => {
     const action = isBlocked ? 'unblock' : 'block';
@@ -83,13 +84,6 @@ const ManageManagers = () => {
     });
 };
 
-
-
-
-  // // Function to delete a manager
-  // const deleteManager = (managerId) => {
-  //   setManagers(prevManagers => prevManagers.filter(manager => manager.Rep_Name !== managerId));
-  // };
 
   //does delete but crashs after deleting
   const handleDelete = (id) => {
@@ -158,8 +152,8 @@ const ManageManagers = () => {
                 <td>{manager.Name}</td>
                 <td>{manager.Email}</td>
                 <td>
-                  <button onClick={() => toggleManagerRole(manager.ID)}>
-                    {manager.role === "Fund Manager" ? "Promote to Admin" : "Demote to Fund Manager"}
+                  <button onClick={() => toggleManagerRole(manager.ID , manager.role)}>
+                    {manager.role === "Manager" ? "Promote to Admin" : "Demote to Fund Manager"}
                   </button>
                 </td>
                 <td>
