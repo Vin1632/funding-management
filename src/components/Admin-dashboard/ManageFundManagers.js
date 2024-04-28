@@ -19,10 +19,10 @@ const ManageManagers = () => {
     let action = 'toManager';
     if(ROLE === "Manager")
     {
-      action = 'toUser';
+      action = 'toAdmin';
     }
 
-    fetch(`/api/ChangeRole`, {
+    fetch(`/api/Manager2Admin`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ const ManageManagers = () => {
           setManagers(prevManagers =>
             prevManagers.map(manager =>
                   manager.ID === managerId
-                    ? { ...manager, role: manager.role === "User" ? "Manager" : "User" }
+                    ? { ...manager, role: manager.role === "Admin" ? "Manager" : "Admin" }
                     : manager
                 )
               );
@@ -96,26 +96,6 @@ const ManageManagers = () => {
     .catch(error => console.error('Error deleting user:', error));
   };
 
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch(`/api/getUsers`);
-  //       if (!response.ok) {
-  //         throw new Error('Failed to fetch data');
-  //       }
-  //       const text = await response.json();
-  //       setManagers(text);
-  //       console.log(text);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     } finally {
-  //       setLoading(false); // Set loading state to false after data is fetched or on error
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []); // Empty dependency array indicates the effect should only run once
 
   useEffect(() => {
     const fetchData = async () => {
