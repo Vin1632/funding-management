@@ -3,23 +3,18 @@ import "../../styles/Manage-Users.css";
 
 
 const ManageManagers = () => {
-
-  const [infoArray, setInfoArray] = useState([]);
-  const [error, setError] = useState("");
-  const [data, setData] = useState(null); // Initialize data state to null
   const [loading, setLoading] = useState(true); // Initialize loading state to true
 
   // Example manager data
   const [managers, setManagers] = useState();
 
   // Example admin data
-  const [admins, setAdmins] = useState([
-    {id : 1, Name : 'amin1', Email : 'admin@gmail.com'},
-    {id : 2, Name : 'admin2', Email : 'admin.fund@gmail.com'}
-
-  ]);
+  const [admins, setAdmins] = useState();
 
   // Function to toggle manager role and admin role
+  //thsi does only between manager and use USER
+  //SHOULD BE BETWEEN MANAGER AND ADMIN 
+
   const toggleManagerRole = (managerId, ROLE) => {
     let action = 'toManager';
     if(ROLE === "Manager")
@@ -102,6 +97,26 @@ const ManageManagers = () => {
   };
 
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch(`/api/getUsers`);
+  //       if (!response.ok) {
+  //         throw new Error('Failed to fetch data');
+  //       }
+  //       const text = await response.json();
+  //       setManagers(text);
+  //       console.log(text);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     } finally {
+  //       setLoading(false); // Set loading state to false after data is fetched or on error
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []); // Empty dependency array indicates the effect should only run once
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -109,19 +124,27 @@ const ManageManagers = () => {
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
-        const text = await response.json();
-        setManagers(text);
-        console.log(text);
+        const data = await response.json();
+  
+        const managers = data.filter(user => user.role === 'Manager');
+
+        const admins = data.filter(user => user.role === 'Admin');
+  
+        setManagers(managers);
+        setAdmins(admins);
+        
+        console.log(admins);
+        console.log(managers);
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
         setLoading(false); // Set loading state to false after data is fetched or on error
       }
     };
-
+  
     fetchData();
-  }, []); // Empty dependency array indicates the effect should only run once
-
+  }, []);
+  
 
 
 
