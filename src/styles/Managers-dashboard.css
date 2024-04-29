@@ -12,7 +12,7 @@ body {
   
   /* Style the main content area */
   .container {
-    max-width: 1300px;
+    max-width: 90%;
     margin: 20px auto;
     background-color: white;
     padding: 20px;
@@ -32,7 +32,7 @@ body {
   
   /* Style the form container */
   #funding-form {
-    width: 100vw; /* Fill the entire viewport width */
+    width: 80vw; /* Fill the entire viewport width */
     height: 60vh; /* Fill the entire viewport height */
     padding: 20px;
     background-color: #ffffff;
