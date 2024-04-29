@@ -6,7 +6,12 @@ module.exports = async function (context, req) {
         const name = req.body.name;
         const role = req.body.role;
         const surname = req.body.surname;
-        const dob = req.body.dob;
+        
+        var parts = req.body.dob.split('-');
+        var mydate = new Date(parts[0], parts[1] - 1, parts[2]); 
+        const dob = mydate; 
+
+
         const company = req.body.company;
         const email = req.body.email;
         const edu = req.body.edu;
@@ -31,7 +36,6 @@ module.exports = async function (context, req) {
             let pool = await sql.connect(config);
             let users = await pool.request()
             .input('name', sql.VarChar(255), name)
-            .input('role', sql.VarChar(255), role)
             .input('surname', sql.VarChar(255), surname)
             .input('dob', sql.Date, dob)
             .input('company', sql.VarChar(255), company)
@@ -40,15 +44,16 @@ module.exports = async function (context, req) {
             .input('bus', sql.Bit, bus)
             .input('events', sql.Bit, events)
             .input('blocked', sql.Bit, blocked)
-            .query("INSERT INTO [dbo].[User] ([ID],[role],[Name],[Surname],[DateOfBirth],[CompanyName],[Email],[Education],[Business],[Events],[Blocked]) \
-            VALUES ('100',@role,@name,@surname,@dob,@company,@email,@edu,@bus,@events,@blocked)");
+            .query("UPDATE [dbo].[User] SET [Name] = @name, [Surname] = @surname, [DateOfBirth] = @dob, [CompanyName] = @company,\
+             [Education] = @edu, [Business] = @bus, [Events] = @events, [Blocked] = @blocked WHERE [Email] = @email");
+            
             console.log(users.recordset);
             context.res = {
-                // status: 200, /* Defaults to 200 */
+                // status: 200, /* Defaults to 200 * /
                 body: users.recordset
             };
         
-    
+            console.log(req.body);
         }
         catch(error){
             console.log(error);
