@@ -21,14 +21,39 @@ const Login = () => {
 //use email to check if name is filled in then redirect to admin, manager or user dependinfg on the role in the database 
 //create api
 //alter code below
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     try {
       await logIn(email, password);
-      navigate(`/home?email=${email}`);
+
+      /* ------------------- */
+      const fetchData = async () => {
+        try {
+          const response = await fetch(`/api/getUserByEmail`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userId: email
+            }),
+        });
+          if (!response.ok) {
+            throw new Error('Failed to fetch data');
+          }
+          const text = await response.json();
+          console.log(text);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        } finally {
+          //setLoading(false); // Set loading state to false after data is fetched or on error
+        }
+      };
+    
+      fetchData();
+      //navigate(`/home?email=${email}`);
+      /* ------------------------------------- */
     } catch (err) {
       setError(err.message);
     }
