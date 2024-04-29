@@ -11,15 +11,19 @@ const config = {
     },
     port: 1433
 }
-async function getMain(){
-    try{
+
+let email = "vin1632@gmail.com";
+async function getMain() {
+    try {
         let pool = await sql.connect(config);
-        let users = await pool.request().query("SELECT * from [dbo].[User]");
+        let res = await pool.request()
+            .input('email', sql.VarChar, email) // Bind the value of 'email' to the query
+            .query("INSERT INTO [dbo].[User] (Email) VALUES (@email)");
+        
+        let users = await pool.request().query("SELECT * FROM [dbo].[User]");
         console.log(users.recordset);
         return users.recordset;
-
-    }
-    catch(error){
+    } catch (error) {
         console.log(error);
     }
 }
