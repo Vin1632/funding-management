@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/Applications.css";
-import cloud from '../../assets/cloud-img.png';
-import file from '../../assets/file-img.png';
-import tick from '../../assets/done_FILL0_wght400_GRAD0_opsz24.svg';
-import cross from '../../assets/close_FILL0_wght400_GRAD0_opsz24.svg';
 import app from "../../firebase.js";
 
 const Applications = () => {
