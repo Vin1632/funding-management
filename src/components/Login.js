@@ -42,8 +42,26 @@ const Login = () => {
           if (!response.ok) {
             throw new Error('Failed to fetch data');
           }
-          const text = await response.json();
-          console.log(text);
+          const userInfo = await response.json();
+          console.log(userInfo.message);
+          console.log(userInfo.message.recordset[0]);
+          if (userInfo.message.recordset[0] && userInfo.message.recordset[0].Name != ''){
+                  //navigate(`/home?email=${email}`);
+                  console.log(userInfo.message.recordset[0].Name);
+                  console.log(userInfo.message.recordset[0].role);
+              if (userInfo.message.recordset[0].role == 'Admin') {
+                navigate(`/AdminDashboard?email=${email}`)
+              }
+              else if (userInfo.message.recordset[0].role == 'Manager') {
+                navigate(`/ManageManagers?email=${email}`)
+              }
+              else {
+                navigate(`/UsersDashboard?email=${email}`)
+              }
+          }
+          else {
+            navigate(`/home?email=${email}`);
+          }
         } catch (error) {
           console.error('Error fetching data:', error);
         } finally {
@@ -52,7 +70,7 @@ const Login = () => {
       };
     
       fetchData();
-      //navigate(`/home?email=${email}`);
+
       /* ------------------------------------- */
     } catch (err) {
       setError(err.message);
@@ -64,7 +82,53 @@ const Login = () => {
     try {
       const user = await googleSignIn();
       const userEmail = user.user.email;
-      navigate(`/home?email=${userEmail}`);
+      /* ------------------- */
+      const fetchData = async () => {
+        try {
+          const response = await fetch(`/api/getUserByEmail`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userId: email
+            }),
+        });
+          if (!response.ok) {
+            throw new Error('Failed to fetch data');
+          }
+          
+          const userInfo = await response.json();
+          console.log(userInfo.message);
+          console.log(userInfo.message.recordset[0]);
+          if (userInfo.message.recordset[0] && userInfo.message.recordset[0].Name != ''){
+                  //navigate(`/home?email=${email}`);
+                  console.log(userInfo.message.recordset[0].Name);
+                  console.log(userInfo.message.recordset[0].role);
+              if (userInfo.message.recordset[0].role == 'Admin') {
+                navigate(`/AdminDashboard?email=${email}`)
+              }
+              else if (userInfo.message.recordset[0].role == 'Manager') {
+                navigate(`/ManageManagers?email=${email}`)
+              }
+              else {
+                navigate(`/UsersDashboard?email=${email}`)
+              }
+          }
+          else {
+            navigate(`/home?email=${email}`);
+          }
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        } finally {
+          //setLoading(false); // Set loading state to false after data is fetched or on error
+        }
+      };
+    
+      fetchData();
+
+      /* ------------------------------------- */
+      //navigate(`/home?email=${userEmail}`);
     } catch (error) {
       console.log(error.message);
     }
