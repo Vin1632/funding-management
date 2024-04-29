@@ -19,11 +19,48 @@ const Home = () => {
   const { logIn, googleSignIn } = useUserAuth();
   const [formSubmitted, setFormSubmitted] = useState(false); // State to track form submission
   const [selectedAction, setSelectedAction] = useState(""); // State to track selected form action
+  const [formData, setFormData] = useState({
+    name: '',
+    role: '',
+    surname: '',
+    dob: '',
+    company: '',
+    email: '',
+    edu: '',
+    bus: '',
+    events: '',
+    blocked: ''
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     // setError("");
     try {
+      const response = await fetch('/api/createNewUsers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create new user');
+      }
+            // Clear form data
+            setFormData({
+              name: '',
+              role: '',
+              surname: '',
+              dob: '',
+              company: '',
+              email: '',
+              edu: '',
+              bus: '',
+              events: '',
+              blocked: ''
+            });
+      alert('User created successfully!');
       //await logIn(email, password);
       setFormSubmitted(true); // Set form submission state to true
     } catch (err) {
