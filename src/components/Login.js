@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
@@ -7,58 +7,39 @@ import { useUserAuth } from "../context/UserAuthContext";
 import { Container, Row, Col } from "react-bootstrap";
 import "../styles/login.css";
 import app from "../firebase.js";
-import { getDatabase, ref, get } from "firebase/database";
 
 const Login = () => {
+
+
   const [email, setEmail] = useState("");
+
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { logIn, googleSignIn } = useUserAuth();
   const navigate = useNavigate();
-  const [infoArray, setInfoArray] = useState([]);
 
-  useEffect(() => {
-    const checkUser = async () => {
-      try {
-        const db = getDatabase(app);
-        const dbRef = ref(db, "Fundmanagers");
-        const snapshot = await get(dbRef);
+//use email to check if name is filled in then redirect to admin, manager or user dependinfg on the role in the database 
+//create api
+//alter code below
 
-        if (snapshot.exists()) {
-          setInfoArray(Object.values(snapshot.val()));
-        }
-      } catch (error) {
-        setError(error.message);
-      }
-    };
-
-    checkUser();
-  }, []); // Run this effect only once after the component mounts
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     try {
       await logIn(email, password);
-
-      //if its in the database go to the admain
-      const foundVinJob = infoArray.some(item => item.Email === email);
-      if (foundVinJob) {
-        navigate("/AdminDashboard");
-      } else {
-        navigate("/home");
-      }
+      navigate(`/home?email=${email}`);
     } catch (err) {
       setError(err.message);
     }
   };
 
-
   const handleGoogleSignIn = async (e) => {
     e.preventDefault();
     try {
-      await googleSignIn();
-      navigate("/home");
+      const user = await googleSignIn();
+      const userEmail = user.user.email;
+      navigate(`/home?email=${userEmail}`);
     } catch (error) {
       console.log(error.message);
     }

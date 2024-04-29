@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { useUserAuth } from "../context/UserAuthContext";
 
@@ -14,6 +15,11 @@ import app from "../firebase.js";
 import { getDatabase, ref, set, push } from "firebase/database";
 
 const Home = () => {
+  //email stuff
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const email = queryParams.get("email")
+  //
 
   const navigate = useNavigate();
   const { logIn, googleSignIn } = useUserAuth();

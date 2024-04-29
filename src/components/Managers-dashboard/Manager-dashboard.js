@@ -8,6 +8,7 @@ import '../../styles/Managers-dashboard.css';
 
 import { useNavigate } from "react-router";
 import { useUserAuth } from "../../context/UserAuthContext";
+
 import PostAds from "./PostAds";
 import Reviewapplications from "./Review-applications";
 
@@ -81,6 +82,8 @@ const ManagerDashboard = () => {
           </ul>
         </div>
 
+        
+
         <div className="navbar-right">
           <ul className="dropdown">
             <button><img src={accountIcon} alt="Account" /></button>
@@ -92,27 +95,13 @@ const ManagerDashboard = () => {
           </ul>
         </div>
       </div>
-
-      <div className="tab-content">
-        {selectedTab === "Home" && <div>Content for home</div>}
-        {selectedTab === "Advertise funding" && <PostAds />}
-        {selectedTab === "Review Applications" && <Reviewapplications />}
-        {selectedTab === "About" && <div>Content for About</div>}
+        <div className="tab-content">
+          {selectedTab === "Home" && <div>Content for home</div>}
+          {selectedTab === "Advertise funding" && <PostAds />}
+          {selectedTab === "Review Applications" && <Reviewapplications/>}
+          {selectedTab === "About" && <div>Content for About</div>}
+        </div>
       </div>
-
-      <div className="container">
-        <h2>Welcome to FundDocker Manager Portal</h2>
-        <p>This portal allows you to manage funding advertisements and review applications seamlessly.</p>
-      </div>
-
-      <form id="funding-form" onSubmit={handleSubmit}>
-        <label htmlFor="fund-title">Fund Title:</label><br />
-        <input type="text" id="fund-title" name="fund-title" value={title} onChange={(e) => setTitle(e.target.value)} /><br />
-        <label htmlFor="fund-description">Description:</label><br />
-        <textarea id="fund-description" name="fund-description" value={description} onChange={(e) => setDescription(e.target.value)} /><br /><br />
-        <button type="submit">Advertise</button>
-      </form>
-    </div>
   );
 };
 

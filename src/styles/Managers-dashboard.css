@@ -2,80 +2,91 @@
 
 /* CSS Styles */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-  }
-  
-  
-  
-  /* Style the main content area */
-  .container {
-    max-width: 1300px;
-    margin: 20px auto;
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Style headings */
-  h2 {
-    font-size: 24px;
-    margin-top: 0;
-  }
-  
-  /* Style paragraphs */
-  p {
-    line-height: 1.6;
-  }
-  
-  /* Style the form container */
-  #funding-form {
-    width: 100vw; /* Fill the entire viewport width */
-    height: 60vh; /* Fill the entire viewport height */
-    padding: 20px;
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    align-items: left;
-  }
-  
-  /* Style the form labels */
-  #funding-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  /* Style the form inputs */
-  #funding-form input[type="text"],
-  #funding-form textarea {
-    width: calc(100% - 20px);
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
-  }
-  
-  /* Style the form button */
-  #funding-form button {
-    width: calc(100% - 20px);
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    transition: background-color 0.3s;
-  }
-  
-  /* Change button color on hover */
-  #funding-form button:hover {
-    background-color: #c9db22;
-  }
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+/* Style the main content area */
+.container {
+  max-width: 91%;
+  margin: 20px auto;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style headings */
+h2 {
+  font-size: 24px;
+  margin-top: 0;
+}
+
+/* Style paragraphs */
+p {
+  line-height: 1.6;
+}
+#funding-form input[type="text"],
+#funding-form input[type="date"], /* Updated selector for date input */
+#funding-form textarea {
+  width: auto; /* Set width to auto for text and date inputs */
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+}
+/* Style the form container */
+#funding-form {
+  width: 85vw; /* Fill the entire viewport width */
+  padding: 20px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+}
+
+/* Style the form labels */
+#funding-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* Style the form inputs */
+#funding-form input[type="text"],
+#funding-form input[type="date"],
+#funding-form textarea {
+  width: auto; /* Set width to auto for text, date, and textarea inputs */
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+}
+
+
+/* Style the form button */
+#funding-form button {
+  width: 20%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  align-self: center;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+/* Change button color on hover */
+#funding-form button:hover {
+  background-color: #147224;
+}
+
+
   

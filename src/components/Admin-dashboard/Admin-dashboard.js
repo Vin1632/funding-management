@@ -4,7 +4,7 @@ import "../../styles/dashboard.css";
 import logo from '../../assets/FundDocker_logo.jpg';
 import accountIcon from  '../../assets/account-icon-11.jpg';
 import backgroundImage from '../../assets/sea-background.jpg'
-
+import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { useUserAuth } from "../../context/UserAuthContext";
 import ManageUsers from "./ManageUsers";
@@ -13,7 +13,10 @@ import ManageManagers from "./ManageFundManagers";
 
 const AdminDashboard = () => {
   const [selectedTab, setSelectedTab] = useState("Home");
-
+  
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const email = queryParams.get("email")
 
   const { logOut, user } = useUserAuth();
   const navigate = useNavigate();
@@ -89,7 +92,7 @@ const AdminDashboard = () => {
 
 
         <div className="tab-content">
-          {selectedTab === "Home" && <div>Content for home</div>}
+          {selectedTab === "Home" && <div>signed in with:{email}</div>}
           {selectedTab === "Users" && <ManageUsers />}
           {selectedTab === "Managers" && <ManageManagers/>}
           {selectedTab === "About" && <div>Content for About</div>}
