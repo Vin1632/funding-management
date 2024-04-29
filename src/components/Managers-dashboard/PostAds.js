@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import app from "../../firebase.js";
 import '../../styles/Managers-dashboard.css';
+import { useNavigate } from "react-router";
 
 const PostAds = () => {
   const [title, setTitle] = useState('');
@@ -11,36 +12,36 @@ const PostAds = () => {
   const [events, setEvents] = useState(false);
   const [education, setEducation] = useState(false);
   const [business, setBusiness] = useState(false);
-
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Push data to Firebase
-    const adsRef = app.firestore().collection('ads');
-    adsRef.add({
-      title: title,
-      description: description,
-      email: email,
-      deadline: deadline,
-      requirements: requirements,
-      events: events,
-      education: education,
-      business: business
-    })
-    .then(() => {
-      console.log("Advertisement posted successfully!");
-      // Optionally, you can reset the form fields here
-      setTitle('');
-      setDescription('');
-      setEmail('');
-      setDeadline('');
-      setRequirements('');
-      setEvents(false);
-      setEducation(false);
-      setBusiness(false);
-    })
-    .catch((error) => {
-      console.error("Error adding advertisement: ", error);
-    });
+
+    fetch(`/api/addAvert`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+            Title: title,
+            Description: description,
+            Email: email,
+            Deadline: deadline,
+            Requirements: requirements,
+            Events: events,
+            Education: education,
+            Business: business
+      }),
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error(`Failed to add  advert`);
+          } else {
+            navigate("/home");
+          }
+      })
+      .catch(error => {
+          console.error('Error:', error.message);
+      });
   };
 
 

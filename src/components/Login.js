@@ -28,7 +28,8 @@ const Login = () => {
     setError("");
     try {
       await logIn(email, password);
-      navigate(`/home?email=${email}`);
+      // navigate(`/home?email=${email}`);
+      navigate('/ManagerDashboard')
     } catch (err) {
       setError(err.message);
     }

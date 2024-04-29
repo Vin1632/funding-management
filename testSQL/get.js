@@ -12,20 +12,30 @@ const config = {
     port: 1433
 }
 
-let email = "vin1632@gmail.com";
+let email = "mom@gmail.com";
 async function getMain() {
     try {
         let pool = await sql.connect(config);
-        let res = await pool.request()
-            .input('email', sql.VarChar, email) // Bind the value of 'email' to the query
-            .query("INSERT INTO [dbo].[User] (Email) VALUES (@email)");
+        // let res1 = await pool.request()
+        //     .input('email', sql.VarChar, email) // Bind the value of 'email' to the query
+        //     .query("INSERT INTO [dbo].[Adverts] (Email) VALUES (@email)");
         
-        let users = await pool.request().query("SELECT * FROM [dbo].[User]");
-        console.log(users.recordset);
-        return users.recordset;
+        let res = await pool.request().query("SELECT * FROM [dbo].[Adverts]");
+        console.log(res.recordset);
+         return res.recordset;
     } catch (error) {
         console.log(error);
     }
 }
+
+
+// Object to String
+// const myObject = { name: "John", age: 30, city: "New York" };
+// const jsonString = JSON.stringify(myObject);
+// console.log(jsonString); // Output: {"name":"John","age":30,"city":"New York"}
+
+// String to Object
+// const jsonObject = JSON.parse(jsonString);
+// console.log(jsonObject); // Output: { name: "John", age: 30, city: "New York" }
 
 getMain();
