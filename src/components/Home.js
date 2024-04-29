@@ -25,11 +25,64 @@ const Home = () => {
   const { logIn, googleSignIn } = useUserAuth();
   const [formSubmitted, setFormSubmitted] = useState(false); // State to track form submission
   const [selectedAction, setSelectedAction] = useState(""); // State to track selected form action
+  const [educationChecked, setEducationChecked] = useState(false);
+  const [businessChecked, setBusinessChecked] = useState(false);
+  const [eventsChecked, setEventsChecked] = useState(false);
+  
+    // Function to handle navigation to new page upon form submission
+  //companies
+  let [CompanyNamename, set_Comname] = useState("");
+  let [RepName, set_RepName] = useState("");
+  let [name, set_name] = useState("");
+  let [surname, set_surname] = useState("");
+  let [dob, set_dob] = useState("");
+  
+  const [permission, setPermission] = useState("unbloked");
+
+  const handleEducationChange = (e) => {
+    setEducationChecked(e.target.checked);
+  };
+
+  const handleBusinessChange = (e) => {
+    console.log(businessChecked);
+  };
+
+  const handleEventsChange = (e) => {
+    console.log(eventsChecked);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     // setError("");
     try {
+
+      const user = {    
+        name: name,
+        role: 'User',
+        surname: surname,
+        dob: dob,
+        company: CompanyNamename,
+        email: email,
+        edu: (educationChecked ? 1 : 0),
+        bus: (businessChecked ? 1 : 0),
+        events: (eventsChecked ? 1 : 0),
+        blocked: 0}
+
+      console.log(user);
+
+      const response = await fetch('/api/createNewUser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+      });
+
+      if (!response.ok) {
+        alert('Failed to update new user');
+        throw new Error('Failed to update new user');
+      }
+      console.log('User updated successfully!');
       //await logIn(email, password);
       setFormSubmitted(true); // Set form submission state to true
     } catch (err) {
@@ -61,13 +114,7 @@ const Home = () => {
     }
   };
 
-  // Function to handle navigation to new page upon form submission
-  //companies
-  let [CompanyNamename, set_Comname] = useState("");
-  let [RepName, set_RepName] = useState("");
-  let [NAAM, set_naam] = useState("");
-  let [surname, set_surname] = useState("");
-  const [permission, setPermission] = useState("unbloked");
+
 
 
   const handleFormSubmission = async () => {
@@ -90,7 +137,7 @@ const Home = () => {
 
     const user_info = push(ref(db, "users"));
     set(user_info, {
-      Name: NAAM,
+     // Name: NAAM,
       Surname: surname,
       Birthday : (document.getElementById("birthday").value), 
       business : (document.getElementById("BusinessCheckbox").checked ? "1" : "0"),
@@ -103,6 +150,8 @@ const Home = () => {
       alert("error: ", error.message);
     })
 
+    /* role
+
     if (NAAM.toLowerCase() === 'admin') {
       navigate("/AdminDashboard"); // Navigate to the admin dashboard if the user's name is "Amaan"
     } else if (selectedAction === 'Funding') {
@@ -111,7 +160,8 @@ const Home = () => {
       navigate("/ManagerDashboard"); // Navigate to the manager dashboard if selected action is invest
     } else {
       navigate("/"); // Navigate to home if no action is selected
-    }
+    } */
+
   };
   
   return (
@@ -146,27 +196,28 @@ const Home = () => {
 
           <div id="UserDetails" style={{display: 'none'}}>
             <label>Name:</label>
-            <input type="text" id="Name" name="Name" value={NAAM} 
-                onChange={(e) => set_naam(e.target.value)}  /><br /><br />
+            <input type="text" id="Name" name="Name" value={name} 
+                onChange={(e) => set_name(e.target.value)}  /><br /><br />
             <label>Surname:</label>
             <input type="text" id="Surname" name="Surname" value={surname} 
                 onChange={(e) => set_surname(e.target.value)}  /><br /><br />
             <label>Date of Birth:</label>
-            <input type="date" id="birthday" name="birthday" /><br /><br />
+            <input type="date" id="birthday" name="birthday" value={dob} 
+            onChange={(e) => set_dob(e.target.value)} /><br /><br />
             <p><strong>Looking for Funding?</strong></p>
             <label className="container_details" >Education
-              <input type="checkbox" id="EducationCheckbox" />
+            <input type="checkbox" id="BusinessCheckbox"  onChange={handleEducationChange} />
               <span className="checkmark"></span>
             </label>
             <label className="container_details" >Business
-              <input type="checkbox" id="BusinessCheckbox" />
+              <input type="checkbox" id="BusinessCheckbox"  onChange={handleBusinessChange} />
               <span className="checkmark"></span>
             </label>
             <label className="container_details">Events
-              <input type="checkbox"  id="EventsCheckbox"/>
+              <input type="checkbox"  id="EventsCheckbox" onChange={handleEventsChange}/>
               <span className="checkmark"></span>
             </label>
-            <input type="submit" value="Submit" onClick={handleFormSubmission} />
+            <input type="submit" value="Submit" onClick={handleSubmit} />
           </div>
 
           {/* companies input */}
@@ -195,7 +246,7 @@ const Home = () => {
               <input type="checkbox" id="EventsCheckbox_C" />
               <span className="checkmark"></span>
             </label>
-            <input type="submit" value="Submit" onClick={handleFormSubmission} />
+            <input type="submit" value="Submit" onClick={handleSubmit} />
           </div>
         </Form>
       ) : (

@@ -26,7 +26,7 @@ module.exports = async function (context, req) {
         let pool = await sql.connect(config);
         let users = await pool.request()
             .input('email', sql.VarChar, email) // Bind the value of 'email' to the query
-            .query("INSERT INTO [dbo].[User] (Email) VALUES (@email)");
+            .query("INSERT INTO [dbo].[User] (Email,role) VALUES (@email,'User')");
         context.res = {
             // status: 200, /* Defaults to 200 */
             body: users.recordset
