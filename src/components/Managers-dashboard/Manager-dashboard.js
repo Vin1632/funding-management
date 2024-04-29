@@ -7,6 +7,7 @@ import backgroundImage from '../../assets/sea-background.jpg'
 
 import { useNavigate } from "react-router";
 import { useUserAuth } from "../../context/UserAuthContext";
+
 import PostAds from "./PostAds";
 import Reviewapplications from "./Review-applications";
 
@@ -76,6 +77,8 @@ const ManagerDashboard = () => {
             </ul>
         </div>
 
+        
+
         <div className="navbar-right">
             <ul className="dropdown">
                 <button><img src={accountIcon}></img></button>
@@ -89,13 +92,13 @@ const ManagerDashboard = () => {
   </div>
 
 
-        <div className="tab-content">
-          {selectedTab === "Home" && <div>Content for home</div>}
-          {selectedTab === "Advertise funding" && <PostAds />}
-          {selectedTab === "Review Applications" && <Reviewapplications/>}
-          {selectedTab === "About" && <div>Content for About</div>}
-        </div>
-      </div>
+    <div className="tab-content">
+      {selectedTab === "Home" && <div>Content for home</div>}
+      {selectedTab === "Advertise funding" && <PostAds />}
+      {selectedTab === "Review Applications" && <Reviewapplications/>}
+      {selectedTab === "About" && <div>Content for About</div>}
+    </div>
+  </div>
   );
 };
 

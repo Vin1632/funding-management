@@ -22,11 +22,15 @@ async function getMain(){
         // let res4 = await pool.request().query("insert into [dbo].[User](ID, role, Name, Surname, DateOfBirth, CompanyName, Email, Education, Business, Events, Blocked) values (18,'Admin', 'Mclovin', 'at', '2010-08-08', 'abc ltd', 'bonnat@gmail.com' , 1, 1, 0, 0)");
         // let res5 = await pool.request().query("insert into [dbo].[User](ID, role, Name, Surname, DateOfBirth, CompanyName, Email, Education, Business, Events, Blocked) values (19,'Admin', 'Jonah', 'night', '2010-08-08', 'abc ltd', 'kauo@gmail.com' , 1, 1, 0, 0)");
         // let res6 = await pool.request().query("insert into [dbo].[User](ID, role, Name, Surname, DateOfBirth, CompanyName, Email, Education, Business, Events, Blocked) values (20,'Admin', 'guy', 'roll', '2010-08-08', 'abc ltd', 'me_nfu@gmail.com' , 1, 1, 0, 0)");
-
+        
         // let sqldata = await pool.request().query("ALTER TABLE [dbo].[User] ALTER COLUMN ID INT IDENTITY(1,1)");
+        let pop = await pool.request().query("insert into [dbo].[User](Email) VALUES ('THABS')");
         let users = await pool.request().query("SELECT * from [dbo].[User]");
         console.log(users.recordset);
         return users.recordset;
+
+        
+
     }
     catch(error){
         console.log(error);

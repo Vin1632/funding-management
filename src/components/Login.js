@@ -10,7 +10,10 @@ import app from "../firebase.js";
 import { getDatabase, ref, get } from "firebase/database";
 
 const Login = () => {
+
+
   const [email, setEmail] = useState("");
+  
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { logIn, googleSignIn } = useUserAuth();
@@ -43,8 +46,11 @@ const Login = () => {
 
       //if its in the database go to the admain
       const foundVinJob = infoArray.some(item => item.Email === email);
+
       if (foundVinJob) {
-        navigate("/AdminDashboard");
+
+        navigate("/ManagerDashboard");
+
       } else {
         navigate("/home");
       }
