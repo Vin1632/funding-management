@@ -16,7 +16,25 @@ const Signup = () => {
     setError("");
     try {
       await signUp(email, password);
+
+      try {
+        const response = await fetch(`/api/inserNewUser`, {
+          method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            email: email
+        }),});
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+      } catch (error) {
+        console.error('Error inserting new user:', error);
+      } 
       navigate("/");
+
     } catch (err) {
       setError(err.message);
     }
