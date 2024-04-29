@@ -18,6 +18,11 @@ const Login = () => {
   const { logIn, googleSignIn } = useUserAuth();
   const navigate = useNavigate();
 
+//use email to check if name is filled in then redirect to admin, manager or user dependinfg on the role in the database 
+//create api
+//alter code below
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
