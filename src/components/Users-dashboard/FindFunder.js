@@ -1,11 +1,59 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import "../../styles/FindFunder.css";
 import app from "../../firebase.js";
 
 const PostAds = () => {
 
+  useEffect(() => {
+    const filterItems = document.querySelectorAll(".items .item");
+    const galleryBoxes = document.querySelectorAll(".gallery .box");
+
+    filterItems.forEach(item => {
+      item.addEventListener("click", function() {
+        const filterName = this.getAttribute("data-name");
+        galleryBoxes.forEach(box => {
+          const boxName = box.getAttribute("data-name");
+          if (filterName === "all" || filterName === boxName) {
+            box.classList.remove("hide");
+            box.classList.add("show");
+          } else {
+            box.classList.add("hide");
+            box.classList.remove("show");
+          }
+        });
+        filterItems.forEach(item => {
+          item.classList.remove("active");
+        });
+        this.classList.add("active");
+      });
+    });
+  }, []);
+
+
+  const [selectedTab, setSelectedTab] = useState("Home");
+  const handleTabChange = (tab) => {
+    setSelectedTab(tab);
+  };
+
   return (
-    <div>
-      
+    <div className="wrapper">
+      <nav>
+        <div className="items">
+          <span className="item active" data-name="all">All</span>
+          <span className="item" data-name="education">Education</span>
+          <span className="item" data-name="business">Business</span>
+          <span className="item" data-name="events">Events</span>
+        </div>
+      </nav> 
+      <div className="gallery">
+        <div className="box" data-name="events"><span>Advert 1 - Fund a Science talk</span></div>
+        <div className="box" data-name="education"><span>Advert 2 - Fund your studies</span></div>
+        <div className="box" data-name="business"><span>Advert 3 - Start your business today</span></div>
+        <div className="box" data-name="education"><span>Advert 4 - Bursaries for Com Sci</span></div>
+        <div className="box" data-name="events"><span>Advert 5 - Fund a charity event</span></div>
+        <div className="box" data-name="education"><span>Advert 6 - Funding for new tech equipment</span></div>
+      </div>
     </div>
   );
 };
