@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/Applications.css";
+import app from "../../firebase.js";
 
 const Applications = () => {
   window.addEventListener("load",()=> {
