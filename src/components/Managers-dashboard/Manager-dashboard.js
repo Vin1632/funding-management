@@ -8,6 +8,7 @@ import '../../styles/Managers-dashboard.css';
 
 import { useNavigate } from "react-router";
 import { useUserAuth } from "../../context/UserAuthContext";
+
 import PostAds from "./PostAds";
 import Reviewapplications from "./Review-applications";
 
@@ -81,6 +82,8 @@ const ManagerDashboard = () => {
           </ul>
         </div>
 
+        
+
         <div className="navbar-right">
           <ul className="dropdown">
             <button><img src={accountIcon} alt="Account" /></button>
@@ -92,14 +95,13 @@ const ManagerDashboard = () => {
           </ul>
         </div>
       </div>
-
-      <div className="tab-content">
-        {selectedTab === "Home" && <div>Content for home</div>}
-        {selectedTab === "Advertise funding" && <PostAds />}
-        {selectedTab === "Review Applications" && <Reviewapplications />}
-        {selectedTab === "About" && <div>Content for About</div>}
+        <div className="tab-content">
+          {selectedTab === "Home" && <div>Content for home</div>}
+          {selectedTab === "Advertise funding" && <PostAds />}
+          {selectedTab === "Review Applications" && <Reviewapplications/>}
+          {selectedTab === "About" && <div>Content for About</div>}
+        </div>
       </div>
-    </div>
   );
 };
 

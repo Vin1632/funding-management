@@ -9,7 +9,10 @@ import "../styles/login.css";
 import app from "../firebase.js";
 
 const Login = () => {
+
+
   const [email, setEmail] = useState("");
+
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { logIn, googleSignIn } = useUserAuth();

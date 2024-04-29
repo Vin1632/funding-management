@@ -2,9 +2,7 @@ module.exports = async function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
     const sql = require("mssql");
-    const email = req.body.email;
 
-    
     const name = (req.query.name || (req.body && req.body.name));
     const responseMessage = name
         ? "Hello, " + name + ". This HTTP triggered function executed successfully."
@@ -21,18 +19,19 @@ module.exports = async function (context, req) {
         },
         port: 1433
     }
+
+    const email = req.body.email;
+
     try{
         let pool = await sql.connect(config);
         let users = await pool.request()
-        .input('email', sql.Int, email)
-        .query("INSERT INTO dbo.[User] (Email) VALUES ('@email') ");
-        console.log(users.recordset);
+            .input('email', sql.VarChar, email) // Bind the value of 'email' to the query
+            .query("INSERT INTO [dbo].[User] (Email) VALUES (@email)");
         context.res = {
             // status: 200, /* Defaults to 200 */
             body: users.recordset
         };
     
-
     }
     catch(error){
         console.log(error);

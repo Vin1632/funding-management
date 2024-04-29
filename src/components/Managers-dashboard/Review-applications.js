@@ -17,13 +17,13 @@ const Reviewapplications = () => {
             <button className="reject">Reject</button>
           </div>
         </div>
-        {/* More applications can be added here */}
       </section>
     );
   }
 
   return (
-    <div >   
+    <div > 
+      
     </div>
   );
 };
