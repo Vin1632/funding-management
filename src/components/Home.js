@@ -37,7 +37,6 @@ const Home = () => {
   let [surname, set_surname] = useState("");
   let [dob, set_dob] = useState("");
   
-  const [permission, setPermission] = useState("unbloked");
 
   const handleEducationChange = (e) => {
     setEducationChecked(e.target.checked);
@@ -117,52 +116,52 @@ const Home = () => {
 
 
 
-  const handleFormSubmission = async () => {
+  // const handleFormSubmission = async () => {
     
-    const db = getDatabase(app);
+  //   const db = getDatabase(app);
 
-    const newDocRef = push(ref(db, "Fundmanagers"));
-    set(newDocRef, {
-      CompanyName: CompanyNamename,
-      Rep_Name: RepName,
-      business : (document.getElementById("BusinessCheckbox_C").checked ? "1" : "0"),
-      education : (document.getElementById("EducationCheckbox_C").checked ? "1" : "0"),
-      events : (document.getElementById("EventsCheckbox_C").checked ? "1" : "0"),
-      permission : permission
-    }).then( () => {
-      alert("data saved successfully")
-    }).catch((error) => {
-      alert("error: ", error.message);
-    })
+  //   const newDocRef = push(ref(db, "Fundmanagers"));
+  //   set(newDocRef, {
+  //     CompanyName: CompanyNamename,
+  //     Rep_Name: RepName,
+  //     business : (document.getElementById("BusinessCheckbox_C").checked ? "1" : "0"),
+  //     education : (document.getElementById("EducationCheckbox_C").checked ? "1" : "0"),
+  //     events : (document.getElementById("EventsCheckbox_C").checked ? "1" : "0"),
+  //     permission : permission
+  //   }).then( () => {
+  //     alert("data saved successfully")
+  //   }).catch((error) => {
+  //     alert("error: ", error.message);
+  //   })
 
-    const user_info = push(ref(db, "users"));
-    set(user_info, {
-     // Name: NAAM,
-      Surname: surname,
-      Birthday : (document.getElementById("birthday").value), 
-      business : (document.getElementById("BusinessCheckbox").checked ? "1" : "0"),
-      education : (document.getElementById("EducationCheckbox").checked ? "1" : "0"),
-      events : (document.getElementById("EventsCheckbox").checked ? "1" : "0"),
-      permission : permission
-    }).then( () => {
-      alert("data saved successfully")
-    }).catch((error) => {
-      alert("error: ", error.message);
-    })
+  //   const user_info = push(ref(db, "users"));
+  //   set(user_info, {
+  //    // Name: NAAM,
+  //     Surname: surname,
+  //     Birthday : (document.getElementById("birthday").value), 
+  //     business : (document.getElementById("BusinessCheckbox").checked ? "1" : "0"),
+  //     education : (document.getElementById("EducationCheckbox").checked ? "1" : "0"),
+  //     events : (document.getElementById("EventsCheckbox").checked ? "1" : "0"),
+  //     permission : permission
+  //   }).then( () => {
+  //     alert("data saved successfully")
+  //   }).catch((error) => {
+  //     alert("error: ", error.message);
+  //   })
 
-    /* role
+  //   /* role
 
-    if (NAAM.toLowerCase() === 'admin') {
-      navigate("/AdminDashboard"); // Navigate to the admin dashboard if the user's name is "Amaan"
-    } else if (selectedAction === 'Funding') {
-      navigate("/UsersDashboard"); // Navigate to the user dashboard if selected action is funding
-    } else if (selectedAction === 'Invest') {
-      navigate("/ManagerDashboard"); // Navigate to the manager dashboard if selected action is invest
-    } else {
-      navigate("/"); // Navigate to home if no action is selected
-    } */
+  //   if (NAAM.toLowerCase() === 'admin') {
+  //     navigate("/AdminDashboard"); // Navigate to the admin dashboard if the user's name is "Amaan"
+  //   } else if (selectedAction === 'Funding') {
+  //     navigate("/UsersDashboard"); // Navigate to the user dashboard if selected action is funding
+  //   } else if (selectedAction === 'Invest') {
+  //     navigate("/ManagerDashboard"); // Navigate to the manager dashboard if selected action is invest
+  //   } else {
+  //     navigate("/"); // Navigate to home if no action is selected
+  //   } */
 
-  };
+  // };
   
   return (
     <>
@@ -251,7 +250,7 @@ const Home = () => {
         </Form>
       ) : (
         // Render the appropriate dashboard based on the selected action
-        selectedAction === 'Funding' ? navigate("/UserDashboard") : navigate("/ManagerDashboard")
+        selectedAction === 'Funding' ? navigate("/UsersDashboard") : navigate("/ManagerDashboard")
       )}
 
     </>

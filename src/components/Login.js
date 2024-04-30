@@ -58,6 +58,7 @@ const Login = () => {
                 navigate(`/ManageManagers?email=${email}`)
               }
               else {
+                
                 navigate(`/UsersDashboard?email=${email}`)
               }
           }
@@ -93,7 +94,7 @@ const Login = () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                userId: email
+                userId: userEmail
             }),
         });
           if (!response.ok) {
@@ -144,6 +145,7 @@ const Login = () => {
             <div className="p-4 box">
               <h2 className="mb-3">Funding Management Login</h2>
               {error && <Alert variant="danger">{error}</Alert>}
+
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Control

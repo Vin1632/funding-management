@@ -12,6 +12,7 @@ const PostAds = () => {
   const [events, setEvents] = useState(false);
   const [education, setEducation] = useState(false);
   const [business, setBusiness] = useState(false);
+
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,7 +37,9 @@ const PostAds = () => {
           if (!response.ok) {
               throw new Error(`Failed to add  advert`);
           } else {
-            navigate("/home");
+            //keep the test clear in the 
+            //
+            alert("Advert Submitted ");
           }
       })
       .catch(error => {
