@@ -20,7 +20,7 @@ async function getMain() {
         //     .input('email', sql.VarChar, email) // Bind the value of 'email' to the query
         //     .query("INSERT INTO [dbo].[Adverts] (Email) VALUES (@email)");
         
-        let res = await pool.request().query("SELECT * FROM [dbo].[Adverts]");
+        let res = await pool.request().query(`SELECT * FROM [dbo].[Adverts]`);
         console.log(res.recordset);
          return res.recordset;
     } catch (error) {
