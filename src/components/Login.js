@@ -43,8 +43,10 @@ const Login = () => {
             throw new Error('Failed to fetch data');
           }
           const userInfo = await response.json();
+
           console.log(userInfo.message);
           console.log(userInfo.message.recordset[0]);
+          
           if (userInfo.message.recordset[0] && userInfo.message.recordset[0].Name && userInfo.message.recordset[0].Name != ''){
                   //navigate(`/home?email=${email}`);
                   console.log(userInfo.message.recordset[0].Name);
