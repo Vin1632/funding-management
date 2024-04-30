@@ -149,9 +149,13 @@ const PostAds = () => {
 
       <div className="gallery">
         {data && data.map((item, index) => (
+
           <div className="box" key={index} data-name={item.Education ? "education" : (item.Events ? "events" : "business")}>
             <span>{item.Title}</span>
-            {item.Description && <span>{item.Description}</span>}
+            <span>{item.Requirements}</span>
+            <span>{item.AdID}</span>
+            <span>{item.Email}</span>
+            <span>{item.Description}</span>
           </div>
         ))}
       </div>
