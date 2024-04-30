@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../../styles/FindFunder.css";
 import app from "../../firebase.js";
 
-const PostAds = () => {
+const FindFunder = () => {
 
   useEffect(() => {
     const filterItems = document.querySelectorAll(".items .item");
@@ -58,4 +58,4 @@ const PostAds = () => {
   );
 };
 
-export default PostAds;
+export default FindFunder;
