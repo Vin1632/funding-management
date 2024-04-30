@@ -251,7 +251,7 @@ const Home = () => {
         </Form>
       ) : (
         // Render the appropriate dashboard based on the selected action
-        selectedAction === 'Funding' ? navigate("/AdminDashboard") : navigate("/ManagerDashboard")
+        selectedAction === 'Funding' ? navigate("/UserDashboard") : navigate("/ManagerDashboard")
       )}
 
     </>

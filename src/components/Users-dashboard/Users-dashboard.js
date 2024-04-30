@@ -9,6 +9,7 @@ import { useNavigate } from "react-router";
 import { useUserAuth } from "../../context/UserAuthContext";
 import FindFunder from "./FindFunder";
 import Applications from "./Applications";
+import UsersHome from "./Users-home";
 
 
 const UsersDashboard = () => {
@@ -89,7 +90,7 @@ const UsersDashboard = () => {
 
 
         <div className="tab-content">
-          {selectedTab === "Home" && <div>Content for home</div>}
+          {selectedTab === "Home" && <UsersHome/>}
           {selectedTab === "Funding Oppurtunities" && <FindFunder />}
           {selectedTab === "Applications" && <Applications/>}
           {selectedTab === "About" && <div>Content for About</div>}

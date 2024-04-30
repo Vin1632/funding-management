@@ -16,6 +16,7 @@ import Reviewapplications from "./components/Managers-dashboard/Review-applicati
 import FindFunder from "./components/Users-dashboard/FindFunder";
 import Applications from "./components/Users-dashboard/Applications";
 import UsersDashboard from "./components/Users-dashboard/Users-dashboard";
+import UsersHome from "./components/Users-dashboard/Users-home";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
               <Route path="/Applications" element = {<Applications/>} />
               <Route path="/UsersDashboard" element ={<UsersDashboard/>} />
               <Route path="/Review-applications" element = {<Reviewapplications/>} />
+              <Route path="/UsersHome" element ={<UsersHome/>} />
             </Routes>
           </UserAuthContextProvider>
         </Col>

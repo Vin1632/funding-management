@@ -9,7 +9,7 @@ const ManageManagers = () => {
   const [managers, setManagers] = useState();
 
   // Example admin data
-  const [admins, setAdmins] = useState();
+  const [admins, setAdmins] = useState([]);
 
   // Function to toggle manager role and admin role
   //thsi does only between manager and use USER

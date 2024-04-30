@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../../styles/FindFunder.css";
 // import app from "../../firebase.js";
 
-const PostAds = () => {
+const FindFunder = () => {
   const [EducationAds, setEducation] = useState();
   const [EventsAds, setEvents] = useState();
   const [BusinessAds, setBusiness] = useState();
@@ -166,4 +166,4 @@ const PostAds = () => {
   );
 };
 
-export default PostAds;
+export default FindFunder;
