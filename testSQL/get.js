@@ -21,7 +21,7 @@ async function getMain() {
         //     .query("INSERT INTO [dbo].[Adverts] (Email) VALUES (@email)");
         
         // let res1 = await pool.request().query(`update [dbo].[User] set role = 'Admin' where Email = '123@gmail.com'`);
-        let res = await pool.request().query(`select * from [dbo].[User]`);
+        let res = await pool.request().query(`select * from [dbo].[Adverts]`);
         console.log(res.recordset);
          return res.recordset;
     } catch (error) {
