@@ -1,0 +1,25 @@
+.applicationTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .applicationTable th,
+  .applicationTable td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .applicationTable th {
+    background-color: #f2f2f2;
+  }
+  
+  .applicationTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .applicationTable tr:hover {
+    background-color: #ddd;
+  }
+  

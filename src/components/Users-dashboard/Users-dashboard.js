@@ -4,6 +4,7 @@ import "../../styles/dashboard.css";
 import logo from '../../assets/FundDocker_logo.jpg';
 import accountIcon from  '../../assets/account-icon-11.jpg';
 import backgroundImage from '../../assets/sea-background.jpg'
+import {useLocation} from "react-router-dom"
 
 import { useNavigate } from "react-router";
 import { useUserAuth } from "../../context/UserAuthContext";
@@ -13,7 +14,9 @@ import UsersHome from "./Users-home";
 
 const UsersDashboard = () => {
   const [selectedTab, setSelectedTab] = useState("Home");
-
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const userEmail = searchParams.get("email");
 
   const { logOut, user } = useUserAuth();
   const navigate = useNavigate();
@@ -82,7 +85,7 @@ const UsersDashboard = () => {
 
 
         <div className="tab-content">
-          {selectedTab === "Home" && <UsersHome/>}
+          {selectedTab === "Home" && <UsersHome email={userEmail}/>}
           {selectedTab === "Funding Oppurtunities" && <FindFunder />}
           {selectedTab === "About" && <div>Content for About</div>}
         </div>
