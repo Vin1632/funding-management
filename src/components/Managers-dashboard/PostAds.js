@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import app from "../../firebase.js";
 import '../../styles/Managers-dashboard.css';
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
 
 const PostAds = () => {
   const [title, setTitle] = useState('');
@@ -13,7 +12,8 @@ const PostAds = () => {
   const [education, setEducation] = useState(false);
   const [business, setBusiness] = useState(false);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  
   const handleSubmit = (e) => {
     e.preventDefault();
 
