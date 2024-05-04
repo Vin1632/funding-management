@@ -55,7 +55,7 @@ const Login = () => {
                 navigate(`/AdminDashboard?email=${email}`)
               }
               else if (userInfo.message.recordset[0].role == 'Manager') {
-                navigate(`/ManageManagers?email=${email}`)
+                navigate(`/ManagerDashboard?email=${email}`)
               }
               else {
                 

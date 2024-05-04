@@ -40,6 +40,14 @@ const PostAds = () => {
             //keep the test clear in the 
             //
             alert("Advert Submitted ");
+            setTitle('');
+            setDescription('');
+            setEmail('');
+            setDeadline('');
+            setRequirements('');
+            setEvents(false);
+            setEducation(false);
+            setBusiness(false);
           }
       })
       .catch(error => {
