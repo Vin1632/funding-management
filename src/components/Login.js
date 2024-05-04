@@ -88,6 +88,26 @@ const Login = () => {
       /* ------------------- */
       const fetchData = async () => {
         try {
+
+          /* -------- A new user coming through GoogleSignIn is SignUped Automatically ---------------- */
+          const signUpResponse = await fetch(`/api/InsertNewUser`, {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                email: userEmail
+              }),
+          });
+
+          if (signUpResponse) {
+            console.log(signUpResponse);
+          }
+      
+
+
+          /* ------------------------------------------------------------------------------------------- */
+
           const response = await fetch(`/api/getUserByEmail`, {
             method: 'POST',
             headers: {
@@ -109,17 +129,17 @@ const Login = () => {
                   console.log(userInfo.message.recordset[0].Name);
                   console.log(userInfo.message.recordset[0].role);
               if (userInfo.message.recordset[0].role == 'Admin') {
-                navigate(`/AdminDashboard?email=${email}`)
+                navigate(`/AdminDashboard?email=${userEmail}`)
               }
               else if (userInfo.message.recordset[0].role == 'Manager') {
-                navigate(`/ManageManagers?email=${email}`)
+                navigate(`/ManageManagers?email=${userEmail}`)
               }
               else {
-                navigate(`/UsersDashboard?email=${email}`)
+                navigate(`/UsersDashboard?email=${userEmail}`)
               }
           }
           else {
-            navigate(`/home?email=${email}`);
+            navigate(`/home?email=${userEmail}`);
           }
         } catch (error) {
           console.error('Error fetching data:', error);
