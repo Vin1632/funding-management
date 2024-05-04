@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 
 const FindFunder = () => {
   const [data, setData] = useState([]);
+  const [showForm, setShowForm] = useState(false); 
+  const [selectedAdID, setSelectedAdID] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,8 +52,95 @@ const FindFunder = () => {
     });
   };
 
+  const handleAdClick = (AdID) => {
+    setSelectedAdID(AdID); // Set the selected Ad ID
+    setShowForm(true); 
+  };
+  const handleCloseForm = () => {
+    setShowForm(false);
+  };
+
   return (
     <div className="wrapper">
+      {showForm && (
+        <div class="apply-container" style={{ paddingBottom: "20px" }}>
+        <div class="apply-box">
+          <button className="close-btn" onClick={handleCloseForm}>X</button> 
+          <h1>Funding Application</h1>
+    
+          <form action="">
+            <div class="form-container">
+              <div class="form-control">
+                <label for="first-name">First Name</label>
+                <input type="text" id="first-name" name="first-name" placeholder="Enter First Name"></input>
+              </div>
+    
+              <div class="form-control">
+                <label for="last-name">Last Name</label>
+                <input type="text" id="last-name" name="last-name" placeholder="Enter Last Name"></input>
+              </div>
+    
+              <div class="form-control">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter Email"></input>
+              </div>
+    
+              <div class="form-control">
+                <label for="Advert-ID">Advert ID</label>
+                <input type="text" id="AdID" name="AdID" placeholder="Advert ID" value={selectedAdID} readOnly></input>
+              </div>
+    
+              <div class="textarea-control">
+                <label for="address">Address</label>
+                <textarea name="address" id="" cols="30" rows="10" placeholder="Enter Full Address"></textarea>
+              </div>
+    
+              <div class="form-control">
+                <label for="date">Date</label>
+                <input type="date" id="first-name" name="first-name"></input>
+              </div>
+  
+              {/* <div class="upload-box">
+                <h2 class="upload-area-title">Upload File (.doc,.docx,.pdf)</h2>
+                  <input type="file" id="upload" accept=".doc,.docx,.pdf" hidden></input>
+                  <label for="upload" class="uploadlabel">
+                    <span><i class="fa fa-cloud-upload"></i></span>
+                    <p>Click to Upload</p>
+                </label> 
+              </div> */}
+  
+              <div class="upload-box">
+              <form action="/upload" method="post" enctype="multipart/form-data">
+                <label for="fileInput">Select a document:</label>
+                  <input type="file" id="fileInput" name="document" accept=".pdf,.doc,.docx,.txt" multiple></input>
+                  {/* <button type="submit">Upload</button> */}
+              </form>
+              </div>
+  
+  
+              <div id="filewrapper">
+                <h5 class="uploaded">Uploaded Documents</h5>
+                {/*<div class="showfilebox">
+                  <div class="left">
+                    <span class="filetype">PDF</span>
+                    <p>Ravi Web.pdf</p>
+                  </div>
+                  <div class="right">
+                    <span>&#215;</span>
+                  </div>
+                </div>*/}
+              </div>
+    
+              <div class="button-container">
+                <button type="submit">Apply Now</button>
+              </div>
+    
+            </div>
+          </form>
+        </div>
+          
+      </div>
+      )}
       <nav>
         <div className="items">
           <span className="item active" data-name="all">All</span>
@@ -63,7 +152,7 @@ const FindFunder = () => {
 
       <div className="gallery">
         {data.map((item, index) => (
-          <div className="box" key={index} data-name={item.Education ? "education" : (item.Events ? "events" : "business")}>
+          <div className="box" key={index} data-name={item.Education ? "education" : (item.Events ? "events" : "business")} onClick={() => handleAdClick(item.AdID)}>
             <span>{item.Title}</span>
             <span>{item.Description}</span>
             <span>{item.Email}</span>
@@ -71,6 +160,9 @@ const FindFunder = () => {
           </div>
         ))}
       </div>
+
+      {/* Step 3: Render the form conditionally */}
+      
     </div>
   );
 };
