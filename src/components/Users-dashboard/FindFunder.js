@@ -6,6 +6,7 @@ const FindFunder = () => {
   const [data, setData] = useState([]);
   const [showForm, setShowForm] = useState(false); 
   const [selectedAdID, setSelectedAdID] = useState("");
+  const [email, setEmail] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,6 +26,31 @@ const FindFunder = () => {
   
     fetchData();
   }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    fetch(`/api/AddFundApplication`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+            Email: email, 
+            AdID : selectedAdID
+      }),
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error(`failed to submit application`);
+          } else {
+            alert("application Submitted ");
+          }
+      })
+      .catch(error => {
+          console.error('Error:', error.message);
+      });
+  };
 
   const setupEventListeners = () => {
     const filterItems = document.querySelectorAll(".items .item");
@@ -82,7 +108,7 @@ const FindFunder = () => {
     
               <div class="form-control">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter Email"></input>
+                <input type="email" id="email" name="email" placeholder="Enter Email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
               </div>
     
               <div class="form-control">
@@ -132,7 +158,7 @@ const FindFunder = () => {
               </div>
     
               <div class="button-container">
-                <button type="submit">Apply Now</button>
+                <button onClick={handleSubmit}>Apply Now</button>
               </div>
     
             </div>

@@ -24,6 +24,7 @@ module.exports = async function (context, req) {
     const sql = require("mssql");
 
     const Email = req.body.Email;
+    const AdID = req.body.AdID;
 
 try {
     let pool = await sql.connect(config);
@@ -31,15 +32,15 @@ try {
         .input('Email', sql.VarChar, Email)
         .query(`SELECT ID FROM [dbo].[User] WHERE Email = @Email`);
 
-    let EmailValue = res.recordset[0].ID; // Assuming ID is the correct column name
-
-    let query = `
+    let EmailValue = res.recordset[0].ID;
+        let query = `
         INSERT INTO [dbo].[Applications] (ApplicantsID, AdvertsID)
-        VALUES (@EmailValue, 1)
+        VALUES (@EmailValue,@AdID )
     `;
     
     let result = await pool.request()
         .input('EmailValue', sql.Int, EmailValue)
+        .input('AdID', sql.Int, AdID)
         .query(query);
 
     context.res = {
@@ -48,7 +49,7 @@ try {
 } catch (error) {
     console.log(error);
     context.res = {
-        body: error.message // Returning only the error message for simplicity
+        body: error.message
     };
 }
 
