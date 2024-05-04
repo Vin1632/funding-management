@@ -60,13 +60,6 @@ const UsersDashboard = () => {
                 </button>
 
                 <button
-                  className={selectedTab === "Applications" ? "active" : ""}
-                  onClick={() => handleTabChange("Applications")}
-                >
-                  Applications
-                </button>
-
-                <button
                   className={selectedTab === "About" ? "active" : ""}
                   onClick={() => handleTabChange("About")}
                 >
@@ -92,7 +85,6 @@ const UsersDashboard = () => {
         <div className="tab-content">
           {selectedTab === "Home" && <UsersHome/>}
           {selectedTab === "Funding Oppurtunities" && <FindFunder />}
-          {selectedTab === "Applications" && <Applications/>}
           {selectedTab === "About" && <div>Content for About</div>}
         </div>
       </div>
