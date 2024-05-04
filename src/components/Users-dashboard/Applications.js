@@ -3,6 +3,40 @@ import "../../styles/Applications.css";
 import app from "../../firebase.js";
 
 const Applications = () => {
+
+  // const [name, setName] = useState('');
+  // const [surname, setSurname] = useState('');
+  // const [address, setAddress] = useState('');
+  const [email, setEmail] = useState('');
+  // const [date, setDate] = useState('');
+  // const [funding_opportunity, setFundingOpp] = useState('');
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    fetch(`/api/AddFundApplication`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+            Email: email
+      }),
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error(`failed to submit application`);
+          } else {
+            alert("application Submitted ");
+          }
+      })
+      .catch(error => {
+          console.error('Error:', error.message);
+      });
+  };
+
+
   window.addEventListener("load",()=> {
     const input = document.getElementById("upload");
     const filewrapper = document.getElementById("filewrapper");
@@ -40,6 +74,8 @@ const Applications = () => {
     }
   })
 
+  
+
   return (
     <div class="apply-container">
       <div class="apply-box">
@@ -59,7 +95,7 @@ const Applications = () => {
   
             <div class="form-control">
               <label for="email">Email</label>
-              <input type="email" id="email" name="email" placeholder="Enter Email"></input>
+              <input type="email" id="email" name="email" placeholder="Enter Email" value={email} onChange={(e) => setEmail(e.target.value)} ></input>
             </div>
   
             <div class="form-control">
@@ -77,12 +113,12 @@ const Applications = () => {
   
             <div class="textarea-control">
               <label for="address">Address</label>
-              <textarea name="address" id="" cols="30" rows="10" placeholder="Enter Full Address"></textarea>
+              <textarea name="address" id="" cols="30" rows="10" placeholder="Enter Full Address" ></textarea>
             </div>
   
             <div class="form-control">
               <label for="date">Date</label>
-              <input type="date" id="first-name" name="first-name"></input>
+              <input type="date" id="first-name" name="first-name" setDate></input>
             </div>
 
             {/* <div class="upload-box">
@@ -117,7 +153,7 @@ const Applications = () => {
             </div>
   
             <div class="button-container">
-              <button type="submit">Apply Now</button>
+              <button  onClick={handleSubmit}>Apply Now</button>
             </div>
   
           </div>
