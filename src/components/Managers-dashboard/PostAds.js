@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import '../../styles/Managers-dashboard.css';
+import { useLocation } from "react-router-dom";
 // import { useNavigate } from "react-router";
 
 const PostAds = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const ManagerEmail = queryParams.get("email")
+
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [email, setEmail] = useState('');
@@ -26,6 +31,7 @@ const PostAds = () => {
             Title: title,
             Description: description,
             Email: email,
+            ManagerEmail:ManagerEmail,
             Deadline: deadline,
             Requirements: requirements,
             Events: events,
