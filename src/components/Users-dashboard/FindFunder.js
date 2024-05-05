@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/FindFunder.css";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const FindFunder = () => {
   const [data, setData] = useState([]);
@@ -8,24 +8,23 @@ const FindFunder = () => {
   const [selectedAdID, setSelectedAdID] = useState("");
   const [email, setEmail] = useState('');
 
-  const fetchGetAdvertsData = async () => {
-    try {
-
-      const response = await fetch(`/api/GetAdverts`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch data');
-      }
-      const data = response.json();
-      setData(data);
-
-      setupEventListeners(); 
-    } catch (error) {
-      console.error('Error fetching Adverts:', error);
-    }
-  };
-
   useEffect(() => {
-    fetchGetAdvertsData();
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/GetAdverts`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const data = await response.json();
+        setData(data);
+
+        setupEventListeners(); 
+      } catch (error) {
+        console.error('Error fetching Adverts:', error);
+      }
+    };
+  
+    fetchData();
   }, []);
 
   const handleSubmit = (e) => {
@@ -187,6 +186,8 @@ const FindFunder = () => {
           </div>
         ))}
       </div>
+
+      {/* Step 3: Render the form conditionally */}
       
     </div>
   );
