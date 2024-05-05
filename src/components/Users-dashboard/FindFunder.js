@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/FindFunder.css";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const FindFunder = () => {
   const [data, setData] = useState([]);
@@ -10,11 +10,12 @@ const FindFunder = () => {
 
   const fetchGetAdvertsData = async () => {
     try {
+
       const response = await fetch(`/api/GetAdverts`);
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }
-      const data = await response.json();
+      const data = response.json();
       setData(data);
 
       setupEventListeners(); 
@@ -24,7 +25,6 @@ const FindFunder = () => {
   };
 
   useEffect(() => {
-  
     fetchGetAdvertsData();
   }, []);
 
