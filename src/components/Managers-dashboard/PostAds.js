@@ -74,7 +74,7 @@ const PostAds = () => {
         <textarea id="fund-description" name="fund-description" value={description} onChange={(e) => setDescription(e.target.value)} /><br />
 
         <label htmlFor="fund-email">Email:</label><br />
-        <input type="email" id="fund-email" name="fund-email" value={email} onChange={(e) => setEmail(e.target.value)} /><br />
+        <input type="email" id="fund-email" name="fund-email" value={ManagerEmail} onChange={(e) => setEmail(e.target.value)} disabled /><br />
         <label htmlFor="fund-deadline">Deadline:</label><br />
         <input type="date" id="fund-deadline" name="fund-deadline" value={deadline} onChange={(e) => setDeadline(e.target.value)} /><br />
         <label htmlFor="fund-requirements">Requirements:</label><br />
