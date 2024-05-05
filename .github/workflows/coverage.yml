@@ -1,10 +1,22 @@
+# on: [push, pull_request]
+#   coverage:
+#     precision: 2
+#     round: down
+#     range: "60...100"
+#     notify:
+#       # notification blocks. See: https://docs.codecov.io/docs/codecovyml-reference#section-coverage-notify
+#     status:
+#       project:
+#       patch:
+#       changes:
+
 coverage:
   precision: 2
-  round: down
-  range: "60...100"
-  notify:
-    # notification blocks. See: https://docs.codecov.io/docs/codecovyml-reference#section-coverage-notify
-  status:
-    project:
-    patch:
-    changes:
+  thresholds:
+    statements: 50
+    branches: 50
+    functions: 50
+    lines: 85
+  report:
+    types: ['lcov', 'text', 'html', 'js']
+    directory: coverage-reports
