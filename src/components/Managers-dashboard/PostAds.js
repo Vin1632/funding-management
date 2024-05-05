@@ -37,8 +37,6 @@ const PostAds = () => {
           if (!response.ok) {
               throw new Error(`Failed to add  advert`);
           } else {
-            //keep the test clear in the 
-            //
             alert("Advert Submitted ");
             setTitle('');
             setDescription('');

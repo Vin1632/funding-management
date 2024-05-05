@@ -186,8 +186,6 @@ const FindFunder = () => {
           </div>
         ))}
       </div>
-
-      {/* Step 3: Render the form conditionally */}
       
     </div>
   );
