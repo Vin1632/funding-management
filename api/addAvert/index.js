@@ -27,6 +27,7 @@ module.exports = async function (context, req) {
     const Title = req.body.Title;
     const Description = req.body.Description;
     const Email = req.body.Email;
+    const ManagerEmail = req.body.ManagerEmail;
     const Deadline = req.body.Deadline;
     const Requirements = req.body.Requirements;
     const Events = req.body.Events;
@@ -37,11 +38,14 @@ module.exports = async function (context, req) {
     try{
         let pool = await sql.connect(config);
         let query = `
-            INSERT INTO [dbo].[Adverts] (Title, Description, Email, Deadline, Requirements, Events, Education, Business)
-            VALUES (@Title, @Description, @Email, @Deadline, @Requirements, @Events, @Education, @Business)
+            INSERT INTO [dbo].[Adverts] (Title,UserID, Description, Email, Deadline, Requirements, Events, Education, Business)
+            VALUES (@Title,(SELECT TOP(1) [ID]
+            FROM [dbo].[User]
+            WHERE Email = @ManagerEmail), @Description, @Email, @Deadline, @Requirements, @Events, @Education, @Business)
         `;
         let result = await pool.request()
             .input('Title', sql.VarChar, Title)
+            .input('ManagerEmail', sql.VarChar, ManagerEmail)
             .input('Description', sql.VarChar, Description)
             .input('Email', sql.VarChar, Email)
             .input('Deadline', sql.VarChar, Deadline)
