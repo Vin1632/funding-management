@@ -9,14 +9,15 @@
 #       project:
 #       patch:
 #       changes:
-
-coverage:
-  precision: 2
-  thresholds:
-    statements: 50
-    branches: 50
-    functions: 50
-    lines: 85
-  report:
-    types: ['lcov', 'text', 'html', 'js']
-    directory: coverage-reports
+name: coverage
+on: [push, pull_request]
+  coverage:
+    precision: 2
+    thresholds:
+      statements: 50
+      branches: 50
+      functions: 50
+      lines: 85
+    report:
+      types: ['lcov', 'text', 'html', 'js']
+      directory: coverage-reports
