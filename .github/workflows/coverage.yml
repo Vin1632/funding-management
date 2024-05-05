@@ -20,4 +20,4 @@ on: [push, pull_request]
       lines: 85
     report:
       types: ['lcov', 'text', 'html', 'js']
-      directory: coverage-reports
+      directory: coverage
