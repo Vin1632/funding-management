@@ -43,11 +43,12 @@ const Home = () => {
   };
 
   const handleBusinessChange = (e) => {
-    console.log(businessChecked);
+    setBusinessChecked(e.target.checked);
+    
   };
 
   const handleEventsChange = (e) => {
-    console.log(eventsChecked);
+    setEventsChecked(e.target.checked);
   };
 
   const handleSubmit = async (e) => {
@@ -55,11 +56,11 @@ const Home = () => {
     // setError("");
     try {
 
-      const user = {    
-        name: name,
+      let user = {    
+        name: (name ? name : RepName),
         role: 'User',
         surname: surname,
-        dob: dob,
+        dob: (dob ? dob : null),
         company: CompanyNamename,
         email: email,
         edu: (educationChecked ? 1 : 0),
@@ -234,15 +235,15 @@ const Home = () => {
 
 
             <label className="container_details" >Education
-              <input type="checkbox" id="EducationCheckbox_C" />
+              <input type="checkbox" id="EducationCheckbox_C" onChange={handleEducationChange} />
               <span className="checkmark"></span>
             </label>
             <label className="container_details">Business
-              <input type="checkbox"  id="BusinessCheckbox_C" />
+              <input type="checkbox"  id="BusinessCheckbox_C" onChange={handleBusinessChange} />
               <span className="checkmark"></span>
             </label>
             <label className="container_details">Events
-              <input type="checkbox" id="EventsCheckbox_C" />
+              <input type="checkbox" id="EventsCheckbox_C" onChange={handleEventsChange} />
               <span className="checkmark"></span>
             </label>
             <input type="submit" value="Submit" onClick={handleSubmit} />
@@ -250,7 +251,7 @@ const Home = () => {
         </Form>
       ) : (
         // Render the appropriate dashboard based on the selected action
-        selectedAction === 'Funding' ? navigate("/UsersDashboard") : navigate("/ManagerDashboard")
+        selectedAction === 'Funding' ? navigate("/UsersDashboard?email=${email}") : navigate("/ManagerDashboard?email=${email}")
       )}
 
     </>
