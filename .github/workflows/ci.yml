@@ -12,6 +12,11 @@ jobs:
           node-version: 18
       - name: Install dependencies
         run: npm install
+        #here
+        run: pip install coverage
+        run: xcode-select --install
+        run: sudo apt install gcc
+        #here
       - name: Run tests and collect coverage
         run: npm run test
       - name: Upload coverage to Codecov
