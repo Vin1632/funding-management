@@ -15,8 +15,6 @@ jobs:
       #here
       - name: install coverage.py
         run: pip install coverage
-      - name: instal xcode
-        run: xcode-select --install
       - name: install gcc
         run: sudo apt install gcc
         #here
