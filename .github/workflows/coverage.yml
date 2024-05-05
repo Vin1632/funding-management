@@ -9,15 +9,50 @@
 #       project:
 #       patch:
 #       changes:
-name: coverage
-on: [push, pull_request]
-  coverage:
-    precision: 2
-    thresholds:
-      statements: 50
-      branches: 50
-      functions: 50
-      lines: 85
-    report:
-      types: ['lcov', 'text', 'html', 'js']
-      directory: coverage
+# name: coverage
+# on: [push, pull_request]
+#   coverage:
+#     precision: 2
+#     thresholds:
+#       statements: 50
+#       branches: 50
+#       functions: 50
+#       lines: 85
+#     report:
+#       types: ['lcov', 'text', 'html', 'js']
+#       directory: coverage
+thresholds:
+  targets:
+    total: 80
+    files: 70
+    functions: 60
+    lines: 70
+    branches: 50
+
+# Reporting
+reporter:
+  format: console
+  sync: true # <--- Add this to automatically upload reports
+
+# Coverage options
+coverage:
+  include:
+    - src/**
+    - components/**
+  exclude:
+    - node_modules/**
+    - test/**
+  status:
+    project: true # <--- Add this to enable automated reporting
+    patch: true
+    changes: true
+
+# GitHub integration
+github:
+  token: "8f57abbd-7467-40bd-a348-0f7768ecb855" # <--- Store your token as an environment variable
+  slug: Vin1632/funding-management # <--- Update with your GitHub repo details
+  notify:
+    after: true
+    success: true
+    failure: true
+    status: true
