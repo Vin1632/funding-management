@@ -34,8 +34,6 @@ const Reviewapplications = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log(email);
-  
         const response = await fetch(`/api/getApplicationsForManagersAds`, {
           method: 'POST',
           headers: {
