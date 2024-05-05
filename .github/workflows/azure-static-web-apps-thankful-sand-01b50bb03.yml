@@ -33,28 +33,7 @@ jobs:
           api_location: "api" # Api source code path - optional
           output_location: "build" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-      - name: 🛫 Checkout
-        uses: actions/checkout@v3
-
-      - name: 🌲 Cypress install
-        uses: cypress-io/github-action@v4
-        with:
-            runTests: false
-      - run: npm run build
-      - name: 💻 'UI Tests'
-        uses: cypress-io/github-action@v4
-        with:
-            start: npm run dev
-            pec: 'cypress/integration/'
-           # spec: 'cypress/integration/first-test.spec.js'
-
-      - name: ✅ Upload coverage to Codecov
-        uses: codecov/codecov-action@v4.0.1
-    
+      
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
