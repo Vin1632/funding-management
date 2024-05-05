@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fund Management System (ZAR)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .category {
+            margin-bottom: 20px;
+        }
+        .category h2 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .category p {
+            margin: 0;
+            font-size: 18px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MANAGE FUNDS</h1>
+        <div class="category">
+            <h2>Events</h2>
+            <p>Total Amount for Events: R<span id="eventsAmount">0.00</span></p>
+            <button class="btn" onclick="adjustFunds('events')">Add Funds</button>
+        </div>
+        <div class="category">
+            <h2>Education</h2>
+            <p>Total Amount for Education: R<span id="educationAmount">0.00</span></p>
+            <button class="btn" onclick="adjustFunds('education')">Add Funds</button>
+        </div>
+        <div class="category">
+            <h2>Business</h2>
+            <p>Total Amount for Business: R<span id="businessAmount">0.00</span></p>
+            <button class="btn" onclick="adjustFunds('business')">Add Funds</button>
+        </div>
+    </div>
+
+    <script>
+        let eventsAmount = 0;
+        let educationAmount = 0;
+        let businessAmount = 0;
+
+        function updateAmount(category) {
+            switch (category) {
+                case 'events':
+                    document.getElementById('eventsAmount').textContent = eventsAmount.toFixed(2);
+                    break;
+                case 'education':
+                    document.getElementById('educationAmount').textContent = educationAmount.toFixed(2);
+                    break;
+                case 'business':
+                    document.getElementById('businessAmount').textContent = businessAmount.toFixed(2);
+                    break;
+            }
+        }
+
+        function adjustFunds(category) {
+            let amount = parseFloat(prompt(`Enter the amount to add to ${category}:`));
+            if (!isNaN(amount) && amount > 0) {
+                switch (category) {
+                    case 'events':
+                        eventsAmount += amount;
+                        updateAmount(category);
+                        break;
+                    case 'education':
+                        educationAmount += amount;
+                        updateAmount(category);
+                        break;
+                    case 'business':
+                        businessAmount += amount;
+                        updateAmount(category);
+                        break;
+                }
+            } else {
+                alert("Invalid amount!");
+            }
+        }
+    </script>
+</body>
+</html>
+
