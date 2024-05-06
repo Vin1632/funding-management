@@ -37,3 +37,40 @@ module.exports = async function (context, req) {
         };
     }
 }
+/*
+CREATE TABLE dbo.Budgets (
+    BudgetID INT PRIMARY KEY IDENTITY(1,1),
+    UserID INT NOT NULL,
+    EducationAmount DECIMAL(18, 2) DEFAULT 0,
+    BusinessAmount DECIMAL(18, 2) DEFAULT 0,
+    EventsAmount DECIMAL(18, 2) DEFAULT 0,
+    EducationNotes NVARCHAR(MAX),
+    BusinessNotes NVARCHAR(MAX),
+    EventsNotes NVARCHAR(MAX),
+    FOREIGN KEY (UserID) REFERENCES dbo.[User](ID)
+);
+
+CREATE TABLE dbo.Adverts (
+    AdID INT PRIMARY KEY,
+    Email NVARCHAR(255) NOT NULL,
+    Title NVARCHAR(MAX),
+    UserID INT FOREIGN KEY REFERENCES dbo.[User](ID),
+    Description NVARCHAR(MAX),
+    Deadline DATE,
+    Requirements NVARCHAR(MAX),
+    Events BIT,
+    Education BIT,
+    Business BIT
+);
+
+CREATE TABLE dbo.Applications (
+    Application_ID INT PRIMARY KEY IDENTITY(1,1),
+    ApplicantsID INT NOT NULL,
+    AdvertsID INT NOT NULL,
+    AcceptedOrRejected BIT,
+    FOREIGN KEY (ApplicantsID) REFERENCES dbo.[User](ID),
+    FOREIGN KEY (AdvertsID) REFERENCES dbo.[Adverts](AdID)
+);
+
+
+*/
