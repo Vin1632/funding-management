@@ -10,6 +10,7 @@ import { useNavigate } from "react-router";
 import { useUserAuth } from "../../context/UserAuthContext";
 import FindFunder from "./FindFunder";
 import UsersHome from "./Users-home";
+import About from "../About";
 
 
 const UsersDashboard = () => {
@@ -87,7 +88,7 @@ const UsersDashboard = () => {
         <div className="tab-content">
           {selectedTab === "Home" && <UsersHome email={userEmail}/>}
           {selectedTab === "Funding Oppurtunities" && <FindFunder />}
-          {selectedTab === "About" && <div>Content for About</div>}
+          {selectedTab === "About" && <About/>}
         </div>
       </div>
   );

@@ -12,6 +12,7 @@ import { useUserAuth } from "../../context/UserAuthContext";
 import PostAds from "./PostAds";
 import Reviewapplications from "./Review-applications";
 import ManagersHome from "./ManagersHome";
+import About from "../About";
 
 const ManagerDashboard = () => {
   const [selectedTab, setSelectedTab] = useState("Home");
@@ -103,7 +104,7 @@ const ManagerDashboard = () => {
           {selectedTab === "Home" && <ManagersHome email={userEmail}/>}
           {selectedTab === "Advertise funding" && <PostAds />}
           {selectedTab === "Review Applications" && <Reviewapplications/>}
-          {selectedTab === "About" && <div>Content for About</div>}
+          {selectedTab === "About" && <About/>}
         </div>
       </div>
   );
