@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from "react-router-dom";
 import Chart from "chart.js/auto";
 import "../../styles/ManagersHome.css";
@@ -12,24 +12,64 @@ const ManagersHome = ({ email }) => {
   const [newEducationBudget, setNewEducationBudget] = useState(0);
   const [newEventsBudget, setNewEventsBudget] = useState(0);
   const [newBusinessBudget, setNewBusinessBudget] = useState(0);
+  const doughnutChartRef = useRef(null);
+  const doughnutChartInstance = useRef(null);
 
   useEffect(() => {
     // Fetch initial budget information from the API
     fetchBudgetInformation();
 
-    // Doughnut Graph
-    const doughnutCtx = document.getElementById('doughnutChart');
-    new Chart(doughnutCtx, {
-      type: 'doughnut',  //this graph is to show how the funding is split - how much of the budget went to funding eductaion, etc.
-      data : {
-        labels: [
-          'Education',
-          'Events',
-          'Business'
-        ],
+    // Draw charts initially
+    drawCharts();
+
+    return () => {
+      // Cleanup function to destroy the chart instances
+      if (doughnutChartInstance.current) {
+        doughnutChartInstance.current.destroy();
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    // Update doughnut chart whenever budget values change
+    if (doughnutChartInstance.current) {
+      updateDoughnutChart();
+    }
+  }, [educationBudget, eventsBudget, businessBudget]);
+
+  const fetchBudgetInformation = async () => {
+    try {
+      // Make API request to fetch budget information with email
+      const response = await fetch(`/api/AddBudget?email=${userEmail}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
+      }
+      const data = await response.json();
+    
+      setEducationBudget(data[0].EducationAmount);
+      setEventsBudget(data[0].EventsAmount);
+      setBusinessBudget(data[0].BusinessAmount);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  const drawCharts = () => {
+    drawDoughnutChart();
+    drawBarChart();
+  };
+
+  const drawDoughnutChart = () => {
+    if (!doughnutChartRef.current) return;
+
+    const doughnutCtx = doughnutChartRef.current.getContext('2d');
+    doughnutChartInstance.current = new Chart(doughnutCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Education', 'Events', 'Business'],
         datasets: [{
-          label: 'My First Dataset',
-          data: [300, 50, 100],
+          label: 'Budget Allocation',
+          data: [educationBudget, eventsBudget, businessBudget],
           backgroundColor: [
             'rgb(0, 173, 181)',
             'rgb(255, 225, 94)',
@@ -39,11 +79,17 @@ const ManagersHome = ({ email }) => {
         }]
       },
       options: {
-        responsive : false,
+        responsive: false
       }
     });
+  };
 
-    //Bar Graph
+  const updateDoughnutChart = () => {
+    doughnutChartInstance.current.data.datasets[0].data = [educationBudget, eventsBudget, businessBudget];
+    doughnutChartInstance.current.update();
+  };
+
+  const drawBarChart = () => {
     const barCtx = document.getElementById('barChart');
     new Chart(barCtx, {
       type: 'bar' ,
@@ -81,25 +127,7 @@ const ManagersHome = ({ email }) => {
         }
       }
     });
-  }, []);
-
-  const fetchBudgetInformation = async () => {
-    try {
-      // Make API request to fetch budget information with email
-      const response = await fetch(`/api/AddBudget?email=${userEmail}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch data');
-      }
-      const data = await response.json();
-    
-      setEducationBudget(data[0].EducationAmount);
-      setEventsBudget(data[0].EventsAmount);
-      setBusinessBudget(data[0].BusinessAmount);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
   };
-  
 
   const handleEdit = () => {
     setEditMode(true);
@@ -159,16 +187,15 @@ const ManagersHome = ({ email }) => {
           )}
         </div>
       </div>
-  
-      <div class="chart-container">
-      <div>
-        <canvas id="doughnutChart" height="350" width="700"></canvas>
-      </div>
 
-      <div>
-       <canvas id="barChart" height="350" width="700"></canvas>
+      <div className="chart-container">
+        <div>
+          <canvas id="doughnutChart" height="350" width="700" ref={doughnutChartRef}></canvas>
+        </div>
+        <div>
+          <canvas id="barChart" height="350" width="700"></canvas>
+        </div>
       </div>
-    </div>
     </>
   );
 };
