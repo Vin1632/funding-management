@@ -9,6 +9,7 @@ import { useNavigate } from "react-router";
 import { useUserAuth } from "../../context/UserAuthContext";
 import ManageUsers from "./ManageUsers";
 import ManageManagers from "./ManageFundManagers";
+import About from "../About";
 
 
 const AdminDashboard = () => {
@@ -95,7 +96,7 @@ const AdminDashboard = () => {
           {selectedTab === "Home" && <div>signed in with:{email}</div>}
           {selectedTab === "Users" && <ManageUsers />}
           {selectedTab === "Managers" && <ManageManagers/>}
-          {selectedTab === "About" && <div>Content for About</div>}
+          {selectedTab === "About" && <About/>}
         </div>
       </div>
   );
