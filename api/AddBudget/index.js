@@ -32,7 +32,7 @@ try {
         .query(`SELECT ID FROM [dbo].[User] WHERE Email = @Email`);
 
     let userId = res.recordset[0].ID;
-
+    
     let result = await pool.request()
         .input('UserID', sql.Int, userId)
         .query(`SELECT EducationAmount, BusinessAmount, EventsAmount FROM [dbo].[Budgets] WHERE UserID = @UserID`);
