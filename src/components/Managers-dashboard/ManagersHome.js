@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from "react-router-dom";
 import Chart from "chart.js/auto";
 import "../../styles/ManagersHome.css";
+import html2pdf from "html2pdf.js";
 
 const ManagersHome = ({ email }) => {
   const [userEmail, setUserEmail] = useState(email);
@@ -140,63 +141,74 @@ const ManagersHome = ({ email }) => {
     setEditMode(false);
   };
 
+  const handleDownloadPDF = () => {
+    const budget = document.getElementById("budget");
+    html2pdf().from(budget).save();
+  };
+
+
   return (
     <>
       <div>
-        <div className="budget-block">
-          <h3>Education Budget</h3>
-          {editMode ? (
-            <input
-              type="number"
-              value={newEducationBudget}
-              onChange={(e) => setNewEducationBudget(e.target.value)}
-            />
-          ) : (
+        <div class="button-container">
+          <button class="button" onClick={handleDownloadPDF} id="download">Download PDF</button>
+        </div>
+        <div class="budget-info" id ="budget">
+          <div className="budget-block">
+            <h3>Education Budget</h3>
+            {editMode ? (
+              <input
+                type="number"
+                value={newEducationBudget}
+                onChange={(e) => setNewEducationBudget(e.target.value)}
+              />
+            ) : (
             <p>{educationBudget}</p>
-          )}
-        </div>
-        <div className="budget-block">
-          <h3>Events Budget</h3>
-          {editMode ? (
-            <input
-              type="number"
-              value={newEventsBudget}
-              onChange={(e) => setNewEventsBudget(e.target.value)}
-            />
-          ) : (
+            )}
+          </div>
+          <div className="budget-block">
+            <h3>Events Budget</h3>
+            {editMode ? (
+              <input
+                type="number"
+                value={newEventsBudget}
+                onChange={(e) => setNewEventsBudget(e.target.value)}
+              />
+            ) : (
             <p>{eventsBudget}</p>
-          )}
-        </div>
-        <div className="budget-block">
-          <h3>Business Budget</h3>
-          {editMode ? (
-            <input
-              type="number"
-              value={newBusinessBudget}
-              onChange={(e) => setNewBusinessBudget(e.target.value)}
-            />
-          ) : (
+            )}
+          </div>
+          <div className="budget-block">
+            <h3>Business Budget</h3>
+            {editMode ? (
+              <input
+                type="number"
+                value={newBusinessBudget}
+                onChange={(e) => setNewBusinessBudget(e.target.value)}
+              />
+            ) : (
             <p>{businessBudget}</p>
-          )}
-        </div>
-        <div>
-          {editMode ? (
-            <button onClick={handleSave}>Save</button>
-          ) : (
-            <button onClick={handleEdit}>Edit</button>
-          )}
-        </div>
-      </div>
+            )}
+          </div>
+          <div>
+            {editMode ? (
+              <button onClick={handleSave}>Save</button>
+            ) : (
+              <button onClick={handleEdit}>Edit</button>
+            )}
+          </div>
 
-      <div className="chart-container">
-        <div>
-          <canvas id="doughnutChart" height="350" width="700" ref={doughnutChartRef}></canvas>
+          <div className="chart-container">
+            <div>
+              <canvas id="doughnutChart" height="350" width="700" ref={doughnutChartRef}></canvas>
+            </div>
+            <div>
+              <canvas id="barChart" height="350" width="700"></canvas>
+            </div>
+          </div>
         </div>
-        <div>
-          <canvas id="barChart" height="350" width="700"></canvas>
-        </div>
-      </div>
-    </>
+      </div> 
+   </>
   );
 };
 
