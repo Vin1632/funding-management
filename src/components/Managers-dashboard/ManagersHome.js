@@ -149,12 +149,17 @@ const ManagersHome = ({ email }) => {
       body: JSON.stringify({
             Events: newEventsBudget,
             Education: newEducationBudget,
-            Business: newBusinessBudget
+            Business: newBusinessBudget , 
+            Email : userEmail
       }),
       })
       .then(response => {
           if (!response.ok) {
-              throw new Error(`Failed to add  advert`);
+              throw new Error(`Failed to Update Budgets`);
+          }
+          else
+          {
+            console.log("updated money succesfully");
           }
           console.log("updated budgets successfully");
       })
