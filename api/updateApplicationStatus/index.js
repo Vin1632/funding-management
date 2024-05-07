@@ -6,8 +6,6 @@ module.exports = async function (context, req) {
     const status = req.body.status;
     const id = req.body.id;
 
-    console.log(req.body);
-
     const config = {
         user: "Amaan",
         password: "P0p0p0p0p",
