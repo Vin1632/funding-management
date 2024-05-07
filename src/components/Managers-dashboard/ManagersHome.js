@@ -10,9 +10,11 @@ const ManagersHome = ({ email }) => {
   const [eventsBudget, setEventsBudget] = useState(0);
   const [businessBudget, setBusinessBudget] = useState(0);
   const [editMode, setEditMode] = useState(false);
+
   const [newEducationBudget, setNewEducationBudget] = useState(0);
   const [newEventsBudget, setNewEventsBudget] = useState(0);
   const [newBusinessBudget, setNewBusinessBudget] = useState(0);
+
   const doughnutChartRef = useRef(null);
   const doughnutChartInstance = useRef(null);
 
@@ -138,6 +140,29 @@ const ManagersHome = ({ email }) => {
     setEducationBudget(newEducationBudget);
     setEventsBudget(newEventsBudget);
     setBusinessBudget(newBusinessBudget);
+
+    fetch(`/api/UpdateBudget`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+            Events: newEventsBudget,
+            Education: newEducationBudget,
+            Business: newBusinessBudget
+      }),
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error(`Failed to add  advert`);
+          }
+          console.log("updated budgets successfully");
+      })
+      .catch(error => {
+          console.error('Error:', error.message);
+      });
+
+
     setEditMode(false);
   };
 

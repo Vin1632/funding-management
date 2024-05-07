@@ -12,6 +12,10 @@ module.exports = async function (context, req) {
     };
 
     const sql = require("mssql");
+    
+    const BusinessAmounts = req.body.Business;
+    const EventsAmounts = req.body.Events;
+    const EducationAmounts = req.body.Education;
 
     const config = {
         user: "Amaan",
@@ -28,9 +32,10 @@ module.exports = async function (context, req) {
         let pool = await sql.connect(config);
         let result = await pool.request()
 
-            .input('status', sql.Bit, status)
-            .input('applicationId', sql.Int, id)
-            .query('UPDATE [dbo].[Budgets] SET ');
+            .input('EducationAmount', sql.Int, EducationAmounts)
+            .input('EventsAmount', sql.Int, EventsAmounts)
+            .input('BusinessAmount', sql.Int, BusinessAmounts)
+            .query('UPDATE [dbo].[Budgets] SET (EducationAmount = @EducationAmount,  BusinessAmount = @BusinessAmount , EventsAmount = @EventsAmount) WWERE UserID =  ');
 
             context.res = {
                 status: 200,
