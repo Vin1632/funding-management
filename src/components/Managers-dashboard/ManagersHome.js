@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from "react-router-dom";
+import Chart from "chart.js/auto";
+import "../../styles/ManagersHome.css";
 
 const ManagersHome = ({ email }) => {
   const [userEmail, setUserEmail] = useState(email);
@@ -13,6 +16,71 @@ const ManagersHome = ({ email }) => {
   useEffect(() => {
     // Fetch initial budget information from the API
     fetchBudgetInformation();
+
+    // Doughnut Graph
+    const doughnutCtx = document.getElementById('doughnutChart');
+    new Chart(doughnutCtx, {
+      type: 'doughnut',  //this graph is to show how the funding is split - how much of the budget went to funding eductaion, etc.
+      data : {
+        labels: [
+          'Education',
+          'Events',
+          'Business'
+        ],
+        datasets: [{
+          label: 'My First Dataset',
+          data: [300, 50, 100],
+          backgroundColor: [
+            'rgb(0, 173, 181)',
+            'rgb(255, 225, 94)',
+            'rgb(0, 123, 129)'
+          ],
+          hoverOffset: 4
+        }]
+      },
+      options: {
+        responsive : false,
+      }
+    });
+
+    //Bar Graph
+    const barCtx = document.getElementById('barChart');
+    new Chart(barCtx, {
+      type: 'bar' ,
+      data: {
+        labels: ['Ad 1', 'Ad 2', 'Ad 3', 'Ad 4', 'Ad 5', 'Ad 6'],
+        datasets:[{
+          label: 'Clicks per Ad', 
+          data: [5, 12, 28, 1, 0, 17],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(201, 203, 207, 0.2)'
+          ],
+          borderColor: [
+            'rgb(255, 99, 132)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 205, 86)',
+            'rgb(75, 192, 192)',
+            'rgb(54, 162, 235)',
+            'rgb(153, 102, 255)',
+            'rgb(201, 203, 207)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
   }, []);
 
   const fetchBudgetInformation = async () => {
@@ -91,6 +159,16 @@ const ManagersHome = ({ email }) => {
           )}
         </div>
       </div>
+  
+      <div class="chart-container">
+      <div>
+        <canvas id="doughnutChart" height="350" width="700"></canvas>
+      </div>
+
+      <div>
+       <canvas id="barChart" height="350" width="700"></canvas>
+      </div>
+    </div>
     </>
   );
 };
