@@ -81,6 +81,7 @@ const FindFunder = () => {
   const handleAdClick = (AdID) => {
     setSelectedAdID(AdID); // Set the selected Ad ID
     setShowForm(true); 
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   const handleCloseForm = () => {
     setShowForm(false);
@@ -89,83 +90,62 @@ const FindFunder = () => {
   return (
     <div className="wrapper">
       {showForm && (
-        <div class="apply-container" style={{ paddingBottom: "20px" }}>
-        <div class="apply-box">
-          <button className="close-btn" onClick={handleCloseForm}>X</button> 
-          <h1>Funding Application</h1>
+        <div className="apply-container" style={{ paddingBottom: "20px" }}>
+          <div className="apply-box">
+            <button className="close-btn" onClick={handleCloseForm}>X</button> 
+            <h1>Funding Application</h1>
+      
+            <form action="">
+              <div className="form-container">
+                <div className="form-control">
+                  <label htmlFor="first-name">First Name</label>
+                  <input type="text" id="first-name" name="first-name" placeholder="Enter First Name"></input>
+                </div>
+      
+                <div className="form-control">
+                  <label htmlFor="last-name">Last Name</label>
+                  <input type="text" id="last-name" name="last-name" placeholder="Enter Last Name"></input>
+                </div>
+      
+                <div className="form-control">
+                  <label htmlFor="email">Email</label>
+                  <input type="email" id="email" name="email" placeholder="Enter Email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                </div>
+      
+                <div className="form-control">
+                  <label htmlFor="Advert-ID">Advert ID</label>
+                  <input type="text" id="AdID" name="AdID" placeholder="Advert ID" value={selectedAdID} readOnly></input>
+                </div>
+      
+                <div className="textarea-control">
+                  <label htmlFor="address">Address</label>
+                  <textarea name="address" id="" cols="30" rows="10" placeholder="Enter Full Address"></textarea>
+                </div>
+      
+                <div className="form-control">
+                  <label htmlFor="date">Date</label>
+                  <input type="date" id="date" name="date"></input>
+                </div>
     
-          <form action="">
-            <div class="form-container">
-              <div class="form-control">
-                <label for="first-name">First Name</label>
-                <input type="text" id="first-name" name="first-name" placeholder="Enter First Name"></input>
-              </div>
+                <div className="upload-box">
+                  <form action="/upload" method="post" encType="multipart/form-data">
+                    <label htmlFor="fileInput">Select a document:</label>
+                    <input type="file" id="fileInput" name="document" accept=".pdf,.doc,.docx,.txt" multiple></input>
+                  </form>
+                </div>
     
-              <div class="form-control">
-                <label for="last-name">Last Name</label>
-                <input type="text" id="last-name" name="last-name" placeholder="Enter Last Name"></input>
+                <div id="filewrapper">
+                  <h5 className="uploaded">Uploaded Documents</h5>
+                </div>
+      
+                <div className="button-container">
+                  <button onClick={handleSubmit}>Apply Now</button>
+                </div>
+      
               </div>
-    
-              <div class="form-control">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter Email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
-              </div>
-    
-              <div class="form-control">
-                <label for="Advert-ID">Advert ID</label>
-                <input type="text" id="AdID" name="AdID" placeholder="Advert ID" value={selectedAdID} readOnly></input>
-              </div>
-    
-              <div class="textarea-control">
-                <label for="address">Address</label>
-                <textarea name="address" id="" cols="30" rows="10" placeholder="Enter Full Address"></textarea>
-              </div>
-    
-              <div class="form-control">
-                <label for="date">Date</label>
-                <input type="date" id="first-name" name="first-name"></input>
-              </div>
-  
-              {/* <div class="upload-box">
-                <h2 class="upload-area-title">Upload File (.doc,.docx,.pdf)</h2>
-                  <input type="file" id="upload" accept=".doc,.docx,.pdf" hidden></input>
-                  <label for="upload" class="uploadlabel">
-                    <span><i class="fa fa-cloud-upload"></i></span>
-                    <p>Click to Upload</p>
-                </label> 
-              </div> */}
-  
-              <div class="upload-box">
-              <form action="/upload" method="post" enctype="multipart/form-data">
-                <label for="fileInput">Select a document:</label>
-                  <input type="file" id="fileInput" name="document" accept=".pdf,.doc,.docx,.txt" multiple></input>
-                  {/* <button type="submit">Upload</button> */}
-              </form>
-              </div>
-  
-  
-              <div id="filewrapper">
-                <h5 class="uploaded">Uploaded Documents</h5>
-                {/*<div class="showfilebox">
-                  <div class="left">
-                    <span class="filetype">PDF</span>
-                    <p>Ravi Web.pdf</p>
-                  </div>
-                  <div class="right">
-                    <span>&#215;</span>
-                  </div>
-                </div>*/}
-              </div>
-    
-              <div class="button-container">
-                <button onClick={handleSubmit}>Apply Now</button>
-              </div>
-    
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
-          
-      </div>
       )}
       <nav>
         <div className="items">
@@ -179,16 +159,16 @@ const FindFunder = () => {
       <div className="gallery">
         {data.map((item, index) => (
           <div className="box" key={index} data-name={item.Education ? "education" : (item.Events ? "events" : "business")} onClick={() => handleAdClick(item.AdID)}>
-            <span>{item.Title}</span>
-            <span>{item.Description}</span>
-            <span>{item.Email}</span>
-            <span>{item.AdID}</span>
+            <h2 className={`title color-${index % 3}`}>{item.Title}</h2>
+            <p><strong>Description:</strong> {item.Description}</p>
+            <p><strong>Email:</strong> {item.Email}</p>
+            <p><strong>Advert ID:</strong> {item.AdID}</p>
+            <p><strong>Deadline:</strong> {new Date(item.Deadline).toLocaleDateString()}</p>
+            <p><strong>Requirements:</strong> {item.Requirements}</p>
+            <p><strong>Amount:</strong> R {item.Amount}</p>
           </div>
         ))}
       </div>
-
-      {/* Step 3: Render the form conditionally */}
-      
     </div>
   );
 };
