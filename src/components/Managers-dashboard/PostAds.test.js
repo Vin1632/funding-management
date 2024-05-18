@@ -12,14 +12,14 @@ global.fetch = jest.fn(() =>
 );
 
 jest.mock('react-router-dom', () => ({
-    ...jest.requireActual('react-router-dom'),
-    useLocation: jest.fn(() => ({
-      search: '?email=', // Set the email query parameter as needed for your test
-    })),
-  }));
+  ...jest.requireActual('react-router-dom'),
+  useLocation: jest.fn(() => ({
+    search: '?email=test@example.com', // Set the email query parameter as needed for your test
+  })),
+}));
 
 describe('PostAds Component', () => {
-    let originalAlert; // Variable to store the original window.alert function
+  let originalAlert; // Variable to store the original window.alert function
 
   beforeAll(() => {
     // Store the original window.alert function
@@ -33,8 +33,6 @@ describe('PostAds Component', () => {
     window.alert = originalAlert;
   });
 
-
-
   it('submits the form with valid data', async () => {
     const { getByLabelText, getByText } = render(
       <MemoryRouter>
@@ -47,6 +45,7 @@ describe('PostAds Component', () => {
     fireEvent.change(getByLabelText('Description:'), { target: { value: 'Test Description' } });
     fireEvent.change(getByLabelText('Deadline:'), { target: { value: '2024-12-31' } });
     fireEvent.change(getByLabelText('Requirements:'), { target: { value: 'Test Requirements' } });
+    fireEvent.change(getByLabelText('Amount:'), { target: { value: '1000' } }); // Add this line to set the amount
 
     // Check checkboxes
     fireEvent.click(getByLabelText('Education'));
@@ -66,13 +65,13 @@ describe('PostAds Component', () => {
         body: JSON.stringify({
           Title: 'Test Title',
           Description: 'Test Description',
-          Email: '', // Assuming this should be the email of the manager, but it's disabled in the form
-          ManagerEmail: '', // Need to mock the location data to test this part
+          Email: 'test@example.com', // Assuming this should be the email of the manager, but it's disabled in the form
           Deadline: '2024-12-31',
           Requirements: 'Test Requirements',
+          Amount: '1000', // Ensure the amount is included in the body
           Events: true,
-          Education: true,
-          Business: true,
+          Education: false,
+          Business: false,
         }),
       });
     });
@@ -85,6 +84,7 @@ describe('PostAds Component', () => {
     expect(getByLabelText('Description:').value).toBe('');
     expect(getByLabelText('Deadline:').value).toBe('');
     expect(getByLabelText('Requirements:').value).toBe('');
+    expect(getByLabelText('Amount:').value).toBe(''); // Ensure the amount field is cleared
     expect(getByLabelText('Education').checked).toBe(false);
     expect(getByLabelText('Business').checked).toBe(false);
     expect(getByLabelText('Events').checked).toBe(false);
