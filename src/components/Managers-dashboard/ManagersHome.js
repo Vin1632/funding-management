@@ -18,6 +18,9 @@ const ManagersHome = ({ email }) => {
   const doughnutChartRef = useRef(null);
   const doughnutChartInstance = useRef(null);
 
+
+
+  
   useEffect(() => {
     // Fetch initial budget information from the API
     fetchBudgetInformation();
