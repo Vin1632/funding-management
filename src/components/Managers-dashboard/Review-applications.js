@@ -48,7 +48,6 @@ const Reviewapplications = () => {
       const applicationInfo = await response.json();
 
       console.log(applicationInfo);
-      
       setApplicationInfo(applicationInfo);
       
     } catch (error) {
@@ -65,7 +64,7 @@ const Reviewapplications = () => {
   }, []); // Empty dependency array indicates the effect should only run once
 
    // Render loading indicator while data is being fetched
-   if (loading) {
+  if (loading) {
     return <p>Loading...</p>;
   }
 
