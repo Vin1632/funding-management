@@ -8,24 +8,23 @@ const FindFunder = () => {
   const [selectedAdID, setSelectedAdID] = useState("");
   const [email, setEmail] = useState('');
 
-  const fetchGetAdvertsData = async () => {
-    try {
-      const response = await fetch(`/api/GetAdverts`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch data');
-      }
-      const data = await response.json();
-      setData(data);
-
-      setupEventListeners(); 
-    } catch (error) {
-      console.error('Error fetching Adverts:', error);
-    }
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/GetAdverts`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const data = await response.json();
+        setData(data);
+
+        setupEventListeners(); 
+      } catch (error) {
+        console.error('Error fetching Adverts:', error);
+      }
+    };
   
-    fetchGetAdvertsData();
+    fetchData();
   }, []);
 
   const handleSubmit = (e) => {
@@ -38,8 +37,7 @@ const FindFunder = () => {
       },
       body: JSON.stringify({
             Email: email, 
-            AdID : selectedAdID
-      }),
+            AdID : selectedAdID })
       })
       .then(response => {
           if (!response.ok) {

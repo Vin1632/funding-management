@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import app from "../../firebase.js";
+/*import app from "../../firebase.js";*/
 import '../../styles/Review-applications.css';
 
 
@@ -60,8 +60,6 @@ const Reviewapplications = () => {
 
 
   useEffect(() => {
-
-
     fetchData();
   }, []); // Empty dependency array indicates the effect should only run once
 
