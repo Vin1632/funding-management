@@ -28,6 +28,8 @@ const Home = () => {
   const [educationChecked, setEducationChecked] = useState(false);
   const [businessChecked, setBusinessChecked] = useState(false);
   const [eventsChecked, setEventsChecked] = useState(false);
+
+  const [role, setRole] = useState("User");
   
     // Function to handle navigation to new page upon form submission
   //companies
@@ -58,7 +60,7 @@ const Home = () => {
 
       let user = {    
         name: (name ? name : RepName),
-        role: 'User',
+        role: role,
         surname: surname,
         dob: (dob ? dob : null),
         company: CompanyNamename,
@@ -95,6 +97,17 @@ const Home = () => {
   const handleFormActionChange = (e) => {
     const selectedOption = e.target.value;
     setSelectedAction(selectedOption);
+    setRole(selectedOption === "Funding" ? "User" : "Manager"); // Update role based on selected action
+    
+    if (selectedOption === "Invest") {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, "0");
+      const day = String(today.getDate()).padStart(2, "0");
+      const formattedDate = `${year}-${month}-${day}`;
+      set_dob(formattedDate);
+    }
+
     const placeholder = document.getElementById('placeholder');
     const userDetails = document.getElementById('UserDetails');
     const fundingManagerDetails = document.getElementById('FundingManagerDetails');
@@ -251,7 +264,8 @@ const Home = () => {
         </Form>
       ) : (
         // Render the appropriate dashboard based on the selected action
-        selectedAction === 'Funding' ? navigate("/UsersDashboard?email=${email}") : navigate("/ManagerDashboard?email=${email}")
+        selectedAction === 'Funding' ? navigate(`/UsersDashboard?email=${email}`) : navigate(`/ManagerDashboard?email=${email}`)
+
       )}
 
     </>

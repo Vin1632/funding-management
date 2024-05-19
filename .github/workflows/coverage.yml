@@ -9,15 +9,55 @@
 #       project:
 #       patch:
 #       changes:
-name: coverage
-on: [push, pull_request]
+# name: coverage
+# on: [push, pull_request]
+#   coverage:
+#     precision: 2
+#     thresholds:
+#       statements: 50
+#       branches: 50
+#       functions: 50
+#       lines: 85
+#     report:
+#       types: ['lcov', 'text', 'html', 'js']
+#       directory: coverage
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  thresholds:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Add your steps here for thresholds job
+
+  reporter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Add your steps here for reporter job
+
   coverage:
-    precision: 2
-    thresholds:
-      statements: 50
-      branches: 50
-      functions: 50
-      lines: 85
-    report:
-      types: ['lcov', 'text', 'html', 'js']
-      directory: coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Add your steps here for coverage job
+
+  github:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Add your steps here for GitHub integration job

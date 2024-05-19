@@ -6,11 +6,13 @@ import accountIcon from  '../../assets/account-icon-11.jpg';
 import backgroundImage from '../../assets/sea-background.jpg'
 import '../../styles/Managers-dashboard.css';
 
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { useUserAuth } from "../../context/UserAuthContext";
 
 import PostAds from "./PostAds";
 import Reviewapplications from "./Review-applications";
+import ManagersHome from "./ManagersHome";
+import About from "../About";
 
 const ManagerDashboard = () => {
   const [selectedTab, setSelectedTab] = useState("Home");
@@ -19,6 +21,11 @@ const ManagerDashboard = () => {
 
   const { logOut, user } = useUserAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Extract email from the URL query parameter
+  const searchParams = new URLSearchParams(location.search);
+  const userEmail = searchParams.get('email');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -82,8 +89,6 @@ const ManagerDashboard = () => {
           </ul>
         </div>
 
-        
-
         <div className="navbar-right">
           <ul className="dropdown">
             <button><img src={accountIcon} alt="Account" /></button>
@@ -96,10 +101,10 @@ const ManagerDashboard = () => {
         </div>
       </div>
         <div className="tab-content">
-          {selectedTab === "Home" && <div>Content for home</div>}
+          {selectedTab === "Home" && <ManagersHome email={userEmail}/>}
           {selectedTab === "Advertise funding" && <PostAds />}
           {selectedTab === "Review Applications" && <Reviewapplications/>}
-          {selectedTab === "About" && <div>Content for About</div>}
+          {selectedTab === "About" && <About/>}
         </div>
       </div>
   );

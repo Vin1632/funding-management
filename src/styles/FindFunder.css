@@ -12,6 +12,24 @@ body {
     display: flex;
     justify-content: center;
 }
+.title {
+    margin-bottom: 20px; /* Adds space below the title */
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  /* Define color classes for different shades of blue */
+  .color-0 {
+    color: #4dc8b8; 
+  }
+  
+  .color-1 {
+    color: #218275; 
+  }
+  
+  .color-2 {
+    color: #106b7b; 
+  }
 
 nav.items {
     display: flex;

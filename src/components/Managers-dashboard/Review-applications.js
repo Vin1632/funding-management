@@ -48,6 +48,7 @@ const Reviewapplications = () => {
       const applicationInfo = await response.json();
 
       console.log(applicationInfo);
+      
       setApplicationInfo(applicationInfo);
       
     } catch (error) {

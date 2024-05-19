@@ -1,15 +1,9 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import "../styles/About.css";
 
 const About = () => {
-  // Example user data
-  const [users, setUsers] = useState([
-    { id: 1, name: "John Doe", email: "john@example.com", role: "User", blocked: false },
-    { id: 2, name: "Jane Doe", email: "jane@example.com", role: "Manager", blocked: true },
-    // Add more user data as needed
-  ]);
-
-  return (
+   return (
     <div className="About">
         <div class="about-us-box">
           <h2>Welcome to FundDocker</h2> 
