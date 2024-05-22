@@ -1,7 +1,7 @@
-const sql = require("mssql");
-
 module.exports = async function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
+
+    const sql = require("mssql");
 
     const BusinessAmounts = req.body.Business;
     const EventsAmounts = req.body.Events;
