@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import app from "../../firebase.js";
+/*import app from "../../firebase.js";*/
 import '../../styles/Review-applications.css';
 
 
@@ -48,7 +48,6 @@ const Reviewapplications = () => {
       const applicationInfo = await response.json();
 
       console.log(applicationInfo);
-      
       setApplicationInfo(applicationInfo);
       
     } catch (error) {
@@ -61,13 +60,11 @@ const Reviewapplications = () => {
 
 
   useEffect(() => {
-
-
     fetchData();
   }, []); // Empty dependency array indicates the effect should only run once
 
    // Render loading indicator while data is being fetched
-   if (loading) {
+  if (loading) {
     return <p>Loading...</p>;
   }
 

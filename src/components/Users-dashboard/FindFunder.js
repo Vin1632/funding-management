@@ -179,7 +179,7 @@ const FindFunder = () => {
                 </div>
     
                 <div className="upload-box">
-                  <form  method="post" encType="multipart/form-data">
+                  <form  method="post" enctype="multipart/form-data">
                     <label htmlFor="fileInput">Select a document:</label>
                     <input type="file" id="fileInput" name="document" accept=".pdf" onChange={handleFileChange} multiple></input>
                     <button type="submit">upload documents</button>
