@@ -1,12 +1,12 @@
-const sql = require("mssql");
-const multipart = require('parse-multipart');
+const formidable = require('formidable');
+const fs = require('fs');
+const path = require('path');
+const stream = require('stream');
 
 module.exports = async function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
-    
-    // Debugging headers
-    context.log('Headers:', req.headers);
-    
+
+    const sql = require("mssql");
     const config = {
         user: "Amaan",
         password: "P0p0p0p0p",
@@ -17,8 +17,9 @@ module.exports = async function (context, req) {
         },
         port: 1433
     };
-
-    // Ensure content-type header is multipart/form-data
+    const email = req.body.email;
+    
+    // Check for content type
     const contentType = req.headers['content-type'];
     if (!contentType || !contentType.startsWith('multipart/form-data')) {
         context.res = {
@@ -28,81 +29,131 @@ module.exports = async function (context, req) {
         return;
     }
 
-    // Retrieve the boundary for multipart form data
-    let boundary;
-    try {
-        boundary = multipart.getBoundary(contentType);
-    } catch (error) {
-        context.res = {
-            status: 400,
-            body: "Invalid Content-Type header"
-        };
-        return;
+    const form = new formidable.IncomingForm({
+        uploadDir: path.join(__dirname, 'uploads'), // Specify the upload directory
+        keepExtensions: true // Keep file extensions
+    });
+
+    // Ensure the upload directory exists
+    if (!fs.existsSync(form.uploadDir)) {
+        fs.mkdirSync(form.uploadDir, { recursive: true });
     }
 
-    // Parse the body as a buffer
+    // Convert req.body to a Buffer if it is not already
     let bodyBuffer;
-    try {
+    if (Buffer.isBuffer(req.body)) {
+        bodyBuffer = req.body;
+    } else {
         bodyBuffer = Buffer.from(req.body);
-    } catch (error) {
-        context.res = {
-            status: 400,
-            body: "Error parsing request body"
-        };
-        return;
     }
 
-    // Parse multipart form data
-    let parts;
-    try {
-        parts = multipart.Parse(bodyBuffer, boundary);
-    } catch (error) {
-        context.res = {
-            status: 400,
-            body: "Error parsing multipart form data"
-        };
-        return;
-    }
+    // Create a mock IncomingMessage to use with formidable
+    const mockReq = new stream.PassThrough();
+    mockReq.end(bodyBuffer);
+    mockReq.headers = req.headers;
 
-    // Extract parts by name
-    const emailPart = parts.find(part => part.name === 'email');
-    const filePart = parts.find(part => part.name === 'document');
+    
+    let pool = await sql.connect(config);
+    // Parse the mock request containing the form data
+    form.parse (mockReq, async (err, fields, files) => {
+        if (err) {
+            context.log('Error parsing the form:', err);
+            context.res = {
+                status: 400,
+                body: "Error parsing the form"
+            };
+            return;
+        }
 
-    const email = emailPart ? emailPart.data.toString() : null;
-    const file = filePart ? filePart.data : null;
+        // Log the received files and fields
+        context.log('Fields:', fields);
+        context.log('Files:', files);
 
-    if (!email || !file) {
-        context.res = {
-            status: 400,
-            body: "Email or document missing"
-        };
-        return;
-    }
+        console.log(fields.email[0]);
+        console.log("-----thank you -----");
 
-    try {
-        let pool = await sql.connect(config);
-        let res = await pool.request()
-            .input('Email', sql.VarChar, email)
-            .query(`SELECT ID FROM [dbo].[User] WHERE Email = @Email`);
+        const uploadedFile = files.document; // assuming the field name is 'document'
+        // console.log(files.document[0]);
 
-        let userId = res.recordset[0].ID;
+        // const filesUP = files.document[0];
+        // let newObj = {
+        //     filesUP
+        // };
 
-        console.log(email);
-        console.log(userId);
+        // console.log(newObj.PersistentFile);
+        
+        if (!uploadedFile) {
+            context.res = {
+                status: 400,
+                body: "No file uploaded"
+            };
+            return;
+        }
 
-        let result = await pool.request()
-            .input('UserID', sql.Int, userId)
-            .input('pdf', sql.VarBinary, file)
-            .query(`UPDATE [dbo].[Applications] SET pdfColumn = @pdf WHERE ApplicantsID = @UserID`);
+        // Read the uploaded file as binary data
+        // const filePath = uploadedFile.path;
+        // let fileBuffer;
+        // try {
+        //     fileBuffer = fs.readFileSync(filePath);
+        // } catch (fileReadError) {
+        //     context.log('File read error:', fileReadError);
+        //     context.res = {
+        //         status: 500,
+        //         body: "Error reading the uploaded file"
+        //     };
+        //     return;
+        // }
 
-        context.res = {
-            body: result.recordset
-        };
-    } catch (error) {
-        console.log(error);
-        context.res = {
-            status: 500,
-            body: error.message
-        };
-    }
+        console.log(".......thank you .....");
+        console.log(fields.email[0]);
+        console.log("...found the email.....");
+
+        // try {
+        //     console.log("------we are in -------");
+        //     console.log(files.document[0].PersistentFile.newFilename);
+        //     console.log("------we are still in -------");
+        //     let res2 = await  pool.request()
+        //         .input('UserID', sql.Int, userId)
+        //         .input('pdf', sql.VarBinary, files.document[0].PersistentFile.newFilename)
+        //         .query(`UPDATE [dbo].[Applications] SET Filename = @pdf WHERE Application_ID = 12`);
+
+        //     if (res2.recordset.length === 0) {
+        //         context.res = {
+        //             status: 404,
+        //             body: "User not found"
+        //         };
+        //         return;
+        //     }
+        //     else{
+                // console.log("------we are inside else-------");
+                // context.res = {
+                //     status: 200,
+                //     body: {
+                //         message: "File uploaded successfully",
+                //         fileName: uploadedFile.name,
+                //         filePath: uploadedFile.path
+                //     }
+        //         };
+
+        //     }
+
+           
+        // } catch (error) {
+        //     context.log('SQL error:', error);
+        //     context.res = {
+        //         status: 500,
+        //         body: error.message
+        //     };
+        // }
+
+        console.log("------we are inside else-------");
+            context.res = {
+                status: 200,
+                body: {
+                    message: "File uploaded successfully",
+                    fileName: uploadedFile.name,
+                    filePath: uploadedFile.path
+                }
+            }
+    });
 };

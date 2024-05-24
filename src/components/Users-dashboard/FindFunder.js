@@ -82,26 +82,22 @@ const FindFunder = () => {
 
         // Upload document
         const formData = new FormData();
-
-        const fileInput = document.getElementById('fileInput');
-
         formData.append('email', email);
-        formData.append('document', fileInput.files[0]);  
-
+        formData.append('document', file);  
 
         const response1 = await fetch('/api/uploadDocuments', {
             method: 'POST',
             body: formData
         });
-       
+
         if (!response1.ok) {
-          throw new Error('Failed to upload file');
+            throw new Error('Failed to upload file');
         }
         alert("Documents Uploaded");
-        } catch (error) {
-            console.error('Error:', error.message);
-        }
-  };
+    } catch (error) {
+        console.error('Error:', error.message);
+    }
+};
 
   const setupEventListeners = () => {
     const filterItems = document.querySelectorAll(".items .item");
@@ -179,11 +175,17 @@ const FindFunder = () => {
                 </div>
     
                 <div className="upload-box">
-                  <form  method="post" enctype="multipart/form-data">
-                    <label htmlFor="fileInput">Select a document:</label>
-                    <input type="file" id="fileInput" name="document" accept=".pdf" onChange={handleFileChange} multiple></input>
-                    <button type="submit">upload documents</button>
-                  </form>
+                    <form onSubmit={handleSubmit} method="post" encType="multipart/form-data">
+                        <label htmlFor="fileInput">Select a document:</label>
+                        <input 
+                            type="file" 
+                            id="fileInput" 
+                            name="document" 
+                            accept=".pdf" 
+                            onChange={handleFileChange} 
+                        />
+                        <button type="submit">Upload Documents</button>
+                    </form>
                 </div>
     
                 <div id="filewrapper">
