@@ -9,7 +9,6 @@ const Applications = () => {
   // const [address, setAddress] = useState('');
   const [email, setEmail] = useState('');
   // const [date, setDate] = useState('');
-  // const [funding_opportunity, setFundingOpp] = useState('');
 
 
   const handleSubmit = (e) => {
@@ -133,8 +132,7 @@ const Applications = () => {
             <div class="upload-box">
             <form action="/upload" method="post" enctype="multipart/form-data">
               <label for="fileInput">Select a document:</label>
-                <input type="file" id="fileInput" name="document" accept=".pdf,.doc,.docx,.txt" multiple></input>
-                {/* <button type="submit">Upload</button> */}
+                <input type="file" id="fileInput" name="document" accept=".pdf" ></input>
             </form>
             </div>
 

@@ -27,29 +27,77 @@ const FindFunder = () => {
     fetchData();
   }, []);
 
-  const handleSubmit = (e) => {
+  const [file, setFile] = useState(null);
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   fetch(`/api/AddFundApplication`, {
+  //     method: 'POST',
+  //     headers: {
+  //         'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //           Email: email, 
+  //           AdID : selectedAdID
+  //     }),
+  //     })
+  //     .then(response => {
+  //         if (!response.ok) {
+  //             throw new Error(`failed to submit application`);
+  //         } else {
+  //           alert("application Submitted ");
+  //         }
+  //     })
+  //     .catch(error => {
+  //         console.error('Error:', error.message);
+  //     });
+  // };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    fetch(`/api/AddFundApplication`, {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-            Email: email, 
-            AdID : selectedAdID })
-      })
-      .then(response => {
-          if (!response.ok) {
-              throw new Error(`failed to submit application`);
-          } else {
-            alert("application Submitted ");
-          }
-      })
-      .catch(error => {
-          console.error('Error:', error.message);
-      });
-  };
+    const applicationData = {
+        Email: email,
+        AdID: selectedAdID
+    };
+
+    try {
+        const response = await fetch(`/api/AddFundApplication`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(applicationData),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to submit application');
+        }
+        alert("Application Submitted");
+
+        // Upload document
+        const formData = new FormData();
+        formData.append('email', email);
+        formData.append('document', file);  
+
+        const response1 = await fetch('/api/uploadDocuments', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response1.ok) {
+            throw new Error('Failed to upload file');
+        }
+        alert("Documents Uploaded");
+    } catch (error) {
+        console.error('Error:', error.message);
+    }
+};
 
   const setupEventListeners = () => {
     const filterItems = document.querySelectorAll(".items .item");
@@ -127,10 +175,17 @@ const FindFunder = () => {
                 </div>
     
                 <div className="upload-box">
-                  <form action="/upload" method="post" encType="multipart/form-data">
-                    <label htmlFor="fileInput">Select a document:</label>
-                    <input type="file" id="fileInput" name="document" accept=".pdf,.doc,.docx,.txt" multiple></input>
-                  </form>
+                    <form onSubmit={handleSubmit} method="post" encType="multipart/form-data">
+                        <label htmlFor="fileInput">Select a document:</label>
+                        <input 
+                            type="file" 
+                            id="fileInput" 
+                            name="document" 
+                            accept=".pdf" 
+                            onChange={handleFileChange} 
+                        />
+                        <button type="submit">Upload Documents</button>
+                    </form>
                 </div>
     
                 <div id="filewrapper">
