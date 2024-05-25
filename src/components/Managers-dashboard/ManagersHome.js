@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Chart from "chart.js/auto";
 import "../../styles/ManagersHome.css";
 import html2pdf from "html2pdf.js";
+import 'chartjs-adapter-date-fns';
 
 const ManagersHome = ({ email }) => {
   const [userEmail, setUserEmail] = useState(email);
@@ -18,6 +19,8 @@ const ManagersHome = ({ email }) => {
 
   const doughnutChartRef = useRef(null);
   const doughnutChartInstance = useRef(null);
+  const lineChartRef = useRef(null);
+  const lineChartInstance = useRef(null);
 
   useEffect(() => {
     fetchBudgetInformation();
@@ -28,6 +31,9 @@ const ManagersHome = ({ email }) => {
       if (doughnutChartInstance.current) {
         doughnutChartInstance.current.destroy();
       }
+      if (lineChartInstance.current) {
+        lineChartInstance.current.destroy();
+      }
     };
   }, []);
 
@@ -36,6 +42,12 @@ const ManagersHome = ({ email }) => {
       updateDoughnutChart();
     }
   }, [educationBudget, eventsBudget, businessBudget]);
+
+  useEffect(() => {
+    if (additionalInfo) {
+      drawLineChart(parseHistoricalData(additionalInfo));
+    }
+  }, [additionalInfo]);
 
   const fetchBudgetInformation = async () => {
     try {
@@ -128,6 +140,69 @@ const ManagersHome = ({ email }) => {
       },
       options: {
         scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  };
+
+  const parseHistoricalData = (additionalInfo) => {
+    const parseData = (notes) => {
+      const parts = notes.split(', ');
+      const amounts = parts.slice(1).map(Number);
+      return amounts;
+    };
+
+    const educationData = parseData(additionalInfo.EducationNotes);
+    const eventsData = parseData(additionalInfo.EventsNotes);
+    const businessData = parseData(additionalInfo.BusinessNotes);
+
+    const maxLength = Math.max(educationData.length, eventsData.length, businessData.length);
+    const labels = Array.from({ length: maxLength }, (_, i) => i + 1);
+
+    return { labels, educationData, eventsData, businessData };
+  };
+
+  const drawLineChart = (historicalData) => {
+    if (!lineChartRef.current) return;
+    const lineCtx = lineChartRef.current.getContext('2d');
+
+    lineChartInstance.current = new Chart(lineCtx, {
+      type: 'line',
+      data: {
+        labels: historicalData.labels,
+        datasets: [
+          {
+            label: 'Education Budget',
+            data: historicalData.educationData,
+            borderColor: 'rgb(0, 173, 181)',
+            fill: false,
+          },
+          {
+            label: 'Events Budget',
+            data: historicalData.eventsData,
+            borderColor: 'rgb(255, 225, 94)',
+            fill: false,
+          },
+          {
+            label: 'Business Budget',
+            data: historicalData.businessData,
+            borderColor: 'rgb(0, 123, 129)',
+            fill: false,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Time series data from opening of account till today'
+            }
+          },
           y: {
             beginAtZero: true
           }
@@ -231,13 +306,14 @@ const ManagersHome = ({ email }) => {
             <div>
               <canvas id="barChart" height="350" width="700"></canvas>
             </div>
+            <div>
+              <canvas id="lineChart" height="350" width="700" ref={lineChartRef}></canvas>
+            </div>
           </div>
           {additionalInfo && (
             <div className="additional-info">
               <h3>Additional Information</h3>
-              <p>Education Notes: {additionalInfo.EducationNotes}</p>
-              <p>Business Notes: {additionalInfo.BusinessNotes}</p>
-              <p>Events Notes: {additionalInfo.EventsNotes}</p>
+              <p>Account opened: {additionalInfo.EducationNotes.split(', ')[0]}</p>
             </div>
           )}
         </div>
@@ -247,4 +323,3 @@ const ManagersHome = ({ email }) => {
 };
 
 export default ManagersHome;
-
