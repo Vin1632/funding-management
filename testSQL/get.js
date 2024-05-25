@@ -1,18 +1,19 @@
-const sql = require("mssql");
+const sql = require('mssql');
 
 const config = {
-    user: "Amaan",
-    password: "P0p0p0p0p",
-    server: "fundingmanagement.database.windows.net",
-    database: "FundingManager",
-    options:{
-        encrypt: true,
-        
+    user: 'Amaan',
+    password: 'P0p0p0p0p',
+    server: 'fundingmanagement.database.windows.net',
+    database: 'FundingManager',
+    options: {
+        encrypt: true, // Use this if you're on Azure
     },
-    port: 1433
-}
-async function getMain() {
+    port: 1433 // Default port for SQL Server
+};
+
+async function retrieveNotes() {
     try {
+        // Connect to the database
         let pool = await sql.connect(config);
         // let res1 = await pool.request()
         //     .input('email', sql.VarChar, email) // Bind the value of 'email' to the query
@@ -26,18 +27,12 @@ async function getMain() {
         console.log(res.recordset);
          return res.recordset;
     } catch (error) {
-        console.log(error);
+        console.error('Error retrieving notes:', error.message);
+    } finally {
+        // Close the database connection
+        await sql.close();
     }
 }
 
-
-// Object to String
-// const myObject = { name: "John", age: 30, city: "New York" };
-// const jsonString = JSON.stringify(myObject);
-// console.log(jsonString); // Output: {"name":"John","age":30,"city":"New York"}
-
-// String to Object
-// const jsonObject = JSON.parse(jsonString);
-// console.log(jsonObject); // Output: { name: "John", age: 30, city: "New York" }
-
-getMain();
+// Execute the function
+retrieveNotes();
