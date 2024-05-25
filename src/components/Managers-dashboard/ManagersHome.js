@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useLocation } from "react-router-dom";
 import Chart from "chart.js/auto";
 import "../../styles/ManagersHome.css";
 import html2pdf from "html2pdf.js";
@@ -11,6 +10,7 @@ const ManagersHome = ({ email }) => {
   const [businessBudget, setBusinessBudget] = useState(0);
   const [editMode, setEditMode] = useState(false);
   const [ads, setAds] = useState([]);
+  const [additionalInfo, setAdditionalInfo] = useState(null);
 
   const [newEducationBudget, setNewEducationBudget] = useState(0);
   const [newEventsBudget, setNewEventsBudget] = useState(0);
@@ -22,6 +22,7 @@ const ManagersHome = ({ email }) => {
   useEffect(() => {
     fetchBudgetInformation();
     fetchAdsInformation();
+    fetchAdditionalInformation();
     drawCharts();
     return () => {
       if (doughnutChartInstance.current) {
@@ -62,6 +63,19 @@ const ManagersHome = ({ email }) => {
       drawBarChart(data);
     } catch (error) {
       console.error('Error fetching ads:', error);
+    }
+  };
+
+  const fetchAdditionalInformation = async () => {
+    try {
+      const response = await fetch(`/api/retrieveBudgetInformation?email=${userEmail}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch additional information');
+      }
+      const data = await response.json();
+      setAdditionalInfo(data);
+    } catch (error) {
+      console.error('Error fetching additional information:', error);
     }
   };
 
@@ -217,6 +231,14 @@ const ManagersHome = ({ email }) => {
               <canvas id="barChart" height="350" width="700"></canvas>
             </div>
           </div>
+          {additionalInfo && (
+            <div className="additional-info">
+              <h3>Additional Information</h3>
+              <p>Education Notes: {additionalInfo.EducationNotes}</p>
+              <p>Business Notes: {additionalInfo.BusinessNotes}</p>
+              <p>Events Notes: {additionalInfo.EventsNotes}</p>
+            </div>
+          )}
         </div>
       </div>
     </>
@@ -224,3 +246,4 @@ const ManagersHome = ({ email }) => {
 };
 
 export default ManagersHome;
+

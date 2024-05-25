@@ -1,20 +1,28 @@
+const sql = require('mssql');
+
 module.exports = async function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
-    const sql = require("mssql");
-
-    const Email = req.query.Email; // Assuming Email is used to identify the user
-
     const config = {
-        user: "Amaan",
-        password: "P0p0p0p0p",
-        server: "fundingmanagement.database.windows.net",
-        database: "FundingManager",
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        server: process.env.DB_SERVER,
+        database: process.env.DB_DATABASE,
         options: {
-            encrypt: true,
+            encrypt: true, // Use this if you're on Azure
         },
-        port: 1433
+        port: 1433 // Default port for SQL Server
     };
+
+    const Email = req.query.email; // Ensure this matches the query parameter
+
+    if (!Email) {
+        context.res = {
+            status: 400,
+            body: { message: "Email query parameter is required" }
+        };
+        return;
+    }
 
     try {
         let pool = await sql.connect(config);
@@ -45,9 +53,9 @@ module.exports = async function (context, req) {
         }
 
         let notes = {
-            EducationNotes: JSON.parse(budgetRes.recordset[0].EducationNotes || '[]'),
-            BusinessNotes: JSON.parse(budgetRes.recordset[0].BusinessNotes || '[]'),
-            EventsNotes: JSON.parse(budgetRes.recordset[0].EventsNotes || '[]')
+            EducationNotes: budgetRes.recordset[0].EducationNotes,
+            BusinessNotes: budgetRes.recordset[0].BusinessNotes,
+            EventsNotes: budgetRes.recordset[0].EventsNotes
         };
 
         context.res = {
@@ -59,5 +67,7 @@ module.exports = async function (context, req) {
             status: 500,
             body: { message: `Error retrieving notes: ${error.message}` }
         };
+    } finally {
+        sql.close();
     }
 };

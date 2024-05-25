@@ -1,41 +1,46 @@
-const sql = require("mssql");
+const sql = require('mssql');
 
 const config = {
-    user: "Amaan",
-    password: "P0p0p0p0p",
-    server: "fundingmanagement.database.windows.net",
-    database: "FundingManager",
-    options:{
-        encrypt: true,
-        
+    user: 'Amaan',
+    password: 'P0p0p0p0p',
+    server: 'fundingmanagement.database.windows.net',
+    database: 'FundingManager',
+    options: {
+        encrypt: true, // Use this if you're on Azure
     },
-    port: 1433
-}
-async function getMain() {
+    port: 1433 // Default port for SQL Server
+};
+
+async function retrieveNotes() {
     try {
+        // Connect to the database
         let pool = await sql.connect(config);
-        // let res1 = await pool.request()
-        //     .input('email', sql.VarChar, email) // Bind the value of 'email' to the query
-        //     .query("INSERT INTO [dbo].[Adverts] (Email) VALUES (@email)");
-        
-        // let res1 = await pool.request().query(`update [dbo].[User] set role = 'Admin' where Email = '123@gmail.com'`);
-        // let res = await pool.request().query(`select  from [dbo].[User] where Email = 'up@gmail.com'`);
-        let res = await pool.request().query(`select * from [dbo].[User]`);
-        console.log(res.recordset);
-         return res.recordset;
+
+        // User ID to retrieve notes for
+        const userId = 9;
+
+        // Retrieve the notes
+        let notesRes = await pool.request()
+            .input('UserID', sql.Int, userId)
+            .query('SELECT EducationNotes, BusinessNotes, EventsNotes FROM [dbo].[Budgets] WHERE UserID = @UserID');
+
+        if (notesRes.recordset.length === 0) {
+            console.log('Budget not found for the user');
+            return;
+        }
+
+        let notes = notesRes.recordset[0];
+        console.log('Education Notes:', notes.EducationNotes);
+        console.log('Business Notes:', notes.BusinessNotes);
+        console.log('Events Notes:', notes.EventsNotes);
+
     } catch (error) {
-        console.log(error);
+        console.error('Error retrieving notes:', error.message);
+    } finally {
+        // Close the database connection
+        await sql.close();
     }
 }
 
-
-// Object to String
-// const myObject = { name: "John", age: 30, city: "New York" };
-// const jsonString = JSON.stringify(myObject);
-// console.log(jsonString); // Output: {"name":"John","age":30,"city":"New York"}
-
-// String to Object
-// const jsonObject = JSON.parse(jsonString);
-// console.log(jsonObject); // Output: { name: "John", age: 30, city: "New York" }
-
-getMain();
+// Execute the function
+retrieveNotes();
