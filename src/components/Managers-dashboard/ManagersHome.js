@@ -217,10 +217,11 @@ const ManagersHome = ({ email }) => {
             )}
           </div>
           <div>
+            
             {editMode ? (
-              <button onClick={handleSave}>Save</button>
+              <button className="button" onClick={handleSave}>Save</button>
             ) : (
-              <button onClick={handleEdit}>Edit</button>
+              <button className="button" onClick={handleEdit}>Edit</button>
             )}
           </div>
           <div className="chart-container">

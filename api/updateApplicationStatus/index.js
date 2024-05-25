@@ -23,10 +23,10 @@ module.exports = async function (context, req) {
             .input('status', sql.Bit, status)
             .input('applicationId', sql.Int, id)
             .query('UPDATE [dbo].[Applications] \
-            SET [AcceptedOrRejected] = @status WHERE Application_ID = @applicationId');
+            SET [AcceptedOrRejected] = @status WHERE Application_ID = @applicationId SELECT AcceptedOrRejected FROM [dbo].[Applications] WHERE Application_ID = @applicationId');
             context.res = {
                 status: 200,
-                body: { message: result }
+                body: result.recordset
             };
     } catch (error) {
         context.res = {

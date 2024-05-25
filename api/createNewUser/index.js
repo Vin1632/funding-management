@@ -32,8 +32,6 @@ module.exports = async function (context, req) {
             const mydate = new Date(parts[0], parts[1] - 1, parts[2]); 
             const dob = mydate; 
 
-            console.log("date here : " + dob);
-
             users = await pool.request()
                 .input('name', sql.VarChar(255), name)
                 .input('surname', sql.VarChar(255), surname)
@@ -61,13 +59,10 @@ module.exports = async function (context, req) {
                 .query("UPDATE [dbo].[User] SET [Name] = @name, [Surname] = @surname, [CompanyName] = @company, \
                 [Education] = @edu, [Business] = @bus, [Events] = @events, [Blocked] = @blocked, [Role] = @role WHERE [Email] = @email");
         }
-
-        console.log(users.recordset);
         context.res = {
             body: users.recordset
         };
 
-        console.log(req.body);
     } catch(error) {
         console.log(error);
         context.res = {

@@ -4,8 +4,6 @@ module.exports = async function (context, req) {
     const sql = require("mssql");
 
     const userId = req.body.userId
-    
-    console.log(userId);
 
     const config = {
         user: "Amaan",

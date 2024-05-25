@@ -55,4 +55,15 @@
     border-radius: 4px;
     cursor: pointer;
   }
+  .applications .rejected-text {
+    color: rgb(134, 68, 68);
+    font-family: italic;
+  }
+
+  .applications .approved-text
+  {
+    color: rgb(34, 87, 34);
+    font-family: italic;
+  }
+
   
