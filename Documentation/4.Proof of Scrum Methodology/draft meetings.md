@@ -3,30 +3,9 @@
 ## Product Backlog
 
 **Product Backlog**:
-- **Platform Admin Management**:
-  - As a Platform Admin, I want to manage user roles and permissions so that I can control access and maintain security.
-  - As a Platform Admin, I want to review and approve Fund Managers so that only authorized users can manage funds.
-  - As a Platform Admin, I want to block users so that I can prevent misuse of the platform.
+### Proof of Sprint Planning Meeting
+![Proof of Sprint Planning Meeting](https://github.com/Vin1632/funding-management/blob/main/Documentation/Backlogs/1.jpg)
 
-- **Funding Opportunities Ads**:
-  - As a Fund Manager, I want to create and manage funding opportunity ads so that I can attract applicants.
-  - As a Fund Manager, I want to specify funding details and eligibility criteria so that applicants can understand the requirements.
-
-- **Applications Management**:
-  - As an Applicant, I want to submit applications for funding opportunities so that I can receive funding.
-  - As an Applicant, I want to track the status of my applications so that I can stay informed about the review process.
-
-- **Funding Review**:
-  - As a Fund Manager, I want to review submitted applications so that I can approve, reject, or request additional information.
-  - As a Fund Manager, I want to leave comments and score applications so that I can provide feedback and make informed decisions.
-
-- **Budgeting**:
-  - As a Fund Manager, I want to track allocated and remaining funds so that I can manage the budget effectively.
-  - As a Fund Manager, I want to allocate funds to approved applications so that I can distribute the available resources.
-
-- **Reporting**:
-  - As a Platform Admin, I want to generate reports on various metrics so that I can analyze the performance of funding initiatives.
-  - As a Platform Admin, I want to customize and export reports in different formats so that I can share insights with stakeholders.
 
 ## Sprint Backlogs
 
@@ -45,25 +24,6 @@
   - Task 7: Implement application status tracking for applicants (2 story points).
 
 ## Sprint Burndown Charts
-
-**Sprint 1 Burndown Chart**:
-- The chart shows the remaining effort (in story points) on the y-axis and the days of the sprint on the x-axis.
-- The chart should illustrate a downward trend as tasks are completed, moving from the total initial effort to zero by the end of the sprint.
-
-```plaintext
-Day | Remaining Effort (Story Points)
----------------------------------------
- 1  | 23
- 2  | 20
- 3  | 18
- 4  | 15
- 5  | 12
- 6  | 10
- 7  | 8
- 8  | 6
- 9  | 4
-10  | 2
-11  | 0
 
 # Sprint Retrospective Reports
 
