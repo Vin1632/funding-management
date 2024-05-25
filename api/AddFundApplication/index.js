@@ -36,6 +36,7 @@ try {
         let query = `
         INSERT INTO [dbo].[Applications] (ApplicantsID, AdvertsID)
         VALUES (@EmailValue,@AdID )
+        Select SCOPE_IDENTITY()  as Application_ID
     `;
     
     let result = await pool.request()

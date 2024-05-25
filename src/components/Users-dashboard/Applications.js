@@ -120,34 +120,11 @@ const Applications = () => {
               <input type="date" id="first-name" name="first-name" setDate></input>
             </div>
 
-            {/* <div class="upload-box">
-              <h2 class="upload-area-title">Upload File (.doc,.docx,.pdf)</h2>
-                <input type="file" id="upload" accept=".doc,.docx,.pdf" hidden></input>
-                <label for="upload" class="uploadlabel">
-                  <span><i class="fa fa-cloud-upload"></i></span>
-                  <p>Click to Upload</p>
-              </label> 
-            </div> */}
-
             <div class="upload-box">
             <form action="/upload" method="post" enctype="multipart/form-data">
               <label for="fileInput">Select a document:</label>
                 <input type="file" id="fileInput" name="document" accept=".pdf" ></input>
             </form>
-            </div>
-
-
-            <div id="filewrapper">
-              <h5 class="uploaded">Uploaded Documents</h5>
-              {/*<div class="showfilebox">
-                <div class="left">
-                  <span class="filetype">PDF</span>
-                  <p>Ravi Web.pdf</p>
-                </div>
-                <div class="right">
-                  <span>&#215;</span>
-                </div>
-              </div>*/}
             </div>
   
             <div class="button-container">

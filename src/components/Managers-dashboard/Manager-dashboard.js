@@ -16,9 +16,6 @@ import About from "../About";
 
 const ManagerDashboard = () => {
   const [selectedTab, setSelectedTab] = useState("Home");
-  const [description, setDescription] = useState('');
-  const [title, setTitle] = useState('');
-
   const { logOut, user } = useUserAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -27,11 +24,6 @@ const ManagerDashboard = () => {
   const searchParams = new URLSearchParams(location.search);
   const userEmail = searchParams.get('email');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Title:", title);
-    console.log("Description:", description);
-  };
 
   const handleTabChange = (tab) => {
     setSelectedTab(tab);

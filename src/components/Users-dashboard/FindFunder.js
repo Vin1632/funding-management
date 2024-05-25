@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/FindFunder.css";
 import { Link } from "react-router-dom";
+import {storage} from '../../firebase';
+import {listAll,getDownloadURL, ref, uploadBytes} from "firebase/storage"
 
 const FindFunder = () => {
   const [data, setData] = useState([]);
   const [showForm, setShowForm] = useState(false); 
   const [selectedAdID, setSelectedAdID] = useState("");
   const [email, setEmail] = useState('');
+  const [file, setFile] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,36 +30,10 @@ const FindFunder = () => {
     fetchData();
   }, []);
 
-  const [file, setFile] = useState(null);
-
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   fetch(`/api/AddFundApplication`, {
-  //     method: 'POST',
-  //     headers: {
-  //         'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //           Email: email, 
-  //           AdID : selectedAdID
-  //     }),
-  //     })
-  //     .then(response => {
-  //         if (!response.ok) {
-  //             throw new Error(`failed to submit application`);
-  //         } else {
-  //           alert("application Submitted ");
-  //         }
-  //     })
-  //     .catch(error => {
-  //         console.error('Error:', error.message);
-  //     });
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -80,20 +57,18 @@ const FindFunder = () => {
         }
         alert("Application Submitted");
 
-        // Upload document
-        const formData = new FormData();
-        formData.append('email', email);
-        formData.append('document', file);  
-
-        const response1 = await fetch('/api/uploadDocuments', {
-            method: 'POST',
-            body: formData
-        });
-
-        if (!response1.ok) {
-            throw new Error('Failed to upload file');
+        const data = await response.json();
+        const filename = "p"+ data[0].Application_ID + "q";
+        // Upload documents to firebase
+        if(file !== null)
+        {
+           
+          const storageREF =  ref(storage, `files/${filename}.pdf`);
+          uploadBytes(storageREF, file);
+          alert("Documents Uploaded");
         }
-        alert("Documents Uploaded");
+        
+      
     } catch (error) {
         console.error('Error:', error.message);
     }
@@ -176,7 +151,7 @@ const FindFunder = () => {
     
                 <div className="upload-box">
                     <form onSubmit={handleSubmit} method="post" encType="multipart/form-data">
-                        <label htmlFor="fileInput">Select a document:</label>
+                        <label htmlFor="fileInput">Select a CV document:</label>
                         <input 
                             type="file" 
                             id="fileInput" 
@@ -184,18 +159,11 @@ const FindFunder = () => {
                             accept=".pdf" 
                             onChange={handleFileChange} 
                         />
-                        <button type="submit">Upload Documents</button>
                     </form>
+                   
                 </div>
-    
-                <div id="filewrapper">
-                  <h5 className="uploaded">Uploaded Documents</h5>
-                </div>
-      
-                <div className="button-container">
-                  <button onClick={handleSubmit}>Apply Now</button>
-                </div>
-      
+                <button onClick={handleSubmit}>Apply Now</button>
+  
               </div>
             </form>
           </div>

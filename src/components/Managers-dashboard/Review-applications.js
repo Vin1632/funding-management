@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-/*import app from "../../firebase.js";*/
 import '../../styles/Review-applications.css';
+import {storage} from '../../firebase';
+import {listAll,getDownloadURL, ref} from "firebase/storage"
 
 
 const Reviewapplications = () => {
@@ -11,6 +12,7 @@ const Reviewapplications = () => {
 
   const [applicationInfo, setApplicationInfo] = useState(null);
   const [loading, setLoading] = useState(true); // Initialize loading state to true
+  const [fileURL, setFileUrl] = useState([]);;
 
   const updateApplication = async (applicationid, status) => {
     const obj = {
@@ -42,12 +44,12 @@ const Reviewapplications = () => {
             userId: email
         }),
     });
+
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }
       const applicationInfo = await response.json();
 
-      console.log(applicationInfo);
       setApplicationInfo(applicationInfo);
       
     } catch (error) {
@@ -61,12 +63,22 @@ const Reviewapplications = () => {
 
   useEffect(() => {
     fetchData();
+
+    listAll(ref(storage,"files")).then(response=>{
+      response.items.forEach(val=>{
+          getDownloadURL(val).then(url=>{
+              setFileUrl(data=>[...data,url])
+          })
+      })
+  })
+
   }, []); // Empty dependency array indicates the effect should only run once
 
    // Render loading indicator while data is being fetched
   if (loading) {
     return <p>Loading...</p>;
   }
+
 
 
   return (
@@ -77,12 +89,14 @@ const Reviewapplications = () => {
         <div className="applications">
           <h3>{application.Title}</h3>
           <p>{application.Description}</p>
+          <p>{application.Email}</p>
+          <p>{fileURL.filter(str => str.includes( "p" + application.Application_ID.toString() + "q")).map( (str,index) => ( <a key = {index} href={str}  target="_blank"> Review application </a> ) ) }</p>
           <div className="actions">
             <button className="approve" onClick={() => updateApplication(application.Application_ID,1)}>Approve</button>
             <button className="reject" onClick={() => updateApplication(application.Application_ID,0)}>Reject</button>
           </div>
         </div>
-        ))};
+        ))}
       </section>
     </div>
 

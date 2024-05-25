@@ -10,7 +10,6 @@ import app from "../firebase.js";
 
 const Login = () => {
 
-
   const [email, setEmail] = useState("");
 
   const [password, setPassword] = useState("");
@@ -44,13 +43,7 @@ const Login = () => {
           }
           const userInfo = await response.json();
 
-          console.log(userInfo.message);
-          console.log(userInfo.message.recordset[0]);
-          
           if (userInfo.message.recordset[0] && userInfo.message.recordset[0].Name && userInfo.message.recordset[0].Name != ''){
-                  //navigate(`/home?email=${email}`);
-                  console.log(userInfo.message.recordset[0].Name);
-                  console.log(userInfo.message.recordset[0].role);
               if (userInfo.message.recordset[0].role == 'Admin') {
                 navigate(`/AdminDashboard?email=${email}`)
               }
@@ -67,9 +60,7 @@ const Login = () => {
           }
         } catch (error) {
           console.error('Error fetching data:', error);
-        } finally {
-          //setLoading(false); // Set loading state to false after data is fetched or on error
-        }
+        } 
       };
     
       fetchData();
@@ -103,9 +94,6 @@ const Login = () => {
           if (signUpResponse) {
             console.log(signUpResponse);
           }
-      
-
-
           /* ------------------------------------------------------------------------------------------- */
 
           const response = await fetch(`/api/getUserByEmail`, {
@@ -122,12 +110,9 @@ const Login = () => {
           }
 
           const userInfo = await response.json();
-          console.log(userInfo.message);
-          console.log(userInfo.message.recordset[0]);
+      
           if (userInfo.message.recordset[0] && userInfo.message.recordset[0].Name && userInfo.message.recordset[0].Name != ''){
-                  //navigate(`/home?email=${email}`);
-                  console.log(userInfo.message.recordset[0].Name);
-                  console.log(userInfo.message.recordset[0].role);
+              
               if (userInfo.message.recordset[0].role == 'Admin') {
                 navigate(`/AdminDashboard?email=${userEmail}`)
               }
@@ -143,15 +128,13 @@ const Login = () => {
           }
         } catch (error) {
           console.error('Error fetching data:', error);
-        } finally {
-          //setLoading(false); // Set loading state to false after data is fetched or on error
         }
       };
     
       fetchData();
 
       /* ------------------------------------- */
-      //navigate(`/home?email=${userEmail}`);
+     
     } catch (error) {
       console.log(error.message);
     }

@@ -13,12 +13,11 @@ const Navigation = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-   // setError("");
+   
     try {
-      //await logIn(email, password);
       navigate("/home");
     } catch (err) {
-   //   setError(err.message);
+
     }
   };
 

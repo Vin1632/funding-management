@@ -5,10 +5,7 @@ import "../../styles/Manage-Users.css";
 const ManageManagers = () => {
   const [loading, setLoading] = useState(true); // Initialize loading state to true
 
-  // Example manager data
   const [managers, setManagers] = useState();
-
-  // Example admin data
   const [admins, setAdmins] = useState([]);
 
   // Function to toggle manager role and admin role
@@ -79,8 +76,6 @@ const ManageManagers = () => {
     });
 };
 
-
-  //does delete but crashs after deleting
   const handleDelete = (id) => {
     fetch(`/api/deleteUsers/${id}`, { 
       method: 'DELETE'
@@ -112,9 +107,6 @@ const ManageManagers = () => {
   
         setManagers(managers);
         setAdmins(admins);
-        
-        console.log(admins);
-        console.log(managers);
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -125,10 +117,6 @@ const ManageManagers = () => {
     fetchData();
   }, []);
   
-
-
-
-
    // Render loading indicator while data is being fetched
    if (loading) {
     return <p>Loading...</p>;

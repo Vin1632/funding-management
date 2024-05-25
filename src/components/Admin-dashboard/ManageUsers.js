@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "../../styles/Manage-Users.css";
 
 const ManageUsers = () => {
-  // Example user data
   const [users, setUsers] = useState(null);
   const [loading, setLoading] = useState(true); // Initialize loading state to true
 
@@ -42,7 +41,6 @@ const ManageUsers = () => {
 };
 
   // Function to toggle account status (blocked/unblocked)
-
 
   const toggleAccountStatus = (User_id, isBlocked) => {
     const action = isBlocked ? 'unblock' : 'block';
@@ -99,7 +97,6 @@ const ManageUsers = () => {
         }
         const text = await response.json();
         setUsers(text);
-        console.log(text);
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
