@@ -60,7 +60,8 @@ CREATE TABLE dbo.Adverts (
     Requirements NVARCHAR(MAX),
     Events BIT,
     Education BIT,
-    Business BIT
+    Business BIT,
+    Amount DECIMAL(18, 2);
 );
 
 CREATE TABLE dbo.Applications (
@@ -72,5 +73,18 @@ CREATE TABLE dbo.Applications (
     FOREIGN KEY (AdvertsID) REFERENCES dbo.[Adverts](AdID)
 );
 
+CREATE TABLE dbo.[User] (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    role VARCHAR(255),
+    Name VARCHAR(255),
+    Surname VARCHAR(255),
+    DateOfBirth DATE,
+    CompanyName VARCHAR(255),
+    Email NVARCHAR(255),
+    Education BIT,
+    Business BIT,
+    Events BIT,
+    Blocked BIT
+);
 
 */
