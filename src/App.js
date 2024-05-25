@@ -14,7 +14,7 @@ import ManagerDashboard from "./components/Managers-dashboard/Manager-dashboard"
 import PostAds from "./components/Managers-dashboard/PostAds";
 import Reviewapplications from "./components/Managers-dashboard/Review-applications";
 import FindFunder from "./components/Users-dashboard/FindFunder";
-import Applications from "./components/Users-dashboard/Applications";
+// import Applications from "./components/Users-dashboard/Applications";
 import UsersDashboard from "./components/Users-dashboard/Users-dashboard";
 import UsersHome from "./components/Users-dashboard/Users-home";
 import ManagersHome from "./components/Managers-dashboard/ManagersHome";
@@ -43,7 +43,7 @@ function App() {
               <Route path="/ManagerDashboard" element = {<ManagerDashboard/>} />
               <Route path="/PostAds" element = {<PostAds/>} />
               <Route path="/FindFunder" element = {<FindFunder/>} />
-              <Route path="/Applications" element = {<Applications/>} />
+              {/* <Route path="/Applications" element = {<Applications/>} /> */}
               <Route path="/UsersDashboard" element ={<UsersDashboard/>} />
               <Route path="/Review-applications" element = {<Reviewapplications/>} />
               <Route path="/UsersHome" element ={<UsersHome/>} />

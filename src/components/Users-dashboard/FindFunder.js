@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import "../../styles/FindFunder.css";
 import { Link } from "react-router-dom";
 import {storage} from '../../firebase';
-import {listAll,getDownloadURL, ref, uploadBytes} from "firebase/storage"
+import "../../styles/Applications.css";
+import { ref, uploadBytes} from "firebase/storage"
 
 const FindFunder = () => {
   const [data, setData] = useState([]);
