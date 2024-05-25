@@ -23,7 +23,7 @@ async function retrieveNotes() {
         // let res = await pool.request().query(`select  from [dbo].[User] where Email = 'up@gmail.com'`);
         // let res1 = await pool.request().query(`ALTER TABLE [dbo].[Applications] ADD Filename varchar(MAX)`);
         // let res = await pool.request().query(`update [dbo].[User] set role = 'Admin' where ID = 4`);
-        let res = await pool.request().query(`select * from [dbo].[User]`);
+        let res = await pool.request().query(`select * from [dbo].[Budgets]`);
         console.log(res.recordset);
          return res.recordset;
     } catch (error) {

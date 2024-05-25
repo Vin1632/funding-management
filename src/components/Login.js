@@ -6,7 +6,6 @@ import GoogleButton from "react-google-button";
 import { useUserAuth } from "../context/UserAuthContext";
 import { Container, Row, Col } from "react-bootstrap";
 import "../styles/login.css";
-import app from "../firebase.js";
 
 const Login = () => {
 
