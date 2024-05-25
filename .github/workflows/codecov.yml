@@ -20,6 +20,6 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
-          token: ${{ secrets.CODECOV_TOKEN }} # Make sure to add this secret to your repository
+          token: 8f57abbd-7467-40bd-a348-0f7768ecb855 # Make sure to add this secret to your repository
 
       # Add any additional steps as needed
