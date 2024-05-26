@@ -89,7 +89,7 @@
 # Sprint Review Demonstrations
 
 ## Proof of Weekly Meetings
-![Meetings](https://github.com/Vin1632/funding-management/blob/main/Documentation/Meetings/1.png)
+![Meetings](https://github.com/Vin1632/funding-management/blob/main/Proofs/Meetings/1.png)
 
 
 ### Sprint Planning Meeting (Minutes of Meeting)
