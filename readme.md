@@ -1,5 +1,5 @@
 # 1. Screen Recording Video 
-[](https://youtu.be/1dVmYSSY_NU)
+[Youtube Video Screen Recording](https://youtu.be/1dVmYSSY_NU)
 
 # 2.Link to the web-Application
 [Publicly hosted application](https://thankful-sand-01b50bb03.5.azurestaticapps.net/)
