@@ -1,6 +1,6 @@
-### Proof of Scrum Methodology for Sprint 4
+# Proof of Scrum Methodology for Sprint 4
 
-#### Product Backlog
+## Product Backlog
 
 **Product Backlog**:
 ### User Stories
@@ -22,7 +22,7 @@
 |US 13      | As a user, I should be able to receive notifications when the status of my application changes, so that I can stay informed about the progress of my application. |
 |US 14      | As a Fund Manager, I should be able to receive notifications when new applications are submitted for my funding opportunities, so that I can review them in a timely manner. |
 
-### Sprint 4 Backlog
+# Sprint Backlog
 
 **Sprint 4 Backlog**:
 - **Fund Manager Capabilities**:
@@ -31,17 +31,17 @@
   - Task 3: Create and export reports for admin view (3 story points).
   - Task 4: Implement notification system for relevant user updates (3 story points).
 
-### Proof of Sprint Backlogs
+## Proof of Sprint Backlogs
 
 ![Sprint Backlogs](https://github.com/Vin1632/funding-management/blob/main/Proofs/Sprint%20Backlogs/4.jpg)
 
-## Sprint Burndown Charts
+# Sprint Burndown Charts
 ![Burndown Chart](https://github.com/Vin1632/funding-management/blob/main/Proofs/Sprint%20Burndown%20Charts/4.png)
 
 
-### Sprint Retrospective Reports
+# Sprint Retrospective Reports
 
-#### Sprint 4 Retrospective Report:
+## Sprint 4 Retrospective Report:
 
 **What Went Well:**
 - The review and approval functionality for fund managers was successfully implemented and tested.
@@ -67,14 +67,14 @@
 - Refine time estimation practices based on the lessons learned from this sprint.
 - Focus on user interface improvements and bug fixes to polish the final product.
 
-### Daily Stand-Up Summaries
+# Daily Stand-Up Summaries
 
-#### Proof of Daily Stand-Up Summaries
+### Proof of Daily Stand-Up Summaries
 
 ![Daily Stand-Up Summaries](https://github.com/Vin1632/funding-management/blob/main/Proofs/Daily%20Standup%20Summaries/4.jpg)
 ![Daily Stand-Up Summaries](https://github.com/Vin1632/funding-management/blob/main/Proofs/Daily%20Standup%20Summaries/4.1.png)
 
-### Daily Stand-Up Summary:
+# Daily Stand-Up Summary:
 
 ### Sprint Progress (17/05 - 25/05):
 - **17/05:**
@@ -100,15 +100,15 @@
   - Checked on everyone's progress for this sprint.
 
 
-### Sprint Review Demonstrations
+# Sprint Review Demonstrations
 
-#### Proof of Weekly Meetings
+### Proof of Weekly Meetings
 
 ![Meetings](https://github.com/Vin1632/funding-management/blob/main/Proofs/Meetings/4.png)
 ![Meetings](https://github.com/Vin1632/funding-management/blob/main/Proofs/Meetings/5.png)
 ![Meetings](https://github.com/Vin1632/funding-management/blob/main/Proofs/Meetings/6.png)
 
-#### Sprint Planning Meeting (Minutes of Meeting)
+### Sprint Planning Meeting (Minutes of Meeting)
 **Date:** 20 May 2024  (In-person meeting)
 **Attendees:** Shakeel Malagas (Client), Amaan Hanslod (Scrum Master), Thabiso Mahlaola, Muhammed Ebrahim, Anist Mampuru, & Nthabiseng Ramalepe.
 
@@ -146,14 +146,14 @@ Based on the identified user stories, acceptance criteria, and technical feasibi
 2. The team will focus on completing the report generation and export features.
 3. The team will establish better communication channels between frontend and backend teams.
 
-### Daily Scrums (Dev Team)
+# Daily Scrums (Dev Team)
 
 The dev team continued using a Discord Server for discussions and updates.  
 Each team member shared their progress, goals for the day, and any roadblocks during the daily scrum meetings.  
 The Scrum Master ensured smooth team collaboration, progress tracking, and issue resolution.  
 Regular video calls were conducted to enhance communication and collaboration among team members.
 
-#### Proof of Daily Scrums
+### Proof of Daily Scrums
 
 ![Srum Meetings](https://github.com/Vin1632/funding-management/blob/main/Proofs/Daily%20Scrums/4.png)
 
