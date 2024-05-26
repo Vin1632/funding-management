@@ -31,11 +31,11 @@ Password : thabiso
 
 # 4. Proof of using Scrum methodology.
 This includes daily scrums, stand up summaries, Meeting proofs, Backlogs, and burnout charts.
-Proof of Scrum methodology in under the "/Documentation/4.Proof of Scrum Methodology" folder,
-along with that there is User Stories and User Acceptance tests in the "/Documentation/User Stories and UAT" folder
+Proof of Scrum methodology in under the `/Documentation/4.Proof of Scrum Methodology` folder,
+along with that there is User Stories and User Acceptance tests in the `/Documentation/User Stories and UAT` folder
 
 # 5. Additional Artifacts
-They are inside the "/Documentation/5.Additional artifacts"
+They are inside the `"/Documentation/5.Additional artifacts`
 
 #
 #Checking the Tests
