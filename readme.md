@@ -35,7 +35,7 @@ Proof of Scrum methodology in under the `/Documentation/4.Proof of Scrum Methodo
 along with that there is User Stories and User Acceptance tests in the `/Documentation/User Stories and UAT` folder
 
 # 5. Additional Artifacts
-They are inside the `"/Documentation/5.Additional artifacts`
+They are inside the `/Documentation/5.Additional artifacts`
 
 #
 #Checking the Tests
