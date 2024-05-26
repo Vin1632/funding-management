@@ -4,7 +4,7 @@
 # 2.Link to the web-Application
 [Publicly hosted application](https://thankful-sand-01b50bb03.5.azurestaticapps.net/)
 
-#running the application locally 
+# running the application locally 
 ### `npm run build`
 then
 Builds the app for production to the `build` folder.\
