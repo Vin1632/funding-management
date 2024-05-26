@@ -36,6 +36,7 @@ along with that there is User Stories and User Acceptance tests in the `/Documen
 
 # 5. Additional Artifacts
 They are inside the `/Documentation/5.Additional artifacts`
+Additional artifacts includes the project plan, design documents and test plan. Additional Architecture Diagrams ca nbe found in the "Diagram" folder.
 
 #
 #Checking the Tests
