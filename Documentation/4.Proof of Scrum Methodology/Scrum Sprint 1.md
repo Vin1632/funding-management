@@ -26,7 +26,7 @@
 ![Sprint Backlogs](https://github.com/Vin1632/funding-management/blob/main/Proofs/Sprint%20Backlogs/1.1.png)
 
 # Sprint Burndown Charts
-
+![Burndown Charts](https://github.com/Vin1632/funding-management/blob/main/Proofs/Sprint%20Burndown%20Charts/1.png)
 
 
 
