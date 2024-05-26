@@ -1,3 +1,10 @@
+Thabiso Mahloala (2426592) 
+Amaan Hanslod (2541305) 
+Anist Mampuru (449541) 
+Muhammed Ebrahim (2341063) 
+Nthabiseng Ramalepe (2429446) 
+Zahra Kotwal (2628128) 
+
 # 1. Screen Recording Video 
 [Youtube Video Screen Recording](https://youtu.be/1dVmYSSY_NU)
 
