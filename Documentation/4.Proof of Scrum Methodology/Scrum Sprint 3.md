@@ -122,7 +122,7 @@ Several meetings on and off throughout this week all discussing issues. Meetings
 
 #### Meeting Minutes
 **Introduction:**  
-The meeting was called to order at 8pm by Amaan Hanslod. Attendees introduced themselves, and the purpose of the meeting was explained.
+The meeting was called to order at 8pm by Amaan Hanslod. The purpose of the meeting was explained.
 
 **Sprint 2 Review:**  
 Reviewed the progress and achievements of Sprint 2. Discussed any challenges faced and how they were addressed.
