@@ -46,6 +46,8 @@ along with that there is User Stories and User Acceptance tests in the `/Documen
 They are inside the `/Documentation/5.Additional artifacts`
 Additional artifacts includes the project plan, design documents and test plan. Additional Architecture Diagrams ca nbe found in the "Diagram" folder.
 
+#Notion link for Sprints
+[Funding Management](https://www.notion.so/11e540da80ce4398998d3401bb0bdceb?v=ff6e2bcc01254e5e949eab83c9fd62e3&pvs=4)
 #
 #Checking the Tests
 ### `npm test`
